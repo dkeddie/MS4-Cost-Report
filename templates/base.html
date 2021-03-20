@@ -1,0 +1,94 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  {% block meta %}
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% endblock %}
+
+  {% block extra_meta %}
+  {% endblock %}
+  
+  {% block corecss %}
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Material+Icons&display=swap" rel="stylesheet">
+  <!-- Static stylesheet -->
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  {% endblock %}
+
+  {% block extra_css %}
+  {% endblock %}
+  
+  {% block corejs %}
+  <!-- JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"></script>
+
+  <!-- Static Javascript -->
+  <script src="{% static 'js/base.js' %}"></script>
+  {% endblock %}
+  
+  {% block extra_js %}
+  {% endblock %}
+
+  <title>Cost Report {% block extra_title %}{% endblock %}</title>
+</head>
+
+<body>
+  <header class="container-fluid fixed-top" id="main-nav">
+    <div class="row h-100 align-items-center">
+      <div id="nav-title" class="col-9 pl-3">
+        <h1>Cost Report</h1>
+      </div>
+      <div class="col-3 pr-5">
+        <div class="dropdown">
+          <button class="btn float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="material-icons-outlined">
+                menu
+            </span>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Log In</a>
+            <a class="dropdown-item" href="#">Register</a>
+            <a class="dropdown-item" href="#">Subscriptions</a>
+            <a class="dropdown-item" href="#">Payment Details</a>
+            <a class="dropdown-item" href="#">Log Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {% if messages %}
+  <div class="message-continer"></div>
+  {% endif %}
+
+  {% block page_header %}
+  {% endblock %}
+
+  {% block content %}
+  {% endblock %}
+
+  {% block postloadjs %}
+  {% endblock %}
+
+</body>
+
+</html>

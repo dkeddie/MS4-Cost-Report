@@ -1,0 +1,105 @@
+/* ---------- BASE.HTML CSS --------- */
+body {
+  color: #000 !important;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#main-nav {
+  height: 100px;
+  background-color: #000;
+}
+
+#main-nav h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.5rem;
+}
+
+#main-nav .btn {
+  font-family: 'Material Icons';
+  font-size: 3rem;
+  background-color: #000;
+  color: #fff;
+}
+
+#main-nav .btn:hover {
+  font-weight: 600;
+}
+
+.header-container {
+  padding-top: 100px;
+}
+
+/* ---------- APPS - GENERIC STYLING ---------- */
+
+#sub-heading {
+  height: 125px;
+}
+
+#sub-heading h2 {
+  background-color: grey;
+}
+
+.content-box {
+  max-width: 500px;
+  min-height: 500px;
+  background-color: rgb(224, 224, 224);
+  border-radius: 15px;
+}
+
+.content-box h2 {
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: 0.3rem;
+  vertical-align: middle;
+  color: #000;
+}
+
+.content-box hr {
+  border: 2px solid #fff;
+}
+
+.form-control {
+  background-color: rgb(224, 224, 224);
+  border: none;
+  border-radius: 0px;
+  border-bottom: 1px dotted #000;
+  color: #000;
+  letter-spacing: 0.1rem;
+}
+
+.form-control:focus {
+  background-color: rgb(224, 224, 224);
+  border: none;
+  box-shadow: none;
+  border-bottom: 1px solid #000;
+}
+
+.btn-icon {
+  font-family: 'Material Icons';
+  font-size: 1.5rem;
+  border-radius: 50%;
+  background-color: #000;
+  color: #fff;
+}
+
+.btn-rect {
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  background-color: #000;
+  color: #fff;
+}
+
+.btn-right-align {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+}
+
+.btn-bttm-center {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,0);
+  bottom: 15px;;
+}
