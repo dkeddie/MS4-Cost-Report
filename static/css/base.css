@@ -2,6 +2,7 @@
 body {
   color: #000 !important;
   font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
 }
 
 #main-nav {
@@ -60,6 +61,12 @@ body {
   border: 2px solid #fff;
 }
 
+.content-box label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+}
+
 .form-control {
   background-color: rgb(224, 224, 224);
   border: none;
@@ -101,5 +108,11 @@ body {
   position: absolute;
   left: 50%;
   transform: translate(-50%,0);
-  bottom: 15px;;
+  bottom: 15px;
+  margin-top: 10px;
+}
+
+.bttm-break {
+  display: block;
+  height: 50px;
 }

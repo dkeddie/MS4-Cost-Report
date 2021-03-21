@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+<div class="container header-container">
+  <div class="row">
+    <div class="col"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row align-items-center" id="sub-heading">
+    <div class="d-inline-flex mx-auto">
+      <h2 class="px-5 py-3 rounded">Home</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 mx-auto content-box px-0" id="user-profile">
+      <h2 class="text-center mt-3">User Profile</h2>
+      <hr>
+      <form class="px-4 mt-4">
+        <div class="row mt-2">
+          <div class="col-6 form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" class="form-control" id="firstname" value="{{ registration.first_name }}" readonly="readonly">
+          </div>
+          <div class="col-6 form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" class="form-control" id="lastname" value="{{ registration.last_name }}" readonly="readonly">
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-9 form-group">
+            <label for="email">Email Address</label>
+            <input type="email" class="form-control" id="email" value="{{ registration.email }}" readonly="readonly">
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-9 form-group">
+            <label for="company">Company</label>
+            <input type="company" class="form-control" id="company" value="{{ profile.company }}" readonly="readonly">
+          </div>
+        </div>
+        <div class="btn-right-align">
+          <button type="button" class="btn btn-icon float-right enable-edit" onclick="enableEdit()">
+            <span class="material-icons-outlined">edit</span>
+          </button>
+          <button type="submit" class="btn btn-icon float-right submit-button d-none">
+            <span class="material-icons-outlined">send</span>
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-6 mx-auto content-box px-0" id="user-profile">
+      <h2 class="text-center mt-3">Projects</h2>
+      <hr>
+        <div class="btn-bttm-center">
+          <button type="button" class="btn btn-rect mx-auto p-2 rounded">Add New Project</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

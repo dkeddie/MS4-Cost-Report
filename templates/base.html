@@ -65,11 +65,11 @@
             </span>
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Log In</a>
+            <a class="dropdown-item" href="{% url 'account_login' %}">Log In</a>
             <a class="dropdown-item" href="#">Register</a>
             <a class="dropdown-item" href="#">Subscriptions</a>
             <a class="dropdown-item" href="#">Payment Details</a>
-            <a class="dropdown-item" href="#">Log Out</a>
+            <a class="dropdown-item" href="{% url 'account_logout' %}">Log Out</a>
           </div>
         </div>
       </div>
