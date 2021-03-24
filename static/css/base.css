@@ -122,3 +122,30 @@ body {
 .modal-content {
   background-color: rgb(224, 224, 224);
 }
+
+/* ---------- TABLE ---------- */
+
+table tr {
+  background-color: rgb(224, 224, 224) !important;
+}
+table tr:not(:last-child) td {
+  border-bottom: rgb(146, 146, 146) solid 1px;
+}
+
+table {
+  border-bottom: none !important;
+}
+
+.dataTables_paginate {
+  font-size: 0.8rem;
+}
+
+td a {
+  color: #000;
+}
+
+td a:hover {
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+}

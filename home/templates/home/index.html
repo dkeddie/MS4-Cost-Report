@@ -24,11 +24,13 @@
         <div class="row mt-2">
           <div class="col-6 form-group">
             <label for="firstname">First Name</label>
-            <input type="text" class="form-control" id="firstname" value="{{ registration.first_name }}" readonly="readonly">
+            <input type="text" class="form-control" id="firstname" value="{{ registration.first_name }}"
+              readonly="readonly">
           </div>
           <div class="col-6 form-group">
             <label for="lastname">Last Name</label>
-            <input type="text" class="form-control" id="lastname" value="{{ registration.last_name }}" readonly="readonly">
+            <input type="text" class="form-control" id="lastname" value="{{ registration.last_name }}"
+              readonly="readonly">
           </div>
         </div>
         <div class="row mt-2">
@@ -56,15 +58,34 @@
     <div class="col-6 mx-auto content-box px-0" id="user-profile">
       <h2 class="text-center mt-3">Projects</h2>
       <hr>
-        <div class="btn-bttm-center">
-          <button type="button" class="btn btn-rect mx-auto p-2 rounded" data-toggle="modal" data-target="#new-projectModal">Add New Project</button>
-        </div>
+      <table id="table-project" class="pt-5 px-2">
+        <thead class="d-none">
+          <tr>
+            <th>Project</th>
+            <th>one</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for project in projects %}
+          <tr>
+            <td>{{ project.project_name }}</td>
+            <td class="dt-right">
+              <a href="{% url 'get_dashboard' project.id %}">View</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="btn-bttm-center">
+        <button type="button" class="btn btn-rect mx-auto p-2 rounded" data-toggle="modal"
+          data-target="#new-projectModal">Add New Project</button>
+      </div>
     </div>
   </div>
 </div>
 
- <!-- Modal -->
- <div class="modal fade" id="new-projectModal" tabindex="-1" aria-labelledby="new-projectModalLabel" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="new-projectModal" tabindex="-1" aria-labelledby="new-projectModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
