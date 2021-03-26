@@ -13,4 +13,25 @@ $(document).ready( function () {
     "pageLength": 5,
     "pagingType": "simple"
   });
+  $('#table-changes').DataTable( {
+    "columns": [
+      { "width": "70%" },
+      { "width": "20%" },
+      { "width": "10%" },
+      { "width": "0%" }
+    ],
+    "lengthChange": false,
+    "pagingType": "simple"
+  });
 } );
+
+// Make the row 'clickable' to open the Change to view/edit details
+// https://electrictoolbox.com/jquey-make-entire-table-row-clickable/
+$(document).ready(function () {
+  $('tr').click(function () {
+    var href = $(this).find('a').attr('href');
+    if (href) {
+      window.location = href;
+    }
+  });
+});
