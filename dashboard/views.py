@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.contrib import messages
 from django.db.models import Sum
 from django import template
 from django.http import HttpResponse, JsonResponse
@@ -81,7 +82,7 @@ def add_change(request, project_id):
       change.project_id = project
       change.project_user = request.user
       change.save()
-      print("Change saved")
+      messages.success(request, f'{change.change_name} added to {change.project_id}')
 
     return redirect(reverse('get_dashboard', args=[project.id]))
 
@@ -100,6 +101,8 @@ def edit_change(request, change_id):
       change.project_user_id = project_user_id
       change.project_id_id = project_id_id
       change.save()
+      messages.success(request, f'{change.change_name} has been updated')
+
 
     return redirect(reverse('get_dashboard', args=[change.project_id_id]))
 
