@@ -17,8 +17,8 @@ $(document).ready( function () {
     "columns": [
       { "width": "70%" },
       { "width": "20%" },
-      { "width": "10%" },
-      { "width": "0%" }
+      { "width": "00%" },
+      { "width": "10%" }
     ],
     "lengthChange": false,
     "pagingType": "simple"
@@ -35,3 +35,4 @@ $(document).ready(function () {
     }
   });
 });
+

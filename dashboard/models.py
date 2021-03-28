@@ -24,10 +24,10 @@ class ProjectUser(models.Model):
 
 class Change(models.Model):
   CHANGE_STATUS = (
-    ('Accepted', 'A'),
-    ('Pending', 'P'),
-    ('Work in Progress', 'WiP'),
-    ('Rejected', 'R'),
+    ('A', 'Accepted'),
+    ('P', 'Pending'),
+    ('WiP', 'Work in Progress'),
+    ('R', 'Rejected'),
   )
   project_id = models.ForeignKey(Project, on_delete=models.CASCADE)
   project_user = models.ForeignKey(User, on_delete=models.CASCADE)
