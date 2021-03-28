@@ -21,6 +21,7 @@ $(document).ready( function () {
       { "width": "10%" }
     ],
     "lengthChange": false,
+    "pageLength": 9,
     "pagingType": "simple"
   });
 } );
