@@ -15,3 +15,6 @@ Python packages
 
 Display Tuple in choices
 https://stackoverflow.com/questions/54020156/display-value-of-choicefield-of-the-tuple-in-template-django
+
+Thousands separator
+https://docs.djangoproject.com/en/3.1/topics/i18n/formatting/

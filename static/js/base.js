@@ -15,14 +15,15 @@ $(document).ready( function () {
   });
   $('#table-changes').DataTable( {
     "columns": [
-      { "width": "70%" },
+      { "width": "69%" },
       { "width": "20%" },
-      { "width": "00%" },
-      { "width": "10%" }
+      { "width": "10%" },
+      { "width": "0%" }
     ],
     "lengthChange": false,
     "pageLength": 9,
-    "pagingType": "simple"
+    "pagingType": "simple",
+    "order": [[ 3, "asc" ]],
   });
 } );
 
