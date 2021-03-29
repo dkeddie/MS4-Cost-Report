@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block page_header %}
+<div class="container header-container">
+  <div class="row">
+    <div class="col"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row align-items-center" id="sub-heading">
+    <div class="d-inline-flex mx-auto">
+      <h2 class="px-5 py-3 rounded">{{ project.project_name }}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 mx-auto content-box px-0" id="user-profile">
+      <h2 class="text-center mt-3">Project Details</h2>
+      <hr>
+      <form action="" method="POST" class="px-4 mt-4">
+        <div class="row mt-2">
+          <div class="col-12 form-group">
+            <label for="email">Project Name</label>
+            <input type="email" class="form-control" id="email" value="{{ project.project_name }}" readonly="readonly">
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-8 form-group">
+            <label for="email">Original Estimate</label>
+            <input type="email" class="form-control" id="email"
+              value="£ {{ project.original_estimate|floatformat:'0' }}" readonly="readonly">
+          </div>
+        </div>
+
+        <input class="d-none btn btn-rect btn-bttm-center" type="submit" value="Submit">
+      </form>
+    </div>
+    <div class="col-6 mx-auto content-box px-0" id="list-of-changes">
+      <h2 class="text-center mt-3">Users</h2>
+      <hr>
+      <div class="margin-up mx-2">
+        <table id="table-users" class="pt-5 px-2">
+          <thead class="d-none">
+            <tr>
+              <th>Users</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+            <tr>
+              <td>{{ user.project_user }} <span>({{user.user_permission}} permission)</span></td>
+              <td class="dt-right">
+                <a href="{% url 'delete_user' user.project_user_id %}">Remove User</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="btn-top-right">
+        <button type="button" class="btn-sm btn-icon-small" data-toggle="modal" data-target="#addUser">
+          <span class="material-icons-outlined ">add</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal to Add User -->
+<div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUserLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content content-box">
+      <div class="modal-header">
+        <h2 class="modal-title mt-3" id="addUserLabel">Add User</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'add_user' project.id %}" method="POST">
+          {% load crispy_forms_tags %}
+          {% crispy userForm %}
+          <input class="btn btn-rect btn-bttm-center" type="submit" value="Submit">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+{% endblock %}

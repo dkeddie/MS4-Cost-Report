@@ -62,7 +62,9 @@
         <thead class="d-none">
           <tr>
             <th>Project</th>
-            <th>one</th>
+            <th>Edit</th>
+            <th></th>
+            <th>View</th>
           </tr>
         </thead>
         <tbody>
@@ -70,7 +72,11 @@
           <tr>
             <td>{{ project.project_name }}</td>
             <td class="dt-right">
-              <a href="{% url 'get_dashboard' project.id %}">View</a>
+              <a href="{% url 'project_admin' project.id %}">Admin</a>
+            </td>
+            <td class="dt-center">|</td>
+            <td class="dt-left">
+              <a href="{% url 'get_dashboard' project.id %}"> View</a>
             </td>
           </tr>
           {% endfor %}

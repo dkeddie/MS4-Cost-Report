@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'home',
     'profile',
     'dashboard',
+    'project',
 
     'crispy_forms',
 ]

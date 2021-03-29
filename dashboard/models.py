@@ -19,7 +19,7 @@ class ProjectUser(models.Model):
   user_permission = models.CharField(max_length=4, choices=PERMISSIONS, null=False, blank=False)
 
   def __str__(self):
-        return self.project_user
+        return self.project_user.username
 
 
 class Change(models.Model):

@@ -6,6 +6,19 @@ function enableEdit() {
 // Datatables.Net activation
 $(document).ready( function () {
   $('#table-project').DataTable( {
+    "columns": [
+      { "width": "70%" },
+      { "width": "15%" },
+      { "width": "15%" },
+    ],
+    "ordering": false,
+    "lengthChange": false,
+    "searching": false,
+    "bInfo": false,
+    "pageLength": 5,
+    "pagingType": "simple",
+  });
+  $('#table-users').DataTable( {
     "ordering": false,
     "lengthChange": false,
     "searching": false,

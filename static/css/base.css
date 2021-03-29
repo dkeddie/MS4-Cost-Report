@@ -33,16 +33,17 @@ body {
 }
 
 .message-container {
-  max-width: 400px;
+  width: 400px;
   position: absolute;
   color: #000;
   top: 25px;
   z-index: 9999;
-  left: 50%;
+  margin-left: 50%;
   transform: translate(-50%, 0);
 }
 
 .toast {
+  max-width: 100% !important;
   background-color: rgb(146, 146, 146);
   border: none;
 }
