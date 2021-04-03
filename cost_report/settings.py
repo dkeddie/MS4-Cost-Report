@@ -14,6 +14,11 @@ from pathlib import Path
 
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,10 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '!zt)ae%w1l8$(!2-&w2kvs$&jzfg(ak2l7*4pf9!vi&hy@rw(x'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = "DEVELOPMENT" in os.environ
 
 ALLOWED_HOSTS = []
 
@@ -51,6 +56,7 @@ INSTALLED_APPS = [
     'project',
 
     'crispy_forms',
+    'django_countries',
 ]
 
 MIDDLEWARE = [
@@ -124,12 +130,15 @@ WSGI_APPLICATION = 'cost_report.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'DEVELOPMENT' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+# else:
+    # Confirm when deployed
 
 
 # Password validation
@@ -173,3 +182,12 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#Stripe
+STRIPE_CURRENCY = 'gbp'
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET')
+STRIPE_PLAN_DAILY_ID = os.getenv('STRIPE_PLAN_DAILY_ID')
+STRIPE_PLAN_MONTHLY_ID = os.getenv('STRIPE_PLAN_MONTHLY_ID')
+STRIPE_PLAN_YEARLY_ID = os.getenv('STRIPE_PLAN_YEARLY_ID')

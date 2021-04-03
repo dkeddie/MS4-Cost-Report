@@ -6,10 +6,17 @@ function enableEdit() {
 // Datatables.Net activation
 $(document).ready( function () {
   $('#table-project').DataTable( {
-    "columns": [
-      { "width": "70%" },
-      { "width": "15%" },
-      { "width": "15%" },
+    // "columns": [
+    //   { "width": "70%" },
+    //   { "width": "14%" },
+    //   { "width": "2%" },
+    //   { "width": "14%" },
+    // ],
+    "columnDefs": [
+      {
+        "width": "10%",
+        "targets": 3
+      }
     ],
     "ordering": false,
     "lengthChange": false,

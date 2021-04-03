@@ -233,3 +233,15 @@ td a:hover {
   margin-top: -8px;
   cursor: pointer;
 }
+
+
+/* <----------- Projects Table ----------> */
+
+#table-project thead,
+#table-project tbody tr th {
+  display: none;
+}
+
+#table-project tbody td:last-child {
+  width: 10%
+}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row align-items-center" id="sub-heading">
+    <div class="d-inline-flex mx-auto">
+      <h2 class="px-5 py-3 rounded">Home</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 mx-auto content-box px-0" id="">
+      <h2 class="text-center mt-3">Subscription</h2>
+      <hr>
+      <p>Thank you for your payment</p>
+
+
+    </div>
+  </div>
+</div>
+
+{% block postloadjs %}
+{{ block.super }}
+
+<script src="{% static 'dashboard/js/checkout.js' %}"></script>
+
+<script>
+  card('{{STRIPE_PUBLIC_KEY}}', '{{customer_email}}')
+</script>
+
+{% endblock %}
+
+
+
+
+{% endblock %}

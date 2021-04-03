@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row align-items-center" id="sub-heading">
+    <div class="d-inline-flex mx-auto">
+      <h2 class="px-5 py-3 rounded">Home</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 mx-auto content-box px-0" id="">
+      <h2 class="text-center mt-3">User Profile</h2>
+      <hr>
+
+      <form action="{% url 'card' %}" method="POST" id="payment-form">
+        {% csrf_token %}
+        <div class="px-4 mt-4">
+          <div class="my-2 form-group" id="card-element">
+            <!-- Elements will create input elements here -->
+          </div>
+
+          <!-- We'll put the error messages in this element -->
+          <div class="my-2" id="card-element-errors" role="alert"></div>
+          <input type="hidden" name="payment_intent_id" value="{{ payment_intent_id }}">
+          <input type="hidden" name="customer_email" value="{{ customer_email }}">
+          <input type="hidden" name="automatic" value="{{ automatic }}">
+          <input type="hidden" name="stripe_plan_id" value="{{ stripe_plan_id }}">
+          <input type="hidden" name="customer_id" value="{{ customer_id }}">
+          <input type="hidden" name="project_id" value="{{ project_id }}">
+          <button id="checkout" class="my-3" type="submit">Subscribe</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block postloadjs %}
+{{ block.super }}
+
+<script src="{% static 'dashboard/js/checkout.js' %}"></script>
+
+<script>
+  card('{{STRIPE_PUBLIC_KEY}}', '{{customer_email}}');
+</script>
+
+{% endblock %}
