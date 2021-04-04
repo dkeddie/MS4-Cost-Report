@@ -9,7 +9,7 @@ from django.http import HttpResponse, JsonResponse
 from django.forms.models import model_to_dict
 
 from django.contrib.auth.models import User
-from .models import Project, Change
+from .models import Project, Change, Project_StripeDetails
 from profile.models import UserSubDetails
 from profile.models import UserStripeDetails
 
@@ -63,7 +63,10 @@ def stripe_webhooks(request):
 
 def set_paid_until(request, charge):
   # print(f"set paid until {charge}")
-  pi = stripe.PaymentIntent.retrieve(charge.payment_intent)
+  pi = stripe.PaymentIntent.retrieve(
+    charge.payment_intent,
+    expand=['invoice']
+    )
 
   # print(f'Set paid unitl PI: {pi}')
 
@@ -74,26 +77,20 @@ def set_paid_until(request, charge):
       pi.customer,
       expand=['subscriptions']
       )
-    
-
-    # print(f'Customer: {customer}')
-    print(f'Customer ID: {customer}')
-
-  print(f'Customer: {customer.id}')
 
   obj, created = UserStripeDetails.objects.get_or_create(
     user = get_object_or_404(User, id=customer.metadata.userId),
     stripe_customer_id = customer.id,
   )
 
-  print(f'Customer Obj: {obj}')
+  sub = stripe.Subscription.retrieve(
+    pi.invoice.subscription,
+  )
 
-    # print(obj)
-    # if customer:
-    #   subscr = stripe.Subscription.retrieve(
-    #     customer['subscriptions'].data[0].id
-    #   )
-    #   print(f'Subscription: {subscr}')
+  obj2, created2 = Project_StripeDetails.objects.get_or_create(
+    project = get_object_or_404(Project, id=sub.metadata.project_id),
+    stripe_sub = sub.id,
+  )
 
   return HttpResponse(status=200)
 
@@ -113,6 +110,7 @@ def create_project(request):
     }
 
     return redirect(reverse('home'))
+
 
 @require_POST
 def payment_method(request):
@@ -189,14 +187,9 @@ def card(request):
       },
     )
 
-    # print(f'What is: {s}')
-
     if s.status == 'incomplete':
 
       pi = s.latest_invoice.payment_intent.id
-
-      # print(f'Latest Invoice: {pi}')
-      # print(f'Payment Intent: {latest_invoice.payment_intent}')
       
       stripe.PaymentIntent.modify(
         pi,
@@ -225,89 +218,6 @@ def card(request):
     )
 
   return render(request, 'home/thank_you.html')
-
-
-# @require_POST
-# def createSubscription(request):
-#     stripe.api_key = settings.STRIPE_SECRET_KEY
-#     # print(stripe.api_key)
-#     # return HttpResponse("success")
-#     data = json.loads(request.data)
-#     print(data)
-#     try:
-#         # Attach the payment method to the customer
-#         stripe.PaymentMethod.attach(
-#             data['paymentMethodId'],
-#             customer=data['customerId'],
-#         )
-#         # Set the default payment method on the customer
-#         stripe.Customer.modify(
-#             data['customerId'],
-#             invoice_settings={
-#                 'default_payment_method': data['paymentMethodId'],
-#             },
-#         )
-
-#         # Create the subscription
-#         subscription = stripe.Subscription.create(
-#             customer=data['customerId'],
-#             # items=[
-#             #     {
-#             #         'price': 'price_HGd7M3DV3IMXkC'
-#             #     }
-#             # ],
-#             items=data['priceId'],
-#             expand=['latest_invoice.payment_intent'],
-#         )
-#         return jsonify(subscription)
-#     except Exception as e:
-#         return jsonify(error={'message': str(e)}), 200
-
-
-# def create_subscription(request, project_id):
-#   project = get_object_or_404(Project, pk=project_id)
-#   if request.method == 'POST':
-#     print("post received")
-#     form = UserSubDetailsForm(request.POST)
-#     if form.is_valid():
-#       subForm = form.save(commit=False)
-#       subForm.user = request.user
-#       subForm.save()
-#       print(subForm)
-#       messages.success(request, f'Subscription created')
-
-#     else:
-#       print("no success")
-
-#     return redirect(reverse('home'))
-
-
-# @require_POST
-# def create_checkout_session(request):
-#     data = json.loads(request.data)
-
-#     try:
-#         # See https://stripe.com/docs/api/checkout/sessions/create
-#         # for additional parameters to pass.
-#         # {CHECKOUT_SESSION_ID} is a string literal; do not change it!
-#         # the actual Session ID is returned in the query parameter when your customer
-#         # is redirected to the success page.
-#         checkout_session = stripe.checkout.Session.create(
-#             success_url="https://example.com/success.html?session_id={CHECKOUT_SESSION_ID}",
-#             cancel_url="{% url 'home' %}",
-#             payment_method_types=["card"],
-#             mode="subscription",
-#             line_items=[
-#                 {
-#                     "price": data['priceId'],
-#                     # For metered billing, do not pass quantity
-#                     # "quantity": 1
-#                 }
-#             ],
-#         )
-#         return jsonify({'sessionId': checkout_session['id']})
-#     except Exception as e:
-#         return jsonify({'error': {'message': str(e)}}), 400
 
 
 def get_dashboard(request, project_id):

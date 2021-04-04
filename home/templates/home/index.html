@@ -189,7 +189,7 @@
               </div>
             </div>
             <input type="hidden" name="customerId" value="{{ stripeUser.stripe_customer_id }}">
-            <input type="hidden" name="projectId" value="wserty">
+            <input type="hidden" name="projectId" value="">
             <!-- <div class="my-2 form-group" id="card-element"> -->
               <!-- Elements will create input elements here -->
             <!-- </div> -->
@@ -224,9 +224,8 @@
 <script>
   function subModal() {
     $('.subModal').click(function () {
-      var id = $(this).data('id')
-      console.log(id)
-      post_url = `dashboard/subscribe/${id}/`
+      var projectId = $(this).data('id');
+      $('input[name="projectId"]').val(projectId)      
       $('#new-subscriptionModal').modal('show');
       // $('#new-subscriptionModal form').attr('action', post_url)
     })
