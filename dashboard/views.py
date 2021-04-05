@@ -7,13 +7,14 @@ from django.db.models import Sum
 from django import template
 from django.http import HttpResponse, JsonResponse
 from django.forms.models import model_to_dict
+from django.core.files.storage import FileSystemStorage
 
 from django.contrib.auth.models import User
-from .models import Project, Change, Project_StripeDetails
+from .models import Project, Change, Project_StripeDetails, ChangeAttachments
 from profile.models import UserSubDetails
 from profile.models import UserStripeDetails
 
-from .forms import ProjectForm, ChangeForm, UserSubDetailsForm
+from .forms import ProjectForm, ChangeForm, UserSubDetailsForm, ChangeAttachmentsForm
 
 import stripe
 import json
@@ -96,7 +97,7 @@ def set_paid_until(request, charge):
 
 
 def create_project(request):
-  project = get_object_or_404(Project, pk=1)
+  
   if request.method == 'POST':
     form = ProjectForm(request.POST)
     if form.is_valid():
@@ -224,6 +225,7 @@ def get_dashboard(request, project_id):
   project = get_object_or_404(Project, id=project_id)
   form = ChangeForm()
   editForm = ChangeForm()
+  attachmentsForm = ChangeAttachmentsForm()
   changes = Change.objects.filter(project_id=project_id)
 
   original_estimate = project.original_estimate
@@ -252,6 +254,7 @@ def get_dashboard(request, project_id):
       'project': project,
       'form': form,
       'editForm': editForm,
+      'attachmentsForm': attachmentsForm,
       'changes': changes,
       'original_estimate': original_estimate,
       'accepted_changes': accepted_changes,
@@ -269,38 +272,93 @@ def add_change(request, project_id):
 
   if request.method == 'POST':
     form = ChangeForm(request.POST)
+    attachmentForm = ChangeAttachmentsForm(request.POST, request.FILES)
+    files = request.FILES.getlist('attachment')
     project = get_object_or_404(Project, pk=project_id)
-    if form.is_valid():
+    print(attachmentForm.errors)
+    if form.is_valid() and attachmentForm.is_valid():
       change = form.save(commit=False)
       change.project_id = project
       change.project_user = request.user
       change.save()
+      for f in files:
+        file_instance = ChangeAttachments(attachment=f)
+        file_instance.save()
+        change.attachment.add(file_instance)
       messages.success(request, f'{change.change_name} added to {change.project_id}')
 
+    else:
+      if form.is_valid():
+        print("form is valid")
+      elif attachmentForm.is_valid():
+        print("attachmentForm is valid")
+      else:
+        print("neither forms are valid")
+
     return redirect(reverse('get_dashboard', args=[project.id]))
+    
 
 
 def edit_change(request, change_id):
   change = get_object_or_404(Change, pk=change_id)
 
   if request.method == 'POST':
-    editForm = ChangeForm(request.POST)
-    project_user_id = change.project_user_id
+    form = ChangeForm(request.POST)
+    attachmentForm = ChangeAttachmentsForm(request.POST, request.FILES)
+    files = request.FILES.getlist('attachment')
     project_id_id = change.project_id_id
-    if editForm.is_valid():
-      print(change)
-      change = editForm.save(commit=False)
+    if form.is_valid() and attachmentForm.is_valid():
+      change = form.save(commit=False)
       change.id = change_id
-      change.project_user_id = project_user_id
+      change.project_user_id = request.user.id
       change.project_id_id = project_id_id
       change.save()
+      for f in files:
+        file_instance = ChangeAttachments(attachment=f)
+        file_instance.save()
+        change.attachment.add(file_instance)
       messages.success(request, f'{change.change_name} has been updated')
 
 
     return redirect(reverse('get_dashboard', args=[change.project_id_id]))
 
   else:
-    change_dict = model_to_dict(change)
-    print(change_dict)
-    return JsonResponse(change_dict, safe=False)
+    changeForm = ChangeForm(instance=change)
+    attachmentsForm = ChangeAttachmentsForm(instance=change)
+    attachments = change.attachment.all()
+    template = 'dashboard/edit_change.html'
+
+    context = {
+      'changeForm': changeForm,
+      'attachmentsForm': attachmentsForm,
+      'change': change,
+      'attachments': attachments,
+    }
+
+    return render(request, template, context)
+
+
+def delete_file(request, change_id, file_id):
+  # Delete an attachment a Change whilst in the Edit Change mode
+
+  attachment = get_object_or_404(ChangeAttachments, pk=file_id)
+  attachment.delete()
+
+  return redirect(reverse('edit_change', args=[change_id]))
+
+
+def delete_change(request, change_id):
+  # Delete a Change
+
+  change = get_object_or_404(Change, pk=change_id)
+
+  # Step to delete all attachments and files stored
+  attachments = change.attachment.all()
+  for a in attachments:
+    a.delete()
+
+  change.delete()
+
+  return redirect(reverse('get_dashboard', args=[change.project_id_id]))
+
 

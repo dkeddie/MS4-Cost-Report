@@ -132,6 +132,24 @@ body {
   margin-top: 10px;
 }
 
+.btn-bttm-left {
+  min-width: 96px;
+  position: absolute;
+  left: 25%;
+  transform: translate(-50%,0);
+  bottom: 15px;
+  margin-top: 10px;
+}
+
+.btn-bttm-right {
+  min-width: 96px;
+  position: absolute;
+  left: 75%;
+  transform: translate(-50%,0);
+  bottom: 15px;
+  margin-top: 10px;
+}
+
 .bttm-break {
   display: block;
   height: 50px;
@@ -244,4 +262,11 @@ td a:hover {
 
 #table-project tbody td:last-child {
   width: 10%
+}
+
+
+/* <----------Edit Change Form ----------> */
+
+#edit-change form {
+  height: 100%;
 }

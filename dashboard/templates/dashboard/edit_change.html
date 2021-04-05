@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% load dashboard_tags %}
+
+
+{% block page_header %}
+<div class="container header-container">
+  <div class="row">
+    <div class="col"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row align-items-center" id="sub-heading">
+    <div class="d-inline-flex mx-auto">
+      <h2 class="px-5 py-3 rounded">{{ change.project_id }}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 mx-auto content-box px-0" id="edit-change">
+      <h2 class="text-center mt-3">{{ change.change_name }}</h2>
+      <hr>
+      <div class="col-12">
+        <form id="edit-change-form" action="{% url 'edit_change' change.id %}" method="POST" enctype="multipart/form-data">
+            {% load crispy_forms_tags %}
+            {% crispy changeForm %}
+            {% crispy attachmentsForm %}
+          </form>
+        </div>
+        <button class="btn btn-rect btn-bttm-center" type="submit" form="edit-change-form">Update</button>
+        <a href="{% url 'get_dashboard' change.project_id_id %}" class="btn btn-rect btn-bttm-left">Back</a>
+        <a href="{% url 'delete_change' change.id %}" class="btn btn-rect btn-bttm-right">Delete</a>
+      </div>
+
+    <div class="col-6 mx-auto content-box px-0" id="list-of-attachments">
+      <h2 class="text-center mt-3">Attachments</h2>
+      <hr>
+      <div class="margin-up mx-2">
+        <table id="table-attachments" class="compact hover">
+          <thead class="">
+            <tr>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for attachment in attachments %}
+            <tr>
+              <td>{{ attachment.attachment|filename }}</td>
+              <td class=""><a href="{{attachment.attachment.url}}" target="_blank">View</a></td>
+              <td class=""><a href="{% url 'delete_file' change.id attachment.id %}">Delete</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+
+
+{% block postloadjs %}
+{{ block.super }}
+
+{% endblock %}
