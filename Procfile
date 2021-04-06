@@ -1,0 +1,1 @@
+web: gunicorn ms4-cost-report.wsgi:application

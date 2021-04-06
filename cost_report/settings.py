@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 
 import os
+import dj_database_url
 
 from dotenv import load_dotenv
 
@@ -138,8 +139,10 @@ if 'DEVELOPMENT' in os.environ:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-# else:
-    # Confirm when deployed
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
 
 
 # Password validation
