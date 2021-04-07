@@ -42,9 +42,19 @@
 }
 
 .toast {
+  font-weight: 700 !important;
   max-width: 100% !important;
   background-color: rgb(146, 146, 146);
   border: none;
+  letter-spacing: 0.1rem !important;
+}
+
+.toast-error {
+  background-color: #b48b41 !important;
+}
+
+.toast-warning {
+  background-color: #b62e2e !important;
 }
 
 .close {

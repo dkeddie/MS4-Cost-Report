@@ -31,13 +31,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = "DEVELOPMENT" in os.environ
-DEBUG = False
+DEBUG = "DEVELOPMENT" in os.environ
 
 ALLOWED_HOSTS = [
     'ms4-cost-report.herokuapp.com',
     'localhost',
-    '127.0.0.1:8000'
+    '127.0.0.1'
 ]
 
 
@@ -116,8 +115,6 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 1
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email' #authentication by either username or email
 ACCOUNT_EMAIL_REQUIRED = True #Email required to register
@@ -219,3 +216,17 @@ STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET')
 STRIPE_PLAN_DAILY_ID = os.getenv('STRIPE_PLAN_DAILY_ID')
 STRIPE_PLAN_MONTHLY_ID = os.getenv('STRIPE_PLAN_MONTHLY_ID')
 STRIPE_PLAN_YEARLY_ID = os.getenv('STRIPE_PLAN_YEARLY_ID')
+
+
+# Email Settings
+if 'DEVELOPMENT' in os.environ:
+    DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_TLS = True
+    EMAIL_PORT = 587
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
+    DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
