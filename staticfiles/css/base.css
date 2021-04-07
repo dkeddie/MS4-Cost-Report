@@ -1,0 +1,272 @@
+/* ---------- BASE.HTML CSS --------- */
+body {
+  color: #000 !important;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+}
+
+#main-nav {
+  height: 100px;
+  background-color: #000;
+}
+
+#main-nav h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.5rem;
+}
+
+#main-nav .btn {
+  font-family: 'Material Icons';
+  font-size: 3rem;
+  background-color: #000;
+  color: #fff;
+}
+
+#main-nav .btn:hover {
+  font-weight: 600;
+}
+
+.header-container {
+  padding-top: 100px;
+}
+
+.message-container {
+  width: 400px;
+  position: absolute;
+  color: #000;
+  top: 25px;
+  z-index: 9999;
+  margin-left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.toast {
+  max-width: 100% !important;
+  background-color: rgb(146, 146, 146);
+  border: none;
+}
+
+.close {
+  text-shadow: none !important;
+}
+
+/* ---------- APPS - GENERIC STYLING ---------- */
+
+#sub-heading {
+  height: 125px;
+}
+
+#sub-heading h2 {
+  background-color: grey;
+}
+
+.content-box {
+  max-width: 500px;
+  min-height: 500px;
+  background-color: rgb(224, 224, 224);
+  border-radius: 15px;
+}
+
+.content-box h2 {
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: 0.3rem;
+  vertical-align: middle;
+  color: #000;
+}
+
+.content-box hr {
+  border: 2px solid #fff !important;
+}
+
+.content-box label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+}
+
+.form-control {
+  background-color: rgb(224, 224, 224);
+  border: none;
+  border-radius: 0px;
+  border-bottom: 1px dotted #000;
+  color: #000;
+  letter-spacing: 0.1rem;
+}
+
+.form-control:focus {
+  background-color: rgb(224, 224, 224);
+  border: none;
+  box-shadow: none;
+  border-bottom: 1px solid #000;
+}
+
+.btn-icon {
+  font-family: 'Material Icons';
+  font-size: 1.5rem;
+  border-radius: 50%;
+  background-color: #000;
+  color: #fff;
+}
+
+.btn-rect {
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  background-color: #000;
+  color: #fff;
+}
+
+.btn-right-align {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+}
+
+.btn-bttm-center {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,0);
+  bottom: 15px;
+  margin-top: 10px;
+}
+
+.btn-bttm-left {
+  min-width: 96px;
+  position: absolute;
+  left: 25%;
+  transform: translate(-50%,0);
+  bottom: 15px;
+  margin-top: 10px;
+}
+
+.btn-bttm-right {
+  min-width: 96px;
+  position: absolute;
+  left: 75%;
+  transform: translate(-50%,0);
+  bottom: 15px;
+  margin-top: 10px;
+}
+
+.bttm-break {
+  display: block;
+  height: 50px;
+}
+
+/* ---------- MODAL FORMATTING ---------- */
+
+.modal-content {
+  background-color: rgb(224, 224, 224);
+}
+
+/* ---------- TABLE ---------- */
+
+table tr {
+  background-color: rgb(224, 224, 224) !important;
+}
+
+table tr:not(:last-child) td {
+  border-bottom: rgb(146, 146, 146) solid 1px;
+}
+
+table {
+  border-bottom: none !important;
+}
+
+.dataTables_paginate {
+  font-size: 0.8rem;
+}
+
+td a {
+  color: #000;
+}
+
+td a:hover {
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* <---------- DASHBOARD ----------> */
+
+.vert-line {
+  position: absolute;
+  height: 450px;
+  width: 2px;
+  top: 80px;
+  left: calc(500px*0.66);
+  border: 2px solid #fff;
+}
+
+.C-accepted {
+  color: green;
+}
+
+.C-pending, .C-wip {
+  color: orange;
+}
+
+.C-rejected {
+  color: grey;
+}
+
+.T-sub h5, .T-total h5 {
+  font-weight: 600;
+}
+
+
+/* <---------- LIST OF CHANGES ----------> */
+
+.btn-icon-small {
+  font-family: 'Material Icons';
+  font-size: 1.5rem;
+  border-radius: 50%;
+  border: grey;
+  background-color: grey;
+  color: #fff;
+}
+
+.btn-icon-small:hover {
+  cursor: pointer;
+  background-color: #000;
+}
+
+.btn-top-right {
+  position: absolute;
+  right: 25px;
+  top: 20px;
+}
+
+#table-changes_info {
+  font-size: 0.8rem;
+}
+
+#table-changes tbody tr:hover {
+  background-color: grey !important;
+}
+
+.margin-up {
+  margin-top: -8px;
+  cursor: pointer;
+}
+
+
+/* <----------- Projects Table ----------> */
+
+#table-project thead,
+#table-project tbody tr th {
+  display: none;
+}
+
+#table-project tbody td:last-child {
+  width: 10%
+}
+
+
+/* <----------Edit Change Form ----------> */
+
+#edit-change form {
+  height: 100%;
+}
