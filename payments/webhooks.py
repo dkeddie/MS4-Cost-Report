@@ -13,6 +13,7 @@ from profile.models import UserStripeDetails
 import stripe
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+wh_secret = settings.STRIPE_WH_SECRET
 
 
 @require_POST
@@ -24,7 +25,7 @@ def stripe_webhooks(request):
 
   try:
     event = stripe.Webhook.construct_event(
-      payload, sig_header, settings.STRIPE_WH_SECRET
+      payload, sig_header, wh_secret
     )
     print("Event constructed accordingly")
   except ValueError as e:
