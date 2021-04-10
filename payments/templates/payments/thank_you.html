@@ -13,24 +13,25 @@
     <div class="col-6 mx-auto content-box px-0" id="">
       <h2 class="text-center mt-3">Subscription</h2>
       <hr>
-      <div id="3ds_result">
-
-      </div>
+      <p>Thank you for your payment</p>
 
 
     </div>
   </div>
 </div>
 
-{% endblock %}
-
 {% block postloadjs %}
 {{ block.super }}
 
-<script src="{% static 'home/js/3dsec.js' %}"></script>
+<script src="{% static 'payments/js/checkout.js' %}"></script>
 
 <script>
-  _3dsec('{{STRIPE_PUBLIC_KEY}}', '{{payment_intent_secret}}')
+  card('{{STRIPE_PUBLIC_KEY}}', '{{customer_email}}')
 </script>
+
+{% endblock %}
+
+
+
 
 {% endblock %}

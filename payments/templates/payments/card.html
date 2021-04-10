@@ -41,7 +41,7 @@
 {% block postloadjs %}
 {{ block.super }}
 
-<script src="{% static 'home/js/checkout.js' %}"></script>
+<script src="{% static 'payments/js/checkout.js' %}"></script>
 
 <script>
   card('{{STRIPE_PUBLIC_KEY}}', '{{customer_email}}');

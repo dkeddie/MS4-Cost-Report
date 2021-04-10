@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'profile',
     'dashboard',
     'project',
+    'payments',
 
     'crispy_forms',
     'django_countries',
@@ -124,6 +125,10 @@ ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True #Enter twice to ensure no typos
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/' #after login, '/success is temporary, normal '/' only
+
+# ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = False
+# ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/accounts/login'
+# ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/accounts/login'
 
 ACCOUNT_FORMS = {
     'signup': 'profile.forms.CustomSignupForm',

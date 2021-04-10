@@ -15,18 +15,18 @@ class Project(models.Model):
         return self.project_name
 
 
-class Project_StripeDetails(models.Model):
-  project = models.ForeignKey(Project, on_delete=models.CASCADE)
-  stripe_sub = models.CharField(max_length=40, null=False, blank=False)
+# class Project_StripeDetails(models.Model):
+#   project = models.ForeignKey(Project, on_delete=models.CASCADE)
+#   stripe_sub = models.CharField(max_length=40, null=False, blank=False)
 
-  def __str__(self):
-    return self.stripe_sub
+#   def __str__(self):
+#     return self.stripe_sub
 
-  def sub_status(self):
-    import stripe
-    stripe.api_key = settings.STRIPE_SECRET_KEY
-    sub = stripe.Subscription.retrieve(self)
-    return sub.status
+#   def sub_status(self):
+#     import stripe
+#     stripe.api_key = settings.STRIPE_SECRET_KEY
+#     sub = stripe.Subscription.retrieve(self)
+#     return sub.status
 
 
 class ProjectUser(models.Model):

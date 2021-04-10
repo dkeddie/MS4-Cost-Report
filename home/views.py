@@ -6,9 +6,11 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from profile.models import UserProfile, UserStripeDetails
 from dashboard.forms import ProjectForm, UserSubDetailsForm
-from dashboard.models import Project, Project_StripeDetails
+from dashboard.models import Project
+from payments.models import ProjectStripeDetails
 
 import stripe
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
@@ -22,7 +24,7 @@ def index(request):
     form = ProjectForm()
     subForm = UserSubDetailsForm()
     projects = Project.objects.filter(project_owner_id=user.id)
-    stripeProjects = Project_StripeDetails.objects.filter(project__in=projects)
+    stripeProjects = ProjectStripeDetails.objects.filter(project__in=projects)
 
     try:
       stripeUser = UserStripeDetails.objects.get(user=user)
@@ -33,7 +35,7 @@ def index(request):
       print(f'Loop: {project.id}')
       
       try:
-        project_sub = Project_StripeDetails.objects.get(project=project.id)
+        project_sub = ProjectStripeDetails.objects.get(project=project.id)
       except ObjectDoesNotExist:
         project_sub = None
 
@@ -41,7 +43,7 @@ def index(request):
 
       if project_sub is not None:
         print(project)
-        subActive = Project_StripeDetails.sub_status(str(project_sub))
+        subActive = ProjectStripeDetails.sub_status(str(project_sub))
         if subActive == 'active':
           print(f'Project:{project}')
           project.has_subscription=True
