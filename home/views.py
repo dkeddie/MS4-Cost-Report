@@ -70,3 +70,5 @@ def index(request):
     return render(request, template, context)
 
   return redirect('/accounts/login/')
+
+  
