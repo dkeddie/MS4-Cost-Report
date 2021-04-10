@@ -11,6 +11,7 @@ from .models import ProjectStripeDetails
 from profile.models import UserStripeDetails
 
 import stripe
+import json
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 wh_secret = settings.STRIPE_WH_SECRET
