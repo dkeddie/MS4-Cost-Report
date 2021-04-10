@@ -5,5 +5,6 @@ from . import views, webhooks
 urlpatterns = [
     path('payment-method/', views.payment_method, name='payment_method'),
     path('thank_you/', views.card, name='card'),
+    path('customer-portal/<stripe_user>/<project_id>', views.customer_portal, name='customer_portal'),
     path('stripe-webhooks/', webhooks.stripe_webhooks, name='stripe_webhooks'),
 ]

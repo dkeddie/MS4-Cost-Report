@@ -5,6 +5,7 @@ from django.contrib import messages
 from django import template
 
 from django.contrib.auth.models import User
+from profile.models import UserStripeDetails
 
 import stripe
 
@@ -120,3 +121,12 @@ def card(request):
   return render(request, 'payments/thank_you.html')
 
 
+@require_POST
+def customer_portal(request, stripe_user, project_id):
+  # Authenticate your user.
+  return_url=request.build_absolute_uri('/project/')
+  session = stripe.billing_portal.Session.create(
+    customer=stripe_user,
+    return_url=f'{return_url}{project_id}/admin',
+  )
+  return redirect(session.url)

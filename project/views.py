@@ -3,6 +3,7 @@ from django.contrib import messages
 
 
 from dashboard.models import Project, ProjectUser, User
+from profile.models import UserStripeDetails
 from .forms import ProjectDetailsForm, ProjectUserForm
 
 
@@ -11,6 +12,7 @@ def project_admin(request, project_id):
   projectForm = ProjectDetailsForm()
   userForm = ProjectUserForm()
   users = ProjectUser.objects.filter(project_id=project_id)
+  stripeUser = get_object_or_404(UserStripeDetails, user=request.user)
 
   template = 'project/admin.html'
   context = {
@@ -18,6 +20,7 @@ def project_admin(request, project_id):
     'projectForm': projectForm,
     'userForm': userForm,
     'users': users,
+    'stripeUser': stripeUser.stripe_customer_id,
   }
 
   return render(request, template, context)

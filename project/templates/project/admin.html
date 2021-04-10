@@ -35,9 +35,15 @@
               value="£ {{ project.original_estimate|floatformat:'0' }}" readonly="readonly">
           </div>
         </div>
-
         <input class="d-none btn btn-rect btn-bttm-center" type="submit" value="Submit">
       </form>
+      <br>
+        <div class="col-12 mx-2">
+          <form method="POST" action="{% url 'customer_portal' stripeUser project.id %}">
+            {% csrf_token %}
+            <button class="btn btn-rect" type="submit">Manage Subscription</button>
+          </form>
+      </div>
     </div>
     <div class="col-6 mx-auto content-box px-0" id="list-of-changes">
       <h2 class="text-center mt-3">Users</h2>
