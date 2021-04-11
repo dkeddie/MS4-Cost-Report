@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from dashboard.models import Project
 from .models import ProjectStripeDetails
-from profile.models import UserStripeDetails
+# from profile.models import UserStripeDetails
 
 import stripe
 import json
@@ -60,25 +60,26 @@ def set_paid_until(request, charge):
     expand=['invoice']
     )
 
-  customer = None
+  # customer = None
 
-  if pi.customer:
-    customer = stripe.Customer.retrieve(
-      pi.customer,
-      expand=['subscriptions']
-      )
+  # if pi.customer:
+  #   customer = stripe.Customer.retrieve(
+  #     pi.customer,
+  #     expand=['subscriptions']
+  #     )
 
-  obj, created = UserStripeDetails.objects.get_or_create(
-    user = get_object_or_404(User, id=customer.metadata.userId),
-    stripe_customer_id = customer.id,
-  )
+  # obj, created = ProjectStripeDetails.objects.get_or_create(
+  #   user = get_object_or_404(User, id=customer.metadata.userId),
+  #   stripe_customer_id = customer.id,
+  # )
 
   sub = stripe.Subscription.retrieve(
     pi.invoice.subscription,
   )
 
-  obj2, created2 = ProjectStripeDetails.objects.get_or_create(
+  obj, created = ProjectStripeDetails.objects.get_or_create(
     project = get_object_or_404(Project, id=sub.metadata.project_id),
+    customer_id = sub.customer,
     stripe_sub = sub.id,
   )
 

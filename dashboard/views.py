@@ -10,11 +10,12 @@ from django.forms.models import model_to_dict
 from django.core.files.storage import FileSystemStorage
 
 from django.contrib.auth.models import User
-from .models import Project, Change, ChangeAttachments
-from profile.models import UserSubDetails
-from profile.models import UserStripeDetails
+from .models import Change, ChangeAttachments
+from project.models import Project
+# from profile.models import UserSubscriptionDetails
 
-from .forms import ProjectForm, ChangeForm, UserSubDetailsForm, ChangeAttachmentsForm
+from .forms import ChangeForm, ChangeAttachmentsForm
+from project.forms import ProjectForm
 
 import stripe
 import json

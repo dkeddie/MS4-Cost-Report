@@ -4,38 +4,10 @@ from django.forms import ClearableFileInput
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div
 
-from .models import Project, ProjectUser, Change, ChangeAttachments
-from profile.models import UserSubDetails
+from .models import Change, ChangeAttachments
+# from profile.models import UserSubDetails
 
 
-class ProjectForm(forms.ModelForm):
-  class Meta:
-    model = Project
-    fields = ['project_name', 'original_estimate']
-
-
-class UserSubDetailsForm(forms.ModelForm):
-  def __init__(self, *args, **kwargs):
-
-        super(UserSubDetailsForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-        self.helper.form_tag = False
-        self.helper.layout = Layout(
-          Div(
-            Div('default_street_address1', css_class='col-6',),
-            Div('default_street_address2', css_class='col-6',),
-            Div('default_town_or_city', css_class='col-6',),
-            Div('default_county', css_class='col-6',),
-            Div('default_postcode', css_class='col-6',),
-            Div('default_country', css_class='col-6',),
-            Div('default_phone_number', css_class='col-6',),
-            css_class='row'
-          )
-        )
-
-  class Meta:
-    model = UserSubDetails
-    fields = ['default_phone_number', 'default_street_address1','default_street_address2', 'default_town_or_city', 'default_county', 'default_postcode', 'default_country']
 
 
 class ChangeForm(forms.ModelForm):

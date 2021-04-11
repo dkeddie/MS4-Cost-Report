@@ -1,9 +1,8 @@
 from django.contrib import admin
-from .models import UserProfile, UserSubDetails, UserStripeDetails
+from .models import UserProfile, UserSubscriptionDetails
 
 
 # Register your models here.
 
 admin.site.register(UserProfile)
-admin.site.register(UserSubDetails)
-admin.site.register(UserStripeDetails)
+admin.site.register(UserSubscriptionDetails)

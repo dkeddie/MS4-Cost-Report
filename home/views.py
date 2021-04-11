@@ -4,9 +4,12 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
-from profile.models import UserProfile, UserStripeDetails
-from dashboard.forms import ProjectForm, UserSubDetailsForm
-from dashboard.models import Project
+from profile.models import UserProfile
+from profile.forms import UserSubscriptionDetailsForm
+
+from project.models import Project
+from project.forms import ProjectForm
+
 from payments.models import ProjectStripeDetails
 
 import stripe
@@ -22,14 +25,11 @@ def index(request):
     registration = user
     profile = get_object_or_404(UserProfile, user=user)
     form = ProjectForm()
-    subForm = UserSubDetailsForm()
+    subForm = UserSubscriptionDetailsForm()
     projects = Project.objects.filter(project_owner_id=user.id)
     stripeProjects = ProjectStripeDetails.objects.filter(project__in=projects)
 
-    try:
-      stripeUser = UserStripeDetails.objects.get(user=user)
-    except UserStripeDetails.DoesNotExist:
-      stripeUser = ""
+    print(projects)
 
     for project in projects:
       print(f'Loop: {project.id}')
@@ -43,7 +43,7 @@ def index(request):
 
       if project_sub is not None:
         print(project)
-        subActive = ProjectStripeDetails.sub_status(str(project_sub))
+        subActive = ProjectStripeDetails.sub_status(project_sub)
         if subActive == 'active':
           print(f'Project:{project}')
           project.has_subscription=True
@@ -64,7 +64,6 @@ def index(request):
       'form': form,
       'subForm': subForm,
       'projects': projects,
-      'stripeUser': stripeUser,
       'stripeProjects': stripeProjects,
     }
     return render(request, template, context)

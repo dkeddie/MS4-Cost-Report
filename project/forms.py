@@ -1,16 +1,22 @@
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div
-from dashboard.models import Project, ProjectUser
+from .models import Project, ProjectUser
 
 
-class ProjectDetailsForm(forms.ModelForm):
-  # def __init__(self, *args, **kwargs):
-    
-  #   super(ProjectDetailsForm, self).__init__(*args, **kwargs)
+class ProjectForm(forms.ModelForm):
   class Meta:
     model = Project
     fields = ['project_name', 'original_estimate']
+
+
+# class ProjectDetailsForm(forms.ModelForm):
+#   # def __init__(self, *args, **kwargs):
+    
+#   #   super(ProjectDetailsForm, self).__init__(*args, **kwargs)
+#   class Meta:
+#     model = Project
+#     fields = ['project_name', 'original_estimate']
 
 
 class ProjectUserForm(forms.ModelForm):

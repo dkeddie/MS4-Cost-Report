@@ -5,6 +5,8 @@ from django.dispatch import receiver
 
 from django_countries.fields import CountryField
 
+from payments.models import ProjectStripeDetails
+
 
 class UserProfile(models.Model):
   """User profile with extended information from  registration"""
@@ -25,11 +27,12 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
   instance.userprofile.save()
 
 
-class UserSubDetails(models.Model):
+class UserSubscriptionDetails(models.Model):
     """
     A user profile model for subscription details information
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    subscriptions =  models.ManyToManyField(ProjectStripeDetails)
     default_phone_number = models.CharField(max_length=20, null=True, blank=True)
     default_street_address1 = models.CharField(max_length=80, null=True, blank=True)
     default_street_address2 = models.CharField(max_length=80, null=True, blank=True)
@@ -40,14 +43,3 @@ class UserSubDetails(models.Model):
 
     def __str__(self):
         return self.user.username
-
-
-class UserStripeDetails(models.Model):
-  """
-  Method to store Customer ID
-  """
-  user = models.OneToOneField(User, on_delete=models.CASCADE)
-  stripe_customer_id = models.CharField(max_length=20, null=False, blank=False)
-
-  def __str___(self):
-    return self.stripe_customer_id
