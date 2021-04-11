@@ -20,7 +20,7 @@ def project_admin(request, project_id):
         'projectForm': projectForm,
         'userForm': userForm,
         'users': users,
-        'stripeUser': stripeUser.stripe_customer_id,
+        'stripeUser': stripeUser.customer_id,
     }
 
     return render(request, template, context)
