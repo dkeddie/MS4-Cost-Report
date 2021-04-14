@@ -61,7 +61,17 @@ function card(stripe_public_key, customer_email) {
             type: 'card',
             card: card,
             billing_details: {
-              email: customer_email,
+              name: $.trim(form.customer_name.value),
+              email: $.trim(form.customer_email.value),
+              phone: $.trim(form.default_phone_number.value),
+              address:{
+                line1: $.trim(form.default_street_address1.value),
+                line2: $.trim(form.default_street_address2.value),
+                city: $.trim(form.default_town_or_city.value),
+                country: $.trim(form.default_country.value),
+                state: $.trim(form.default_county.value),
+                postal_code: $.trim(form.default_postcode.value),
+              } 
             },
           }).then(function(payment_method_result){
             if (payment_method_result.error) {

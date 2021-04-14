@@ -32,20 +32,15 @@ def index(request):
     print(projects)
 
     for project in projects:
-      print(f'Loop: {project.id}')
-      
+    
       try:
         project_sub = ProjectStripeDetails.objects.get(project=project.id)
       except ObjectDoesNotExist:
         project_sub = None
 
-      print(project_sub)
-
       if project_sub is not None:
-        print(project)
         subActive = ProjectStripeDetails.sub_status(project_sub)
         if subActive == 'active':
-          print(f'Project:{project}')
           project.has_subscription=True
           project.save()
         else:

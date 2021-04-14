@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_meta %}
+
+<link rel="stylesheet" href="{% static 'payments/css/checkout.css' %}">
+
+{% endblock %}
+
+
 {% block content %}
 
 <div class="container">
@@ -9,12 +16,20 @@
       <h2 class="px-5 py-3 rounded">Home</h2>
     </div>
   </div>
+  <br>
+  <form action="{% url 'card' %}" method="POST" id="payment-form">
   <div class="row">
-    <div class="col-6 mx-auto content-box px-0" id="">
-      <h2 class="text-center mt-3">User Profile</h2>
-      <hr>
+      <div class="col-6 mx-auto content-box px-0" id="">
+        <h2 class="text-center mt-3">User Details</h2>
+        <hr>
+        <div class="col-12 px-4">
+          {% crispy form %}
+        </div>
+      </div>
+      <div class="col-6 mx-auto content-box px-0" id="">
+        <h2 class="text-center mt-3">Payment Details</h2>
+        <hr>
 
-      <form action="{% url 'card' %}" method="POST" id="payment-form">
         {% csrf_token %}
         <div class="px-4 mt-4">
           <div class="my-2 form-group" id="card-element">
@@ -28,13 +43,16 @@
           <input type="hidden" name="automatic" value="{{ automatic }}">
           <input type="hidden" name="stripe_plan_id" value="{{ stripe_plan_id }}">
           <input type="hidden" name="customer_id" value="{{ customer_id }}">
+          <input type="hidden" name="customer_name" value="{{ customer_name }}">
           <input type="hidden" name="project_id" value="{{ project_id }}">
-          <button id="checkout" class="my-3" type="submit">Subscribe</button>
-      </form>
-
+          <button id="checkout" class="my-3 btn btn-rect" type="submit">Subscribe</button>
+        </div>
+      </div>
+      
     </div>
-  </div>
+  </form>
 </div>
+
 {% endblock %}
 
 

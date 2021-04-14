@@ -64,12 +64,12 @@
       <hr>
       <table id="table-project" class="pt-0 px-2">
         <thead class=""></thead>
-          <tr>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-          </tr>
+        <tr>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+        </tr>
         </thead>
         <tbody>
           {% for project in projects %}
@@ -94,9 +94,10 @@
 
             <td class="dt-left">
               {% if project.has_subscription == False %}
-                <a class="subModal" data-id="{{ project.id }}" onclick="subModal()">Subscribe</a>
+              <!-- <a class="subModal" data-id="{{ project.id }}" onclick="subModal()">Subscribe</a> -->
+              <a href="{% url 'subscribe' project.id %}">Subscribe</a>
               {% else %}
-                <a href="{% url 'get_dashboard' project.id %}"> View</a>
+              <a href="{% url 'get_dashboard' project.id %}"> View</a>
               {% endif %}
             </td>
 
@@ -117,19 +118,27 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="new-projectModalLabel">New Project</h5>
+        <h2 class="modal-title mt-3" id="new-projectModalLabel">New Project</h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <hr>
       <div class="modal-body">
-        <form action="{% url 'create_project' %}" method="POST">
+        <form action="{% url 'create_project' %}" method="POST" onsubmit="">
           {% load crispy_forms_tags %}
           <div id="projectDetails">
-            <h5>Project Details</h5>
-            <br>
+            <h5 class="font-weight-bold">Project Details</h5>
+            <p>
+              Provide the following details to get started.
+              <br>
+              You will then be prompted to select a subscription at the next step.
+            </p>
             {% crispy form %}
-            <button type="submit" class="btn btn-rect" value="submit">Create Project</button>
+            <br>
+            <div class="col-12 text-center">
+              <button type="submit" class="btn btn-rect" value="submit">Create Project</button>
+            </div>
           </div>
         </form>
       </div>
@@ -149,18 +158,6 @@
         </button>
       </div>
       <div class="modal-body">
-        <!-- <form action="" method="POST">
-          {% load crispy_forms_tags %}
-          <div class="" id="subDetails">
-            <h5>Subscription Details</h5>
-              <br>
-            {% crispy subForm %}
-            <input class="btn btn-rect" type="submit" value="Submit">
-            <button id="checkout">Subscribe</button>
-          </div>
-        </form> -->
-
-
         <form action="{% url 'payment_method' %}" method="POST" id="payment-form">
           {% csrf_token %}
           <div class="px-4 mt-4">
@@ -190,7 +187,7 @@
             </div>
             <input type="hidden" name="projectId" value="">
             <!-- <div class="my-2 form-group" id="card-element"> -->
-              <!-- Elements will create input elements here -->
+            <!-- Elements will create input elements here -->
             <!-- </div> -->
 
             <!-- We'll put the error messages in this element -->
@@ -224,7 +221,7 @@
   function subModal() {
     $('.subModal').click(function () {
       var projectId = $(this).data('id');
-      $('input[name="projectId"]').val(projectId)      
+      $('input[name="projectId"]').val(projectId)
       $('#new-subscriptionModal').modal('show');
       // $('#new-subscriptionModal form').attr('action', post_url)
     })

@@ -3,8 +3,43 @@ from django.contrib import messages
 
 
 from .models import Project, ProjectUser, User
-from payments.models import ProjectStripeDetails
 from .forms import ProjectForm, ProjectUserForm
+
+from payments.models import ProjectStripeDetails
+
+from profile.models import UserSubscriptionDetails
+from profile.forms import UserSubscriptionDetailsForm
+
+
+def create_project(request):
+
+    subForm = UserSubscriptionDetailsForm()
+    
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.project_owner = request.user
+            project.save()
+            messages.success(request, f'{project.project_name} created')
+
+        return redirect(reverse(subscribe, args=[project.id]))
+
+
+def subscribe(request, project_id):
+
+    user = get_object_or_404(User, id=request.user.id)
+    project = get_object_or_404(Project, id=project_id)
+    subForm = UserSubscriptionDetailsForm()
+
+    template = 'payments/payment-method.html'
+    context = {
+        'user': user,
+        'project': project,
+        'form':subForm,
+    }
+
+    return render(request, template, context)
 
 
 def project_admin(request, project_id):

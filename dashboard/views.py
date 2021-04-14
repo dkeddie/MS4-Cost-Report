@@ -15,7 +15,6 @@ from project.models import Project
 # from profile.models import UserSubscriptionDetails
 
 from .forms import ChangeForm, ChangeAttachmentsForm
-from project.forms import ProjectForm
 
 import stripe
 import json
@@ -24,27 +23,6 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 register = template.Library()
-
-
-
-
-def create_project(request):
-  
-  if request.method == 'POST':
-    form = ProjectForm(request.POST)
-    if form.is_valid():
-      project = form.save(commit=False)
-      project.project_owner = request.user
-      project.save()
-      messages.success(request, f'{project.project_name} created')
-
-    context = {
-      'project': project,
-    }
-
-    return redirect(reverse('home'))
-
-
 
 
 def get_dashboard(request, project_id):
