@@ -11,9 +11,21 @@
   </div>
   <div class="row">
     <div class="col-6 mx-auto content-box px-0" id="">
-      <h2 class="text-center mt-3">Subscription</h2>
+      <h2 class="text-center mt-3">Subscription Confirmed</h2>
       <hr>
-      <p>Thank you for your payment</p>
+      <div class="row">
+        <div class="col-12 my-5 text-center">
+          <p>Congratulations, you are now subscribed and can start using <strong>Cost Report</strong> to track the changes of {{
+            project.project_name }}</p>
+          <br>
+          <p>A receipt of this subscription has been emailed to <strong>{{ customer_email }}</strong></p>
+          <br>
+          <p>You can view and edit this subscription in the Project Admin panel, or click <a
+              href="{% url 'project_admin' project_id %}"><strong>here</strong></a> to go there now</p>
+          <br>
+          <p>You will shortly be re-directed back to the <a href="{% url 'home' %}"></a> page</p>
+        </div>
+      </div>
 
 
     </div>
@@ -23,11 +35,32 @@
 {% block postloadjs %}
 {{ block.super }}
 
-<script src="{% static 'payments/js/checkout.js' %}"></script>
-
 <script>
-  card('{{STRIPE_PUBLIC_KEY}}', '{{customer_email}}')
+
+  // Confirmation of Details before Card Payment
+
+  var plan_id = $('input[name="stripe_plan_id"]').val()
+  var plan_name = ""
+
+  if (plan_id = "price_1IakCVLti2F8BZ1vMCS0D56C") {
+    plan_name = "Daily @ £1 per day"
+  } else if (plan_id = "price_1IakBnLti2F8BZ1vmf00rG9b") {
+    plan_name = "Monthly @ £10 per month"
+  } else {
+    plan_name = "Yearly @ £100 per year"
+  }
+  $('input[name="subscription"]').val(plan_name)
+
+
+  // Redirect after 10 seconds
+
+  var delay = 5000
+  setTimeout(() => {
+    window.location = "{% url 'home' %}"
+  }, delay);
+
 </script>
+
 
 {% endblock %}
 

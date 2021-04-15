@@ -46,11 +46,11 @@
         <div class="px-2">
           <div class="col form-group">
             <label for="priceId">Subscription Plan</label>
-            <input type="hidden" id="priceId" name="priceId" value="">
+            <input type="hidden" id="priceId" name="priceId" value="price_1IakCVLti2F8BZ1vMCS0D56C">
             <div class="col-12 text-center mt-2">
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
                 <!-- Daily -->
-                <label class="btn btn-wide btn-secondary active">
+                <label class="btn btn-wide btn-secondary">
                   <input type="radio" name="price" id="option1" autocomplete="off"
                     value="price_1IakCVLti2F8BZ1vMCS0D56C">
                   Daily<br>£1
@@ -72,14 +72,6 @@
           </div>
         </div>
 
-        <!-- <div class="col-12 form-group">
-          <select name="priceId" id="priceId" class="custom-select">
-            <option selected>Select Subscription Plan</option>
-            <option value="price_1IakCVLti2F8BZ1vMCS0D56C">Daily</option>
-            <option value="price_1IakBnLti2F8BZ1vmf00rG9b">Monthly</option>
-            <option value="price_1IakBnLti2F8BZ1vOZwv6Hse">Yearly</option>
-          </select>
-        </div> -->
         <input type="hidden" name="projectId" value="{{project.id}}">
         <div class="col-12 text-center">
           <button id="checkout" class="my-3 btn btn-rect" type="submit">Subscribe</button>
@@ -98,6 +90,11 @@
 {{ block.super }}
 
 <script>
+
+  $(window).ready(function() {
+    $('#option1').focus()
+  })
+
   $('.btn-wide').click(function () {
     var x = $(this).children().val()
     $('#priceId').val(x)

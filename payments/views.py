@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from profile.models import UserSubscriptionDetails
 from profile.forms import UserSubscriptionDetailsForm
 
+from project.models import Project
 
 import stripe
 
@@ -143,7 +144,15 @@ def card(request):
             payment_method=payment_method_id
         )
 
-    return render(request, 'payments/thank_you.html')
+    project = get_object_or_404(Project, pk=project_id)
+
+    context = {
+        'project': project,
+        'project_id': project_id,
+        'customer_email': request.POST.get('customer_email', ''),
+    }
+
+    return render(request, 'payments/thank_you.html', context)
 
 
 @require_POST
