@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'payments/css/checkout.css' %}">
+<!-- <link rel="stylesheet" href="{% static 'payments/css/checkout.css' %}"> -->
+<link rel="stylesheet" href="{% static 'home/css/home.css' %}">
 {% endblock%}
 
 {% block page_header %}
@@ -62,45 +63,25 @@
     <div class="col-6 mx-auto content-box px-0" id="user-profile">
       <h2 class="text-center mt-3">Projects</h2>
       <hr>
-      <table id="table-project" class="pt-0 px-2">
-        <thead class=""></thead>
+      <table id="table-project" class="pt-0 px-3">
+        <thead class="d-none">
         <tr>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
+          <th>Project</th>
+          <th>Buttons</th>
         </tr>
         </thead>
         <tbody>
           {% for project in projects %}
           <tr>
-            <td>{{ project.project_name }}</td>
-
-            <td class="dt-right">
+            <td class="truncate_project">{{ project.project_name }}</td>
+            <td class="text-nowrap">
               {% if project.has_subscription == False %}
-              &nbsp;
+              <a class="btn btn-sm btn-dark float-right" href="{% url 'subscribe' project.id %}">Subscribe</a>
               {% else %}
-              <a href="{% url 'project_admin' project.id %}">Admin</a>
+              <a class="btn btn-sm btn-dark" href="{% url 'project_admin' project.id %}">Admin</a>
+              <a class="btn btn-sm btn-dark" href="{% url 'get_dashboard' project.id %}"> View</a>
               {% endif %}
             </td>
-
-            <td class="dt-center">
-              {% if project.has_subscription == False %}
-              &nbsp;
-              {% else %}
-              |
-              {% endif %}
-            </td>
-
-            <td class="dt-left">
-              {% if project.has_subscription == False %}
-              <!-- <a class="subModal" data-id="{{ project.id }}" onclick="subModal()">Subscribe</a> -->
-              <a href="{% url 'subscribe' project.id %}">Subscribe</a>
-              {% else %}
-              <a href="{% url 'get_dashboard' project.id %}"> View</a>
-              {% endif %}
-            </td>
-
           </tr>
           {% endfor %}
         </tbody>
