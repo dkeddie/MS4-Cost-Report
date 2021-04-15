@@ -52,6 +52,10 @@ function card(stripe_public_key, customer_email) {
     form.addEventListener('submit', function(event) {
       event.preventDefault();
 
+      // Added steps to prevent double click 
+      $('#checkout').prop('disabled', true)
+      $('#card-element-errors').text("Payment in process... please be patient")
+
       stripe.createToken(card).then(function(result){
         if(result.error) {
           var errorElement = document.getElementById('card-element-errors');
@@ -96,4 +100,21 @@ function card(stripe_public_key, customer_email) {
 
   })
 }
+
+
+// Confirmation of Details before Card Payment
+
+var plan_id = $('input[name="stripe_plan_id"]').val()
+var plan_name = ""
+
+if (plan_id = "price_1IakCVLti2F8BZ1vMCS0D56C") {
+  plan_name = "Daily @ £1 per day"
+} else if (plan_id = "price_1IakBnLti2F8BZ1vmf00rG9b") {
+  plan_name = "Monthly @ £10 per month"
+} else {
+  plan_name = "Yearly @ £100 per year"
+}
+$('input[name="subscription"]').val(plan_name)
+
+
 

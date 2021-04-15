@@ -15,7 +15,6 @@ import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-@require_POST
 def payment_method(request):
     customer_email = request.POST.get('emailSub', '')
     customer_name = request.POST.get('nameSub', '')

@@ -33,13 +33,13 @@ class UserSubscriptionDetails(models.Model):
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     subscriptions =  models.ManyToManyField(ProjectStripeDetails)
-    default_phone_number = models.CharField(max_length=20, null=True, blank=True)
-    default_street_address1 = models.CharField(max_length=80, null=True, blank=True)
-    default_street_address2 = models.CharField(max_length=80, null=True, blank=True)
-    default_town_or_city = models.CharField(max_length=40, null=True, blank=True)
-    default_county = models.CharField(max_length=80, null=True, blank=True)
-    default_postcode = models.CharField(max_length=20, null=True, blank=True)
-    default_country = CountryField(blank_label="Country", null=True, blank=True)
+    default_phone_number = models.CharField("Phone Number", max_length=20, null=True, blank=True)
+    default_street_address1 = models.CharField("Street Address 1", max_length=80, null=True, blank=True)
+    default_street_address2 = models.CharField("Street Address 2", max_length=80, null=True, blank=True)
+    default_town_or_city = models.CharField("Town/City", max_length=40, null=True, blank=True)
+    default_county = models.CharField("County", max_length=80, null=True, blank=True)
+    default_postcode = models.CharField("Post Cost", max_length=20, null=True, blank=True)
+    default_country = CountryField("Country", blank_label="Country", null=True, blank=True)
 
     def __str__(self):
         return self.user.username
