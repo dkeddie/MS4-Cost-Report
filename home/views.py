@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
+from django.contrib.auth.models import User
 from profile.models import UserProfile
 from profile.forms import UserSubscriptionDetailsForm
 
@@ -16,51 +18,64 @@ import stripe
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
-
+@login_required
 def index(request):
-  """ A view to return the index page """
-  user = request.user
+    """ A view to return the index page """
+    user = request.user
 
-  if request.user.is_authenticated:
-    registration = user
-    profile = get_object_or_404(UserProfile, user=user)
-    form = ProjectForm()
-    subForm = UserSubscriptionDetailsForm()
-    projects = Project.objects.filter(project_owner_id=user.id)
-    stripeProjects = ProjectStripeDetails.objects.filter(project__in=projects)
+    if request.POST:
+        firstname = request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        email = request.POST.get('email')
+        company = request.POST.get('company')
 
-    print(projects)
+        update1 = User.objects.filter(pk=user.id)
+        print(update1)
+        update1.update(
+            first_name=firstname, last_name=lastname, email=email)
+        UserProfile.objects.filter(pk=user.id).update(company=company)
 
-    for project in projects:
-    
-      try:
-        project_sub = ProjectStripeDetails.objects.get(project=project.id)
-      except ObjectDoesNotExist:
-        project_sub = None
+        return redirect('home')
 
-      if project_sub is not None:
-        subActive = ProjectStripeDetails.sub_status(project_sub)
-        if subActive == 'active':
-          project.has_subscription=True
-          project.save()
-        else:
-          project.has_subscription=False
-          project.save
+    else:
+        registration = user
+        profile = get_object_or_404(UserProfile, user=user)
+        form = ProjectForm()
+        subForm = UserSubscriptionDetailsForm()
+        projects = Project.objects.filter(project_owner_id=user.id)
+        stripeProjects = ProjectStripeDetails.objects.filter(
+            project__in=projects)
 
-      else:
-        project.has_subscription=False
-        project.save()
+        for project in projects:
 
+            try:
+                project_sub = ProjectStripeDetails.objects.get(
+                    project=project.id)
+            except ObjectDoesNotExist:
+                project_sub = None
 
-    template = 'home/index.html'
-    context = {
-      'registration': registration,
-      'profile': profile,
-      'form': form,
-      'subForm': subForm,
-      'projects': projects,
-      'stripeProjects': stripeProjects,
-    }
-    return render(request, template, context)
+            if project_sub is not None:
+                subActive = ProjectStripeDetails.sub_status(project_sub)
+                if subActive == 'active':
+                    project.has_subscription = True
+                    project.save()
+                else:
+                    project.has_subscription = False
+                    project.save
 
-  return redirect('/accounts/login/')
+            else:
+                project.has_subscription = False
+                project.save()
+
+        template = 'home/index.html'
+        context = {
+            'registration': registration,
+            'profile': profile,
+            'form': form,
+            'subForm': subForm,
+            'projects': projects,
+            'stripeProjects': stripeProjects,
+        }
+        return render(request, template, context)
+
+    return redirect('/accounts/login/')

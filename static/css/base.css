@@ -106,6 +106,12 @@ letter-spacing: 0.1rem;
   letter-spacing: 0.1rem;
 }
 
+.form-control:read-only {
+  background-color: rgb(224, 224, 224);
+  color: rgb(111, 111, 111);
+  pointer-events: none;
+}
+
 .form-control:focus {
   background-color: rgb(224, 224, 224);
   border: none;

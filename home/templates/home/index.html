@@ -25,29 +25,30 @@
     <div class="col-6 mx-auto content-box px-0" id="user-profile">
       <h2 class="text-center mt-3">User Profile</h2>
       <hr>
-      <form class="px-4 mt-4">
+      <form class="px-4 mt-4" method="POST" action="{% url 'home' %}">
+        {% csrf_token %}
         <div class="row mt-2">
           <div class="col-6 form-group">
             <label for="firstname">First Name</label>
-            <input type="text" class="form-control" id="firstname" value="{{ registration.first_name }}"
+            <input type="text" class="form-control" name="firstname" id="firstname" value="{{ registration.first_name }}"
               readonly="readonly">
           </div>
           <div class="col-6 form-group">
             <label for="lastname">Last Name</label>
-            <input type="text" class="form-control" id="lastname" value="{{ registration.last_name }}"
+            <input type="text" class="form-control" name="lastname" id="lastname" value="{{ registration.last_name }}"
               readonly="readonly">
           </div>
         </div>
         <div class="row mt-2">
           <div class="col-9 form-group">
             <label for="email">Email Address</label>
-            <input type="email" class="form-control" id="email" value="{{ registration.email }}" readonly="readonly">
+            <input type="email" class="form-control" name="email" id="email" value="{{ registration.email }}" readonly="readonly">
           </div>
         </div>
         <div class="row mt-2">
           <div class="col-9 form-group">
             <label for="company">Company</label>
-            <input type="company" class="form-control" id="company" value="{{ profile.company }}" readonly="readonly">
+            <input type="text" class="form-control" name="company" id="company" value="{{ profile.company }}" readonly="readonly">
           </div>
         </div>
         <div class="btn-right-align">
@@ -65,10 +66,10 @@
       <hr>
       <table id="table-project" class="pt-0 px-3">
         <thead class="d-none">
-        <tr>
-          <th>Project</th>
-          <th>Buttons</th>
-        </tr>
+          <tr>
+            <th>Project</th>
+            <th>Buttons</th>
+          </tr>
         </thead>
         <tbody>
           {% for project in projects %}
@@ -128,7 +129,7 @@
 </div>
 
 <!-- Modal to Create Subscription for Project -->
-<div class="modal fade" id="new-subscriptionModal" tabindex="-1" aria-labelledby="new-subscriptionModalLabel"
+<!-- <div class="modal fade" id="new-subscriptionModal" tabindex="-1" aria-labelledby="new-subscriptionModalLabel"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -166,32 +167,32 @@
                 </select>
               </div>
             </div>
-            <input type="hidden" name="projectId" value="">
-            <!-- <div class="my-2 form-group" id="card-element"> -->
-            <!-- Elements will create input elements here -->
-            <!-- </div> -->
+            <input type="hidden" name="projectId" value=""> -->
+<!-- <div class="my-2 form-group" id="card-element"> -->
+<!-- Elements will create input elements here -->
+<!-- </div> -->
 
-            <!-- We'll put the error messages in this element -->
-            <!-- <div class="my-2" id="card-element-errors" role="alert"></div> -->
-            <button id="checkout" class="my-3" type="submit">Subscribe</button>
+<!-- We'll put the error messages in this element -->
+<!-- <div class="my-2" id="card-element-errors" role="alert"></div> -->
+<!-- <button id="checkout" class="my-3" type="submit">Subscribe</button>
         </form>
-      </div>
+      </div> -->
 
-      <!-- <div class="col-6">
+<!-- <div class="col-6">
               <button></button>
             </div> -->
 
-      <!-- <button type="submit" class="btn btn-icon float-right submit-button d-none">
+<!-- <button type="submit" class="btn btn-icon float-right submit-button d-none">
           <span class="material-icons-outlined">send</span>
         </button> -->
 
 
 
 
-    </div>
-  </div>
+<!-- </div>
 </div>
 </div>
+</div> -->
 
 {% endblock %}
 
@@ -207,8 +208,15 @@
       // $('#new-subscriptionModal form').attr('action', post_url)
     })
   }
+
+  function enableEdit() {
+    $('input[readonly]').prop('readonly', false);
+    $('.enable-edit').addClass('d-none');
+    $('.submit-button').removeClass('d-none');
+  }
+
 </script>
 
-<script src="{% static 'payments/js/checkout.js' %}"></script>
+<!-- <script src="{% static 'payments/js/checkout.js' %}"></script> -->
 
 {% endblock %}
