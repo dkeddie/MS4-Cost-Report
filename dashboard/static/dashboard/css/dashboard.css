@@ -1,0 +1,46 @@
+
+
+/* <---------- DASHBOARD ----------> */
+
+.vert-line {
+  position: absolute;
+  height: 450px;
+  width: 2px;
+  top: 80px;
+  left: 66.667%;
+  border: 2px solid #fff;
+}
+
+.C-accepted {
+  color: green;
+}
+
+.C-pending, .C-wip {
+  color: orange;
+}
+
+.C-rejected {
+  color: grey;
+}
+
+.T-sub h5, .T-total h5 {
+  font-weight: 600;
+}
+
+
+/* <---------- LIST OF CHANGES ----------> */
+
+#table-changes_info {
+  font-size: 0.8rem;
+}
+
+#table-changes tbody tr:hover {
+  background-color: grey !important;
+}
+
+.margin-up {
+  margin-top: -8px;
+  cursor: pointer;
+}
+
+

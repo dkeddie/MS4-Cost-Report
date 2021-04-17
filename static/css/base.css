@@ -6,7 +6,7 @@ letter-spacing: 0.1rem;
 }
 
 #main-nav {
-  height: 100px;
+  height: 150px;
   background-color: #000;
 }
 
@@ -29,7 +29,7 @@ letter-spacing: 0.1rem;
 }
 
 .header-container {
-  padding-top: 100px;
+  height: 150px;
 }
 
 .message-container {
@@ -109,7 +109,6 @@ letter-spacing: 0.1rem;
 .form-control:read-only {
   background-color: rgb(224, 224, 224);
   color: rgb(111, 111, 111);
-  pointer-events: none;
 }
 
 .form-control:focus {
@@ -170,6 +169,26 @@ letter-spacing: 0.1rem;
   margin-top: 10px;
 }
 
+.btn-icon-small {
+  font-family: 'Material Icons';
+  font-size: 1.5rem;
+  border-radius: 50%;
+  border: grey;
+  background-color: grey;
+  color: #fff;
+}
+
+.btn-icon-small:hover {
+  cursor: pointer;
+  background-color: #000;
+}
+
+.btn-top-right {
+  position: absolute;
+  right: 25px;
+  top: 20px;
+}
+
 .bttm-break {
   display: block;
   height: 50px;
@@ -228,70 +247,6 @@ td a:hover {
   font-weight: 600;
   text-decoration: none;
 }
-
-/* <---------- DASHBOARD ----------> */
-
-.vert-line {
-  position: absolute;
-  height: 450px;
-  width: 2px;
-  top: 80px;
-  left: calc(500px*0.66);
-  border: 2px solid #fff;
-}
-
-.C-accepted {
-  color: green;
-}
-
-.C-pending, .C-wip {
-  color: orange;
-}
-
-.C-rejected {
-  color: grey;
-}
-
-.T-sub h5, .T-total h5 {
-  font-weight: 600;
-}
-
-
-/* <---------- LIST OF CHANGES ----------> */
-
-.btn-icon-small {
-  font-family: 'Material Icons';
-  font-size: 1.5rem;
-  border-radius: 50%;
-  border: grey;
-  background-color: grey;
-  color: #fff;
-}
-
-.btn-icon-small:hover {
-  cursor: pointer;
-  background-color: #000;
-}
-
-.btn-top-right {
-  position: absolute;
-  right: 25px;
-  top: 20px;
-}
-
-#table-changes_info {
-  font-size: 0.8rem;
-}
-
-#table-changes tbody tr:hover {
-  background-color: grey !important;
-}
-
-.margin-up {
-  margin-top: -8px;
-  cursor: pointer;
-}
-
 
 /* <----------- Projects Table ----------> */
 

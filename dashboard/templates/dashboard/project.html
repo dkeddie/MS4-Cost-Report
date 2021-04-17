@@ -2,6 +2,10 @@
 {% load static %}
 {% load dashboard_tags %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}">
+{% endblock%}
+
 
 {% block page_header %}
 <div class="container header-container">
@@ -18,12 +22,40 @@
       <h2 class="px-5 py-3 rounded">{{ project.project_name }}</h2>
     </div>
   </div>
-  <div class="row">
-    <div class="col-6 mx-auto content-box px-0" id="user-profile">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-6 m-2 content-box px-0" id="user-profile">
+      <h2 class="text-center mt-3">Dashboard</h2>
+      <hr>
+      <div class="vert-line"></div>
+      
+      <div class="row">
+        <div class="col-8 d-flex flex-column align-items-end">
+          <h5 class="mr-4 my-3">Original Estimate</h5>
+          <h5 class="mr-4 my-3 C-accepted">Accepted Changes</h5>
+          <h5 class="mr-4 my-3 T-sub">Sub-total</h5>
+          <h5 class="mr-4 my-3 C-pending">Pending Changes</h5>
+          <h5 class="mr-4 my-3 C-wip">Work in Progress</h5>
+          <h5 class="mr-4 my-3 T-total">TOTAL</h5>
+          <h5 class="mr-4 my-3 C-rejected">Rejected Changes</h5>
+        </div>
+        <div class="col-4 d-flex flex-column">
+          <h5 class="mr-4 my-3">£ {{ original_estimate|floatformat:"0" }}</h5>
+          <h5 class="mr-4 my-3 C-accepted">£ {{ accepted_changes|floatformat:"0" }}</h5>
+          <h5 class="mr-4 my-3 T-sub">£ {{ subtotal|floatformat:"0" }}</h5>
+          <h5 class="mr-4 my-3 C-pending">£ {{ pending_changes|floatformat:"0" }}</h5>
+          <h5 class="mr-4 my-3 C-wip">£ {{ wip_changes|floatformat:"0" }}</h5>
+          <h5 class="mr-4 my-3 T-total">£ {{ total|floatformat:"0" }}</h5>
+          <h5 class="mr-4 my-3 C-rejected">£ {{ rejected_changes|floatformat:"0" }}</h5>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="col-12 col-lg-6 m-2 content-box px-0" id="user-profile">
       <h2 class="text-center mt-3">Dashboard</h2>
       <hr>
       <div class="vert-line"></div>
       <br>
+      
       <div class="row mb-3">
         <div class="col-8">
           <h5 class="float-right mr-4">Original Estimate</h5>
@@ -80,12 +112,12 @@
           <h5 class="float-right mr-4">£ {{ rejected_changes|floatformat:"0" }}</h4>
         </div>
       </div>
-    </div>
-    <div class="col-6 mx-auto content-box px-0" id="list-of-changes">
+    </div> -->
+    <div class="col-12 col-lg-6 m-2 content-box px-0" id="list-of-changes">
       <h2 class="text-center mt-3">List of Changes</h2>
       <hr>
       <div class="margin-up mx-2">
-        <table id="table-changes" class="compact hover">
+        <table id="table-changes" class="compact hover" style="width:100%">
           <thead class="">
             <tr>
               <th>Change</th>
@@ -185,7 +217,7 @@
 
   }); -->
 
-  <script>
+<script>
   $('tr').click(function () {
     var change_id = $(this).children('.change_id_select').text()
     window.location.href = `/dashboard/edit_change/${change_id}/`

@@ -21,32 +21,32 @@
       <h2 class="px-5 py-3 rounded">Home</h2>
     </div>
   </div>
-  <div class="row">
-    <div class="col-6 mx-auto content-box px-0" id="user-profile">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-6 m-2 content-box px-0" id="user-profile">
       <h2 class="text-center mt-3">User Profile</h2>
       <hr>
       <form class="px-4 mt-4" method="POST" action="{% url 'home' %}">
         {% csrf_token %}
         <div class="row mt-2">
-          <div class="col-6 form-group">
+          <div class="col-12 col-md-6 form-group">
             <label for="firstname">First Name</label>
             <input type="text" class="form-control" name="firstname" id="firstname" value="{{ registration.first_name }}"
               readonly="readonly">
           </div>
-          <div class="col-6 form-group">
+          <div class="col-12 col-md-6 form-group">
             <label for="lastname">Last Name</label>
             <input type="text" class="form-control" name="lastname" id="lastname" value="{{ registration.last_name }}"
               readonly="readonly">
           </div>
         </div>
         <div class="row mt-2">
-          <div class="col-9 form-group">
+          <div class="col-12 col-md-9 form-group">
             <label for="email">Email Address</label>
             <input type="email" class="form-control" name="email" id="email" value="{{ registration.email }}" readonly="readonly">
           </div>
         </div>
         <div class="row mt-2">
-          <div class="col-9 form-group">
+          <div class="col-12 col-md-9 form-group">
             <label for="company">Company</label>
             <input type="text" class="form-control" name="company" id="company" value="{{ profile.company }}" readonly="readonly">
           </div>
@@ -61,7 +61,7 @@
         </div>
       </form>
     </div>
-    <div class="col-6 mx-auto content-box px-0" id="user-profile">
+    <div class="col-12 col-lg-6 m-2 content-box px-0" id="user-profile">
       <h2 class="text-center mt-3">Projects</h2>
       <hr>
       <table id="table-project" class="pt-0 px-3">
