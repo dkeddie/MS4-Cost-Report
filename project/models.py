@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 
 class Project(models.Model):
-  project_name = models.CharField("Project Name", max_length=30, null=False, blank=False)
+  project_name = models.CharField("Project Name", max_length=20, null=False, blank=False)
   project_owner = models.ForeignKey(User, on_delete=models.CASCADE)
   original_estimate = models.DecimalField("Estimate/Budget", default=0, max_digits=15, decimal_places=2, null=False, blank=False)
   has_subscription = models.BooleanField(default=False, blank=True, null=True)

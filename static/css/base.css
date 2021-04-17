@@ -17,6 +17,14 @@ letter-spacing: 0.1rem;
   letter-spacing: 0.5rem;
 }
 
+#main-nav h1:hover {
+  color: grey;
+}
+
+#main-nav a {
+  text-decoration: none;
+}
+
 #main-nav .btn {
   font-family: 'Material Icons';
   font-size: 3rem;
@@ -69,7 +77,23 @@ letter-spacing: 0.1rem;
 }
 
 #sub-heading h2 {
-  background-color: grey;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 00.5rem;
+}
+
+#sub-heading .material-icons-outlined {
+  font-family: 'Material Icons';
+  font-size: 3rem;
+  color: rgb(184, 184, 184);
+}
+
+#sub-heading .material-icons-outlined:hover {
+  color: grey;
+}
+
+#sub-heading a {
+  text-decoration: none;
 }
 
 .content-box {
