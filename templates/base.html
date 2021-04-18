@@ -115,6 +115,9 @@
   <script type="text/javascript">
     $(document).ready(function () {
       $('.toast').toast('show');
+      setTimeout(() => {
+        $('.toast').hide();
+      }, 3000);
     });
   </script>
 
