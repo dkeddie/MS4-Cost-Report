@@ -28,15 +28,16 @@
       <h2 class="text-center mt-3">{{ change.change_name }}</h2>
       <hr>
       <div class="col-12">
-        <form id="edit-change-form" action="{% url 'edit_change' change.id %}" method="POST" enctype="multipart/form-data">
-            {% load crispy_forms_tags %}
-            {% crispy changeForm %}
-            {% crispy attachmentsForm %}
-          </form>
-        </div>
-        <button class="btn btn-rect btn-bttm-center" type="submit" form="edit-change-form">Update</button>
-        <a href="{% url 'delete_change' change.id %}" class="btn btn-rect btn-bttm-right">Delete</a>
+        <form id="edit-change-form" action="{% url 'edit_change' change.id %}" method="POST"
+          enctype="multipart/form-data">
+          {% load crispy_forms_tags %}
+          {% crispy changeForm %}
+          {% crispy attachmentsForm %}
+        </form>
       </div>
+      <button class="btn btn-rect btn-bttm-center" type="submit" form="edit-change-form">Update</button>
+      <a href="{% url 'delete_change' change.id %}" class="btn btn-rect btn-bttm-right">Delete</a>
+    </div>
 
     <div class="col-12 col-lg-6 m-2 content-box px-0" id="list-of-attachments">
       <h2 class="text-center mt-3">Attachments</h2>
@@ -54,8 +55,15 @@
             {% for attachment in attachments %}
             <tr>
               <td>{{ attachment.attachment|filename }}</td>
-              <td class=""><a href="{{attachment.attachment.url}}" target="_blank">View</a></td>
-              <td class=""><a href="{% url 'delete_file' change.id attachment.id %}">Delete</a></td>
+              <td class=""><a class="btn btn-sm btn-dark" href="{{attachment.attachment.url}}" target="_blank">View</a>
+              </td>
+              <td class="">
+                <a class="btn btn-sm text-center" href="{% url 'delete_file' change.id attachment.id %}">
+                  <span class="material-icons">
+                    delete
+                  </span>
+                </a>
+              </td>
             </tr>
             {% endfor %}
           </tbody>
