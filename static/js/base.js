@@ -40,9 +40,9 @@ $(document).ready( function () {
   });
   $('#table-attachments').DataTable( {
     "columns": [
-      { "width": "80%" },
+      { "width": "85%" },
       { "width": "10%" },
-      { "width": "10%" },
+      { "width": "5%" },
     ],
     "lengthChange": false,
     "pageLength": 9,
