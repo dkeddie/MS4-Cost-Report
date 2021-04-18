@@ -35,8 +35,10 @@
           {% crispy attachmentsForm %}
         </form>
       </div>
-      <button class="btn btn-rect btn-bttm-center" type="submit" form="edit-change-form">Update</button>
-      <a href="{% url 'delete_change' change.id %}" class="btn btn-rect btn-bttm-right">Delete</a>
+      <div class="btn-bttm-center">
+        <button class="btn btn-rect mx-2" type="submit" form="edit-change-form">Update</button>
+        <a href="{% url 'delete_change' change.id %}" class="btn btn-rect mx-2">Delete</a>
+      </div>
     </div>
 
     <div class="col-12 col-lg-6 m-2 content-box px-0" id="list-of-attachments">
