@@ -1,12 +1,12 @@
 body {
-color: #000 !important;
-font-family: 'Montserrat', sans-serif;
-font-size: 1rem;
-letter-spacing: 0.1rem;
+  color: #000 !important;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
 }
 
 #main-nav {
-  height: 150px;
+  min-height: 150px;
   background-color: #000;
 }
 
@@ -26,7 +26,7 @@ letter-spacing: 0.1rem;
 }
 
 #main-nav .btn {
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-size: 3rem;
   background-color: #000;
   color: #fff;
@@ -73,7 +73,7 @@ letter-spacing: 0.1rem;
 /* ---------- APPS - GENERIC STYLING ---------- */
 
 #sub-heading {
-  height: 125px;
+  min-height: 125px;
 }
 
 #sub-heading h2 {
@@ -82,8 +82,14 @@ letter-spacing: 0.1rem;
   letter-spacing: 00.5rem;
 }
 
+@media only screen and (max-width: 576px){
+  #sub-heading h2 {
+    font-size: 2rem;
+  }
+}
+
 #sub-heading .material-icons-outlined {
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-size: 3rem;
   color: rgb(184, 184, 184);
 }
@@ -143,7 +149,7 @@ letter-spacing: 0.1rem;
 }
 
 .btn-icon {
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-size: 1.5rem;
   border-radius: 50%;
   background-color: #000;
@@ -170,7 +176,7 @@ letter-spacing: 0.1rem;
 .btn-bttm-center {
   position: absolute;
   left: 50%;
-  transform: translate(-50%,0);
+  transform: translate(-50%, 0);
   bottom: 15px;
   margin-top: 10px;
 }
@@ -179,7 +185,7 @@ letter-spacing: 0.1rem;
   min-width: 96px;
   position: absolute;
   left: 25%;
-  transform: translate(-50%,0);
+  transform: translate(-50%, 0);
   bottom: 15px;
   margin-top: 10px;
 }
@@ -188,13 +194,13 @@ letter-spacing: 0.1rem;
   min-width: 96px;
   position: absolute;
   left: 75%;
-  transform: translate(-50%,0);
+  transform: translate(-50%, 0);
   bottom: 15px;
   margin-top: 10px;
 }
 
 .btn-icon-small {
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-size: 1.5rem;
   border-radius: 50%;
   border: grey;
@@ -224,7 +230,7 @@ letter-spacing: 0.1rem;
   background-color: rgb(224, 224, 224);
 }
 
-.modal-content>hr {
+.modal-content > hr {
   width: 100%;
   border-top: 4px solid #fff !important;
 }
@@ -280,9 +286,8 @@ td a:hover {
 }
 
 #table-project tbody td:last-child {
-  width: 10%
+  width: 10%;
 }
-
 
 /* <----------Edit Change Form ----------> */
 

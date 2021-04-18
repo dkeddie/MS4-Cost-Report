@@ -19,40 +19,73 @@
 <div class="container">
   <div class="row align-items-center" id="sub-heading">
     <div class="d-inline-flex mx-auto">
-      <a href="{% url 'home' %}" class="my-auto">
+      <a href="{% url 'home' %}" class="my-auto mx-2">
         <span class="material-icons-outlined">
           undo
         </span>
       </a>
-      <h2 class="px-5 py-3 rounded">{{ project.project_name }}</h2>
+      <h2 class="my-3 text-center">{{ project.project_name }}</h2>
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-12 col-lg-6 m-2 content-box px-0" id="user-profile">
+    <div class="col-12 col-lg-6 m-2 content-box px-0" id="dashboard">
       <h2 class="text-center mt-3">Dashboard</h2>
       <hr>
-      <div class="vert-line"></div>
+      <div class="d-none d-sm-block vert-line"></div>
 
-      <div class="row">
-        <div class="col-8 d-flex flex-column align-items-end">
-          <h5 class="mr-4 my-3">Original Estimate</h5>
-          <h5 class="mr-4 my-3 C-accepted">Accepted Changes</h5>
-          <h5 class="mr-4 my-3 T-sub">Sub-total</h5>
-          <h5 class="mr-4 my-3 C-pending">Pending Changes</h5>
-          <h5 class="mr-4 my-3 C-wip">Work in Progress</h5>
-          <h5 class="mr-4 my-3 T-total">TOTAL</h5>
-          <h5 class="mr-4 my-3 C-rejected">Rejected Changes</h5>
+      <div class="row d-none d-sm-flex dashboard-content">
+        <div class="col-sm-8 d-flex flex-column align-items-end">
+          <h5 class="mr-4 my-3 text-nowrap">Original Estimate</h5>
+          <h5 class="mr-4 my-3 C-accepted text-nowrap">Accepted Changes</h5>
+          <h5 class="mr-4 my-3 T-sub text-nowrap">Sub-total</h5>
+          <h5 class="mr-4 my-3 C-pending text-nowrap">Pending Changes</h5>
+          <h5 class="mr-4 my-3 C-wip text-nowrap">Work in Progress</h5>
+          <h5 class="mr-4 my-3 T-total text-nowrap">TOTAL</h5>
+          <h5 class="mr-4 my-3 C-rejected text-nowrap">Rejected Changes</h5>
         </div>
-        <div class="col-4 d-flex flex-column">
-          <h5 class="mr-4 my-3">£ {{ original_estimate|floatformat:"0" }}</h5>
-          <h5 class="mr-4 my-3 C-accepted">£ {{ accepted_changes|floatformat:"0" }}</h5>
-          <h5 class="mr-4 my-3 T-sub">£ {{ subtotal|floatformat:"0" }}</h5>
-          <h5 class="mr-4 my-3 C-pending">£ {{ pending_changes|floatformat:"0" }}</h5>
-          <h5 class="mr-4 my-3 C-wip">£ {{ wip_changes|floatformat:"0" }}</h5>
-          <h5 class="mr-4 my-3 T-total">£ {{ total|floatformat:"0" }}</h5>
-          <h5 class="mr-4 my-3 C-rejected">£ {{ rejected_changes|floatformat:"0" }}</h5>
+        <div class="col-sm-4 d-flex flex-column">
+          <h5 class="mr-4 my-3 text-nowrap">£ {{ original_estimate|floatformat:"0" }}</h5>
+          <h5 class="mr-4 my-3 C-accepted text-nowrap">£ {{ accepted_changes|floatformat:"0" }}</h5>
+          <h5 class="mr-4 my-3 T-sub text-nowrap">£ {{ subtotal|floatformat:"0" }}</h5>
+          <h5 class="mr-4 my-3 C-pending text-nowrap">£ {{ pending_changes|floatformat:"0" }}</h5>
+          <h5 class="mr-4 my-3 C-wip text-nowrap">£ {{ wip_changes|floatformat:"0" }}</h5>
+          <h5 class="mr-4 my-3 T-total text-nowrap">£ {{ total|floatformat:"0" }}</h5>
+          <h5 class="mr-4 my-3 C-rejected text-nowrap">£ {{ rejected_changes|floatformat:"0" }}</h5>
         </div>
       </div>
+      <div class="row d-inline d-sm-none dashboard-content">
+        <div class="col-12 d-flex flex-column">
+
+          <h5 class="mt-3 text-nowrap">Original Estimate</h5>
+          <h5 class="ml-auto mr-3 mb-3 text-nowrap">£ {{ original_estimate|floatformat:"0" }}</h5>
+          <div class="dash-line"></div>
+
+          <h5 class="mt-3 C-accepted text-nowrap">Accepted Changes</h5>
+          <h5 class="ml-auto mr-3 mb-3 C-accepted text-nowrap">£ {{ accepted_changes|floatformat:"0" }}</h5>
+          <div class="dash-line"></div>
+          
+          <h5 class="mt-3 T-sub text-nowrap">Sub-total</h5>
+          <h5 class="ml-auto mr-3 mb-3 T-sub text-nowrap">£ {{ subtotal|floatformat:"0" }}</h5>
+          <div class="dash-line"></div>
+          
+          <h5 class="mt-3 C-pending text-nowrap">Pending Changes</h5>
+          <h5 class="ml-auto mr-3 mb-3 C-pending text-nowrap">£ {{ pending_changes|floatformat:"0" }}</h5>
+          <div class="dash-line"></div>
+          
+          <h5 class="mt-3 C-wip text-nowrap">Work in Progress</h5>
+          <h5 class="ml-auto mr-3 mb-3 C-wip text-nowrap">£ {{ wip_changes|floatformat:"0" }}</h5>
+          <div class="dash-line"></div>
+          
+          <h5 class="mt-3 T-total text-nowrap">TOTAL</h5>
+          <h5 class="ml-auto mr-3 mb-3 T-total text-nowrap">£ {{ total|floatformat:"0" }}</h5>
+          <div class="dash-line"></div>
+          
+          <h5 class="mt-3 C-rejected text-nowrap">Rejected Changes</h5>
+          <h5 class="ml-auto mr-3 mb-3 C-rejected text-nowrap">£ {{ rejected_changes|floatformat:"0" }}</h5>
+
+        </div>
+      </div>
+
     </div>
 
     <!-- <div class="col-12 col-lg-6 m-2 content-box px-0" id="user-profile">

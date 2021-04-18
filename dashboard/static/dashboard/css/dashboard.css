@@ -23,8 +23,13 @@
   color: grey;
 }
 
-.T-sub h5, .T-total h5 {
+.T-sub, .T-total {
   font-weight: 600;
+}
+
+.dash-line {
+  width: 100%;
+  border-top: 1px solid grey;
 }
 
 
