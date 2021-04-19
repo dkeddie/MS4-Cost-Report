@@ -54,19 +54,19 @@
       <h2 class="text-center mt-3">Users</h2>
       <hr>
       <div class="margin-up mx-2">
-        <table id="table-users" class="pt-5 px-2">
-          <thead class="d-none">
+        <table id="table-users" class="pt-2 px-2">
+          <thead class="">
             <tr>
-              <th>Users</th>
-              <th>Delete</th>
+              <th>User <small>(Permission)</small></th>
+              <th>&nbsp;</th>
             </tr>
           </thead>
           <tbody>
             {% for user in users %}
             <tr>
-              <td>{{ user.project_user }} <span>({{user.user_permission}} permission)</span></td>
+              <td>{{ user.project_user.email }} <small>({{user.user_permission}})</small></td>
               <td class="dt-right">
-                <a href="{% url 'delete_user' user.project_user_id %}">Remove User</a>
+                <button type="button" class="btn btn-sm btn-dark" data-toggle="modal" data-user="{{user.project_user}}" data-target="#remove-userModal" data-url="{% url 'delete_user' user.project_user_id %}">Remove</button>
               </td>
             </tr>
             {% endfor %}
@@ -103,9 +103,47 @@
   </div>
 </div>
 
+<!-- Modal to REMOVE USER PERMANENTLY -->
+<div class="modal fade py-auto" id="remove-userModal" tabindex="-1" role="dialog" aria-labelledby="remove-userLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="remove-userModal">Delete Change</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <hr class="my-0">
+      <div class="modal-body">
+        <h5 class="">Confirm to remove <strong></strong> from access to this Project.</h5>
+        <h5 class="mt-3">
+          The User can be added again in the future should they need access again.
+        </h5>
+      </div>
+      <hr class="my-0">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="" class="btn btn-danger mx-2">Confirm</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 {% endblock %}
 
 {% block postloadjs %}
 {{ block.super }}
+
+<script>
+
+  $('#table-users button').click(function() {
+    var x = $(this).attr('data-url')
+    var y = $(this).attr('data-user')
+    $('#remove-userModal a').attr('href', x)
+    $('#remove-userModal h5 strong').text(y)
+  })
+
+</script>
+
 {% endblock %}

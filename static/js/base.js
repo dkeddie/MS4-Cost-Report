@@ -19,7 +19,7 @@ $(document).ready( function () {
     // "scrollX": true
   });
   $('#table-users').DataTable( {
-    "ordering": false,
+    "ordering": true,
     "lengthChange": false,
     "searching": false,
     "bInfo": false,

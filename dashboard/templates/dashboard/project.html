@@ -63,94 +63,30 @@
           <h5 class="mt-3 C-accepted text-nowrap">Accepted Changes</h5>
           <h5 class="ml-auto mr-3 mb-3 C-accepted text-nowrap">£ {{ accepted_changes|floatformat:"0" }}</h5>
           <div class="dash-line"></div>
-          
+
           <h5 class="mt-3 T-sub text-nowrap">Sub-total</h5>
           <h5 class="ml-auto mr-3 mb-3 T-sub text-nowrap">£ {{ subtotal|floatformat:"0" }}</h5>
           <div class="dash-line"></div>
-          
+
           <h5 class="mt-3 C-pending text-nowrap">Pending Changes</h5>
           <h5 class="ml-auto mr-3 mb-3 C-pending text-nowrap">£ {{ pending_changes|floatformat:"0" }}</h5>
           <div class="dash-line"></div>
-          
+
           <h5 class="mt-3 C-wip text-nowrap">Work in Progress</h5>
           <h5 class="ml-auto mr-3 mb-3 C-wip text-nowrap">£ {{ wip_changes|floatformat:"0" }}</h5>
           <div class="dash-line"></div>
-          
+
           <h5 class="mt-3 T-total text-nowrap">TOTAL</h5>
           <h5 class="ml-auto mr-3 mb-3 T-total text-nowrap">£ {{ total|floatformat:"0" }}</h5>
           <div class="dash-line"></div>
-          
+
           <h5 class="mt-3 C-rejected text-nowrap">Rejected Changes</h5>
           <h5 class="ml-auto mr-3 mb-3 C-rejected text-nowrap">£ {{ rejected_changes|floatformat:"0" }}</h5>
 
         </div>
       </div>
-
     </div>
 
-    <!-- <div class="col-12 col-lg-6 m-2 content-box px-0" id="user-profile">
-      <h2 class="text-center mt-3">Dashboard</h2>
-      <hr>
-      <div class="vert-line"></div>
-      <br>
-      
-      <div class="row mb-3">
-        <div class="col-8">
-          <h5 class="float-right mr-4">Original Estimate</h5>
-        </div>
-        <div class="col-4">
-          <h5 class="float-right mr-4">£ {{ original_estimate|floatformat:"0" }}</h4>
-        </div>
-      </div>
-      <div class="row my-3 C-accepted">
-        <div class="col-8">
-          <h5 class="float-right mr-4">Accepted Changes</h5>
-        </div>
-        <div class="col-4">
-          <h5 class="float-right mr-4">£ {{ accepted_changes|floatformat:"0" }}</h4>
-        </div>
-      </div>
-      <div class="row my-3 T-sub">
-        <div class="col-8">
-          <h5 class="float-right mr-4">Sub-total</h5>
-        </div>
-        <div class="col-4">
-          <h5 class="float-right mr-4">£ {{ subtotal|floatformat:"0" }}</h4>
-        </div>
-      </div>
-      <div class="row my-3 C-pending">
-        <div class="col-8">
-          <h5 class="float-right mr-4">Pending Changes</h5>
-        </div>
-        <div class="col-4">
-          <h5 class="float-right mr-4">£ {{ pending_changes|floatformat:"0" }}</h4>
-        </div>
-      </div>
-      <div class="row my-3 C-wip">
-        <div class="col-8">
-          <h5 class="float-right mr-4">Work in Progress</h5>
-        </div>
-        <div class="col-4">
-          <h5 class="float-right mr-4">£ {{ wip_changes|floatformat:"0" }}</h4>
-        </div>
-      </div>
-      <div class="row my-3 T-total">
-        <div class="col-8">
-          <h5 class="float-right mr-4">TOTAL</h5>
-        </div>
-        <div class="col-4">
-          <h5 class="float-right mr-4">£ {{ total|floatformat:"0" }}</h4>
-        </div>
-      </div>
-      <div class="row mt-5 C-rejected">
-        <div class="col-8">
-          <h5 class="float-right mr-4">Rejected Changes</h5>
-        </div>
-        <div class="col-4">
-          <h5 class="float-right mr-4">£ {{ rejected_changes|floatformat:"0" }}</h4>
-        </div>
-      </div>
-    </div> -->
     <div class="col-12 col-lg-6 m-2 content-box px-0" id="list-of-changes">
       <h2 class="text-center mt-3">List of Changes</h2>
       <hr>
@@ -201,27 +137,6 @@
           {% crispy form %}
           {% crispy attachmentsForm %}
           <button id="addChangeBtn" class="btn btn-rect btn-bttm-center">Submit</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal to Edit Change -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content content-box">
-      <div class="modal-header">
-        <h2 class="modal-title mt-3" id="editModalLabel">Change</h2>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="editForm" action="" method="POST">
-          {% load crispy_forms_tags %}
-          {% crispy editForm %}
-          <input class="btn btn-rect btn-bttm-center" type="submit" value="Submit">
         </form>
       </div>
     </div>
