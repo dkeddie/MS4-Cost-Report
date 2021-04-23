@@ -44,28 +44,29 @@ def subscribe(request, project_id):
 
 def project_admin(request, project_id):
     project = Project.objects.get(id=project_id)
-    projectForm = ProjectForm()
-    userForm = ProjectUserForm()
-    users = ProjectUser.objects.filter(project=project)
-    stripeUser = get_object_or_404(ProjectStripeDetails, project=project)
 
-    # print(project.project_users.all())
-    # print(project.project_users)
+    if request.POST:
+        pname = request.POST.get("project_name")
+        est = request.POST.get("original_estimate")
+        est_strip = est.replace('£','').replace(',','').strip()
+        Project.objects.filter(pk=project_id).update(project_name=pname, original_estimate=est_strip)
 
-    # print(f'project users: {users}')
+        return redirect(reverse(project_admin, args=[project_id]))
 
-    # print(p_users[0])
-    # for u in users:
-    #     print(f'Project User: {u}')
+    else:
+        projectForm = ProjectForm()
+        userForm = ProjectUserForm()
+        users = ProjectUser.objects.filter(project=project)
+        stripeUser = get_object_or_404(ProjectStripeDetails, project=project)
 
-    template = 'project/admin.html'
-    context = {
-        'project': project,
-        'projectForm': projectForm,
-        'userForm': userForm,
-        'users': users,
-        'stripeUser': stripeUser.customer_id,
-    }
+        template = 'project/admin.html'
+        context = {
+            'project': project,
+            'projectForm': projectForm,
+            'userForm': userForm,
+            'users': users,
+            'stripeUser': stripeUser.customer_id,
+        }
 
     return render(request, template, context)
 

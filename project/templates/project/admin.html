@@ -27,21 +27,30 @@
       <h2 class="text-center mt-3">Project Details</h2>
       <hr>
       <form action="" method="POST" class="px-4 mt-4">
+        {% csrf_token %}
         <div class="row mt-2">
           <div class="col-12 form-group">
-            <label for="email">Project Name</label>
-            <input type="email" class="form-control" id="email" value="{{ project.project_name }}" readonly="readonly">
+            <label for="project_name">Project Name</label>
+            <input type="text" class="form-control" id="project_name" name="project_name" value="{{ project.project_name }}" readonly="readonly">
           </div>
         </div>
         <div class="row mt-2">
           <div class="col-8 form-group">
-            <label for="email">Original Estimate</label>
-            <input type="email" class="form-control" id="email"
+            <label for="original_estimate">Original Estimate / Budget</label>
+            <input type="text" class="form-control" id="original_estimate" name="original_estimate"
               value="£ {{ project.original_estimate|floatformat:'0' }}" readonly="readonly">
           </div>
         </div>
-        <input class="d-none btn btn-rect btn-bttm-center" type="submit" value="Submit">
+        <div class="col-4 btn-right-align">
+          <button type="button" class="btn btn-icon float-right enable-edit" onclick="enableEdit()">
+            <span class="material-icons-outlined">edit</span>
+          </button>
+          <button type="submit" class="btn btn-icon float-right submit-button d-none">
+            <span class="material-icons-outlined">send</span>
+          </button>
+        </div>
       </form>
+      <br>
       <br>
         <div class="col-12 mx-2">
           <form method="POST" action="{% url 'customer_portal' stripeUser project.id %}">
@@ -143,6 +152,12 @@
     $('#remove-userModal a').attr('href', x)
     $('#remove-userModal h5 strong').text(y)
   })
+
+  function enableEdit() {
+    $('input[readonly]').prop('readonly', false);
+    $('.enable-edit').addClass('d-none');
+    $('.submit-button').removeClass('d-none');
+  }
 
 </script>
 
