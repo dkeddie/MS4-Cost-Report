@@ -79,6 +79,7 @@ def card(request):
             sub = form.save()
 
     det = get_object_or_404(UserSubscriptionDetails, user=sub.user)
+    print(det)
 
     # Create new Customer ID if none exists
     customer = None

@@ -7,6 +7,14 @@
 
 {% endblock %}
 
+{% block page_header %}
+<div class="container header-container">
+  <div class="row">
+    <div class="col"></div>
+  </div>
+</div>
+{% endblock %}
+
 
 {% block content %}
 
@@ -18,7 +26,7 @@
   </div>
   <br>
   <form action="{% url 'card' %}" method="POST" id="payment-form">
-  <div class="row">
+    <div class="row">
       <div class="col-6 mx-auto content-box px-0" id="">
         <h2 class="text-center mt-3">User Details</h2>
         <hr>
@@ -37,30 +45,31 @@
           <label for="customer_name">Cardholders Full Name</label>
           <input class="form-control" type="text" name="customer_name" value="{{ customer_name }}" readonly>
           <label for="subscription">Subscription</label>
-          <input class="form-control" type="text" name="subscription"  readonly>
+          <input class="form-control" type="text" name="subscription" readonly>
 
-          <p class="mt-2"><small>Enter card details which will be billed automatically according to the subscription selected: </small> </p>
-          
+          <p class="mt-2"><small>Enter card details which will be billed automatically according to the subscription
+              selected: </small> </p>
+
           <div class="my-2 form-group" id="card-element">
             <!-- Elements will create input elements here -->
           </div>
-          
+
           <div class="row align-items-center">
             <div class="col-4 text-center">
-              <button id="checkout" class="my-3 btn btn-rect" type="submit" >Subscribe</button>
+              <button id="checkout" class="my-3 btn btn-rect" type="submit">Subscribe</button>
             </div>
             <div class="col-8">
               <!-- We'll put the error messages in this element -->
               <small>
-              <div class="my-2 text-center" id="card-element-errors" role="alert"></div>
-            </small>
+                <div class="my-2 text-center" id="card-element-errors" role="alert"></div>
+              </small>
             </div>
           </div>
 
-          
 
-          
-          
+
+
+
 
           <!-- Hidden inputs passed to JS for stripe payment -->
           <input type="hidden" name="payment_intent_id" value="{{ payment_intent_id }}">
@@ -70,7 +79,7 @@
           <input type="hidden" name="project_id" value="{{ project_id }}">
         </div>
       </div>
-      
+
     </div>
   </form>
 </div>
@@ -85,6 +94,22 @@
 
 <script>
   card('{{STRIPE_PUBLIC_KEY}}', '{{customer_email}}');
+
+  // Confirmation of Details before Card Payment
+
+  var plan_id = $('input[name="stripe_plan_id"]').val()
+  var plan_name = ""
+
+  if (plan_id = "price_1IakCVLti2F8BZ1vMCS0D56C") {
+    plan_name = "Daily @ £1 per day"
+  } else if (plan_id = "price_1IakBnLti2F8BZ1vmf00rG9b") {
+    plan_name = "Monthly @ £10 per month"
+  } else {
+    plan_name = "Yearly @ £100 per year"
+  }
+  $('input[name="subscription"]').val(plan_name)
+
+
 </script>
 
 {% endblock %}

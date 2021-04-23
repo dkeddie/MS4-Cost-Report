@@ -7,6 +7,6 @@ urlpatterns = [
     path('subscribe/<project_id>', views.subscribe, name='subscribe'),
     path('<project_id>/admin/', views.project_admin, name='project_admin'),
     path('add_user/<project_id>/', views.add_user, name='add_user'),
-    path('delete_user/<project_user_id>/',
+    path('delete_user/<project_id>/<project_user_id>/',
          views.delete_user, name='delete_user'),
 ]

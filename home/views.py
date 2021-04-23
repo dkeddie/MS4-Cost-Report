@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from profile.models import UserProfile
 from profile.forms import UserSubscriptionDetailsForm
 
-from project.models import Project
+from project.models import Project, ProjectUser
 from project.forms import ProjectForm
 
 from payments.models import ProjectStripeDetails
@@ -43,6 +43,20 @@ def index(request):
         form = ProjectForm()
         subForm = UserSubscriptionDetailsForm()
         projects = Project.objects.filter(project_owner_id=user.id)
+        # otherprojects = ProjectUser.objects.filter(project_user=user.id)
+
+        project = get_object_or_404(Project, pk=1)
+        print(project)
+        print(project.project_users.all())
+        u = get_object_or_404(User, pk=1)
+        print(u.p_users.all())
+        otherprojects = u.p_users.all()
+        for other in otherprojects:
+            projects |= Project.objects.filter(project_name=other)
+            print(projects)
+
+        # print(projects)
+
         stripeProjects = ProjectStripeDetails.objects.filter(
             project__in=projects)
 
@@ -74,6 +88,7 @@ def index(request):
             'form': form,
             'subForm': subForm,
             'projects': projects,
+            # 'otherprojects': otherprojects,
             'stripeProjects': stripeProjects,
         }
         return render(request, template, context)

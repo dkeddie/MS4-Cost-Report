@@ -43,11 +43,20 @@ def subscribe(request, project_id):
 
 
 def project_admin(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
+    project = Project.objects.get(id=project_id)
     projectForm = ProjectForm()
     userForm = ProjectUserForm()
-    users = ProjectUser.objects.filter(project_id=project_id)
+    users = ProjectUser.objects.filter(project=project)
     stripeUser = get_object_or_404(ProjectStripeDetails, project=project)
+
+    # print(project.project_users.all())
+    # print(project.project_users)
+
+    # print(f'project users: {users}')
+
+    # print(p_users[0])
+    # for u in users:
+    #     print(f'Project User: {u}')
 
     template = 'project/admin.html'
     context = {
@@ -73,13 +82,15 @@ def add_user(request, project_id):
             user_id = None
 
         if form.is_valid():
-            if ProjectUser.objects.filter(project_user_id=user_id.id).exists():
+            if ProjectUser.objects.filter(project_user=user_id.id).filter(project=project).exists():
                 messages.success(request, f'User already exists')
             elif user_id is not None:
                 projectuser = form.save(commit=False)
+                projectuser.project_user = user_id
                 projectuser.project = project
-                projectuser.project_user_id = user_id.id
                 projectuser.save()
+                print(user_id)
+                project.project_users.add(projectuser.project_user)
                 messages.success(request, f'User invited to the Project')
             else:
                 messages.success(request, f'Not registered')
@@ -89,13 +100,13 @@ def add_user(request, project_id):
         return redirect(reverse('project_admin', args=[project.id]))
 
 
-def delete_user(request, project_user_id):
+def delete_user(request, project_id, project_user_id):
     projectuser = get_object_or_404(
-        ProjectUser, project_user_id=project_user_id)
+        ProjectUser, project_user=project_user_id)
 
     projectuser.delete()
 
     messages.success(
         request, f'{projectuser.project_user} deleted and will no longer have access to the Project')
 
-    return redirect(reverse('project_admin', args=[projectuser.project_id]))
+    return redirect(reverse('project_admin', args=[project_id]))

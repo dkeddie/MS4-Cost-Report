@@ -85,6 +85,14 @@
             </td>
           </tr>
           {% endfor %}
+          {% for other in otherprojects %}
+          <tr>
+            <td class="truncate_project">{{ other.project.project_name }}</td>
+            <td class="text-nowrap">
+              <a class="btn btn-sm btn-dark" href="{% url 'get_dashboard' other.project.id %}"> View</a>
+            </td>
+          </tr>
+          {% endfor %}
         </tbody>
       </table>
       <div class="btn-bttm-center">

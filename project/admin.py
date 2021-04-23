@@ -5,4 +5,7 @@ from .models import Project, ProjectUser
 # Register your models here.
 
 admin.site.register(Project)
-admin.site.register(ProjectUser)
+
+@admin.register(ProjectUser)
+class ProjectUserAdmin(admin.ModelAdmin):
+  list_display = ("project_user", "project", "user_permission")
