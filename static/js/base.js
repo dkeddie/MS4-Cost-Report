@@ -28,7 +28,7 @@ $(document).ready( function () {
   });
   $('#table-changes').DataTable( {
     "columns": [
-      { "width": "69%" },
+      { "width": null },
       { "width": "20%" },
       { "width": "10%" },
       { "width": "0%" }

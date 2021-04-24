@@ -95,7 +95,7 @@
           <thead class="">
             <tr>
               <th>Change</th>
-              <th>Value</th>
+              <th class="text-nowrap">Value £</th>
               <th>Status</th>
               <th class="d-none">Link</th>
             </tr>
@@ -103,8 +103,8 @@
           <tbody>
             {% for change in changes %}
             <tr>
-              <td>{{ change.change_name }}</td>
-              <td class="text-right">{{ change.change_cost }}</td>
+              <td class="truncate_changes">{{ change.change_name }}</td>
+              <td class="text-right">{{ change.change_cost|floatformat:"0" }}</td>
               <td class="text-center">{{ change.change_status }}</td>
               <td class="d-none change_id_select">{{ change.id }}</td>
             </tr>

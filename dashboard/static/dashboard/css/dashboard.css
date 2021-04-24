@@ -48,4 +48,11 @@
   cursor: pointer;
 }
 
+.truncate_changes {
+  max-width: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 

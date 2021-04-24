@@ -43,19 +43,12 @@ def index(request):
         form = ProjectForm()
         subForm = UserSubscriptionDetailsForm()
         projects = Project.objects.filter(project_owner_id=user.id)
-        # otherprojects = ProjectUser.objects.filter(project_user=user.id)
 
-        project = get_object_or_404(Project, pk=1)
-        print(project)
-        print(project.project_users.all())
+        # project = get_object_or_404(Project, pk=1)
         u = get_object_or_404(User, pk=1)
-        print(u.p_users.all())
         otherprojects = u.p_users.all()
         for other in otherprojects:
             projects |= Project.objects.filter(project_name=other)
-            print(projects)
-
-        # print(projects)
 
         stripeProjects = ProjectStripeDetails.objects.filter(
             project__in=projects)
@@ -71,15 +64,12 @@ def index(request):
             if project_sub is not None:
                 subActive = ProjectStripeDetails.sub_status(project_sub)
                 if subActive == 'active':
-                    project.has_subscription = True
-                    project.save()
+                    Project.objects.filter(pk=project.id).update(has_subscription=True)
                 else:
-                    project.has_subscription = False
-                    project.save
+                    Project.objects.filter(pk=project.id).update(has_subscription=False)
 
             else:
-                project.has_subscription = False
-                project.save()
+                Project.objects.filter(pk=project.id).update(has_subscription=False)
 
         template = 'home/index.html'
         context = {

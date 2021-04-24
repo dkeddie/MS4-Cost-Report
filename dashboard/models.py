@@ -27,7 +27,7 @@ class Change(models.Model):
   )
   project_id = models.ForeignKey(Project, on_delete=models.CASCADE)
   project_user = models.ForeignKey(User, on_delete=models.CASCADE)
-  change_name = models.CharField("Change Name", max_length=50, null=False, blank=False)
+  change_name = models.CharField("Change Name", max_length=40, null=False, blank=False)
   change_status = models.CharField("Change Status", max_length=20, choices=CHANGE_STATUS, null=False, blank=False)
   change_cost = models.DecimalField("Change Cost", default=0, max_digits=15, decimal_places=2, null=False, blank=False)
   attachment = models.ManyToManyField(ChangeAttachments, related_name="attachments", blank=True)

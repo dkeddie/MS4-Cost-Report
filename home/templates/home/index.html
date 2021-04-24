@@ -75,12 +75,20 @@
           {% for project in projects %}
           <tr>
             <td class="truncate_project">{{ project.project_name }}</td>
-            <td class="text-nowrap">
-              {% if project.has_subscription == False %}
-              <a class="btn btn-sm btn-dark float-right" href="{% url 'subscribe' project.id %}">Subscribe</a>
+            <td class="text-nowrap text-right">
+              {% if project.has_subscription == False and project.project_owner == user %}
+              <a class="btn btn-sm btn-dark" href="{% url 'subscribe' project.id %}">Subscribe</a>
+
+              {% elif project.has_subscription == True %}
+                {% if project.project_owner == user %}
+                <a class="btn btn-sm btn-dark" href="{% url 'project_admin' project.id %}">Admin</a>
+                {% endif %}
+              <a class="btn btn-sm btn-dark" href="{% url 'get_dashboard' project.id %}">View</a>
+
               {% else %}
-              <a class="btn btn-sm btn-dark" href="{% url 'project_admin' project.id %}">Admin</a>
-              <a class="btn btn-sm btn-dark" href="{% url 'get_dashboard' project.id %}"> View</a>
+              <button class="btn btn-sm btn-dark" disabled>Access Suspended</button>
+
+
               {% endif %}
             </td>
           </tr>
@@ -135,72 +143,6 @@
     </div>
   </div>
 </div>
-
-<!-- Modal to Create Subscription for Project -->
-<!-- <div class="modal fade" id="new-subscriptionModal" tabindex="-1" aria-labelledby="new-subscriptionModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="new-subscriptionModalLabel">Subscription</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="{% url 'payment_method' %}" method="POST" id="payment-form">
-          {% csrf_token %}
-          <div class="px-4 mt-4">
-            <div class="row mt-2">
-              <div class="col-12 form-group">
-                <label for="emailSub">Cardholders Email</label>
-                <input type="text" class="form-control" name="emailSub" id="emailSub" value="{{ registration.email }}">
-              </div>
-            </div>
-            <div class="row mt-2">
-              <div class="col-12 form-group">
-                <label for="nameSub">Cardholders Full Name</label>
-                <input type="text" class="form-control" name="nameSub" id="nameSub"
-                  value="{{ registration.first_name }} {{ registration.last_name }}">
-              </div>
-            </div>
-            <div class="row mt-2">
-              <div class="col-12 form-group">
-                <label for="priceId">Subscription Plan</label>
-                <select name="priceId" id="priceId" class="custom-select">
-                  <option selected>Select Subscription Plan</option>
-                  <option value="price_1IakCVLti2F8BZ1vMCS0D56C">Daily</option>
-                  <option value="price_1IakBnLti2F8BZ1vmf00rG9b">Monthly</option>
-                  <option value="price_1IakBnLti2F8BZ1vOZwv6Hse">Yearly</option>
-                </select>
-              </div>
-            </div>
-            <input type="hidden" name="projectId" value=""> -->
-<!-- <div class="my-2 form-group" id="card-element"> -->
-<!-- Elements will create input elements here -->
-<!-- </div> -->
-
-<!-- We'll put the error messages in this element -->
-<!-- <div class="my-2" id="card-element-errors" role="alert"></div> -->
-<!-- <button id="checkout" class="my-3" type="submit">Subscribe</button>
-        </form>
-      </div> -->
-
-<!-- <div class="col-6">
-              <button></button>
-            </div> -->
-
-<!-- <button type="submit" class="btn btn-icon float-right submit-button d-none">
-          <span class="material-icons-outlined">send</span>
-        </button> -->
-
-
-
-
-<!-- </div>
-</div>
-</div>
-</div> -->
 
 {% endblock %}
 
