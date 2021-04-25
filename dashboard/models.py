@@ -29,7 +29,7 @@ class Change(models.Model):
   project_user = models.ForeignKey(User, on_delete=models.CASCADE)
   change_name = models.CharField("Change Name", max_length=40, null=False, blank=False)
   change_status = models.CharField("Change Status", max_length=20, choices=CHANGE_STATUS, null=False, blank=False)
-  change_cost = models.DecimalField("Change Cost", default=0, max_digits=15, decimal_places=2, null=False, blank=False)
+  change_cost = models.FloatField("Change Cost", default=0, null=False, blank=False)
   attachment = models.ManyToManyField(ChangeAttachments, related_name="attachments", blank=True)
 
   def __str__(self):

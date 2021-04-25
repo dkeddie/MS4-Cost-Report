@@ -6,17 +6,12 @@ function enableEdit() {
 // Datatables.Net activation
 $(document).ready( function () {
   $('#table-project').DataTable( {
-    // "columns": [
-    //   { "width": "65%" },
-    //   { "width": "35%" },
-    // ],
     "ordering": false,
     "lengthChange": false,
     "searching": false,
     "bInfo": false,
     "pageLength": 6,
     "pagingType": "simple",
-    // "scrollX": true
   });
   $('#table-users').DataTable( {
     "ordering": true,

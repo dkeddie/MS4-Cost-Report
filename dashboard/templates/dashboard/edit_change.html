@@ -2,6 +2,9 @@
 {% load static %}
 {% load dashboard_tags %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}">
+{% endblock%}
 
 {% block page_header %}
 <div class="container header-container">
@@ -27,17 +30,29 @@
     <div class="col-12 col-lg-6 m-2 content-box px-0" id="edit-change">
       <h2 class="text-center mt-3">Details of Change</h2>
       <hr>
+      {% if project.project_owner == request.user %}
+      <input type="hidden" id="user_permission" value="Edit">
+      {% else %}
+      <input type="hidden" id="user_permission" value="{{ project_user.user_permission }}">
+      {% endif %}
       <div class="col-12">
         <form id="edit-change-form" action="{% url 'edit_change' change.id %}" method="POST"
           enctype="multipart/form-data">
           {% load crispy_forms_tags %}
           {% crispy changeForm %}
-          {% crispy attachmentsForm %}
+
+          {% if project.project_owner == request.user or project_user.user_permission == 'Edit' %}
+            {% crispy attachmentsForm %}
+          {% endif %}
         </form>
       </div>
       <div class="btn-bttm-center">
-        <button class="btn btn-rect mx-2" type="submit" form="edit-change-form">Update</button>
-        <button type="button" class="btn btn-rect mx-2" data-toggle="modal" data-target="#deleteChangeModal">Delete</button>
+        {% if project_user.user_permission == 'View' %}
+          <a class="btn btn-rect mx-2" href="{% url 'get_dashboard' change.project_id_id %}">Back</a>
+        {% else %}
+          <button class="btn btn-rect mx-2" type="submit" form="edit-change-form">Update</button>
+          <button type="button" class="btn btn-rect mx-2" data-toggle="modal" data-target="#deleteChangeModal">Delete</button>
+        {% endif %}
       </div>
     </div>
 
@@ -65,9 +80,6 @@
                     delete
                   </span>
                 </button>
-                <!-- <a class="btn btn-sm text-center" href="">
-                  
-                </a> -->
               </td>
             </tr>
             {% endfor %}
@@ -150,6 +162,21 @@ $('#table-attachments button').click(function() {
   $('h5.attachment-name>em').text(y)
   $('#deleteAttachmentModal a').attr('href', x)
 })
+
+
+$(window).on('load', function() {
+  // Limits editing if User Perimission is View only
+  var permission = $('#user_permission').val();
+  if (permission === 'View') {
+    $('#edit-change-form input').prop('readonly', true);
+    $('#edit-change-form select[name="change_status"]').prop('disabled', true);
+  }
+
+  // Remove decimal points from Change Cost
+  var x = $('#id_change_cost').val().split(".", 1)[0]
+  $('#id_change_cost').val(x)
+})
+
 
 </script>
 

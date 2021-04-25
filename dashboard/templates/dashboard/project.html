@@ -113,9 +113,11 @@
         </table>
       </div>
       <div class="btn-top-right">
+        {% if project.project_owner == request.user or project_user.user_permission == 'Edit' %}
         <button type="button" class="btn-sm btn-icon-small" data-toggle="modal" data-target="#changeModal">
           <span class="material-icons-outlined ">add</span>
         </button>
+        {% endif %}
       </div>
     </div>
   </div>

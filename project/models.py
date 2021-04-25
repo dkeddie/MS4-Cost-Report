@@ -11,8 +11,8 @@ class Project(models.Model):
     project_owner = models.ForeignKey(User, on_delete=models.CASCADE)
     project_users = models.ManyToManyField(
         User, related_name='p_users', through='ProjectUser')
-    original_estimate = models.DecimalField(
-        "Estimate/Budget", default=0, max_digits=15, decimal_places=2, null=False, blank=False)
+    original_estimate = models.FloatField(
+        "Estimate/Budget", default=0, null=False, blank=False)
     has_subscription = models.BooleanField(
         default=False, blank=True, null=True)
 

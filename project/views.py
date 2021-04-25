@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
+from django.utils.safestring import mark_safe
 
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -123,7 +124,7 @@ def add_user(request, project_id):
                         html_message=html_message
                         )
 
-                messages.success(request, f'{email} is not a registered user. An email has been issued inviting them to join.')
+                messages.success(request, mark_safe(f'{email} is not a registered user.<br><br>An email has been issued inviting them to join.<br><br>You will need to invite them again once they register.'))
         else:
             messages.error(request, f'An invalid entry was submitted. Please try again')
 

@@ -5,4 +5,4 @@ Managing construction costs online
 
 Registration is free and you will be able to view this project whilst {{ user }} subscribes to utilise Cost Report for tracking the costs of this project.
 
-Register for access to Cost Report and to view projects - https://ms4-cost-report.herokuapp.com/accounts/signup/?next=%2F
+Register for access to Cost Report - https://ms4-cost-report.herokuapp.com/accounts/signup/?next=%2F

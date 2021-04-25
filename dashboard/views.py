@@ -11,8 +11,7 @@ from django.core.files.storage import FileSystemStorage
 
 from django.contrib.auth.models import User
 from .models import Change, ChangeAttachments
-from project.models import Project
-# from profile.models import UserSubscriptionDetails
+from project.models import Project, ProjectUser
 
 from .forms import ChangeForm, ChangeAttachmentsForm
 
@@ -27,6 +26,14 @@ register = template.Library()
 
 def get_dashboard(request, project_id):
   project = get_object_or_404(Project, id=project_id)
+
+  try:
+      project_user = ProjectUser.objects.get(project=project, project_user=request.user)
+  except ProjectUser.DoesNotExist:
+      project_user = None
+
+  print(project_user)
+
   form = ChangeForm()
   editForm = ChangeForm()
   attachmentsForm = ChangeAttachmentsForm()
@@ -53,9 +60,10 @@ def get_dashboard(request, project_id):
   subtotal = original_estimate + accepted_changes
   total = subtotal + pending_changes + wip_changes
 
-  if request.user.id is project.project_owner_id:
+  if request.user.id is project.project_owner_id or project.project_users:
     context = {
       'project': project,
+      'project_user': project_user,
       'form': form,
       'editForm': editForm,
       'attachmentsForm': attachmentsForm,
@@ -123,16 +131,22 @@ def edit_change(request, change_id):
         change.attachment.add(file_instance)
       messages.success(request, f'{change.change_name} has been updated')
 
-
     return redirect(reverse('get_dashboard', args=[change.project_id_id]))
 
   else:
+    project = Project.objects.get(pk=change.project_id_id)
+    try:
+      project_user = ProjectUser.objects.get(project=change.project_id_id, project_user=request.user)
+    except ProjectUser.DoesNotExist:
+      project_user = None
     changeForm = ChangeForm(instance=change)
     attachmentsForm = ChangeAttachmentsForm(instance=change)
     attachments = change.attachment.all()
     template = 'dashboard/edit_change.html'
 
     context = {
+      'project': project,
+      'project_user': project_user,
       'changeForm': changeForm,
       'attachmentsForm': attachmentsForm,
       'change': change,
