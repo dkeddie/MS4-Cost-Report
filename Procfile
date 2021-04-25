@@ -1,1 +1,1 @@
-web: gunicorn cost_report.wsgi:application
+release: python manage.py migrate
