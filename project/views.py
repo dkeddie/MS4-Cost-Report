@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+
 
 from .models import Project, ProjectUser, User
 from .forms import ProjectForm, ProjectUserForm
@@ -14,7 +17,7 @@ from profile.forms import UserSubscriptionDetailsForm
 def create_project(request):
 
     subForm = UserSubscriptionDetailsForm()
-    
+
     if request.method == 'POST':
         form = ProjectForm(request.POST)
         if form.is_valid():
@@ -36,7 +39,7 @@ def subscribe(request, project_id):
     context = {
         'user': user,
         'project': project,
-        'form':subForm,
+        'form': subForm,
     }
 
     return render(request, template, context)
@@ -48,8 +51,9 @@ def project_admin(request, project_id):
     if request.POST:
         pname = request.POST.get("project_name")
         est = request.POST.get("original_estimate")
-        est_strip = est.replace('£','').replace(',','').strip()
-        Project.objects.filter(pk=project_id).update(project_name=pname, original_estimate=est_strip)
+        est_strip = est.replace('£', '').replace(',', '').strip()
+        Project.objects.filter(pk=project_id).update(
+            project_name=pname, original_estimate=est_strip)
 
         return redirect(reverse(project_admin, args=[project_id]))
 
@@ -76,6 +80,8 @@ def add_user(request, project_id):
     if request.method == 'POST':
         form = ProjectUserForm(request.POST)
         project = get_object_or_404(Project, pk=project_id)
+        email = request.POST.get('email')
+        print(email)
 
         try:
             user_id = User.objects.get(email=form.data['email'])
@@ -83,20 +89,43 @@ def add_user(request, project_id):
             user_id = None
 
         if form.is_valid():
-            if ProjectUser.objects.filter(project_user=user_id.id).filter(project=project).exists():
-                messages.success(request, f'User already exists')
-            elif user_id is not None:
-                projectuser = form.save(commit=False)
-                projectuser.project_user = user_id
-                projectuser.project = project
-                projectuser.save()
-                print(user_id)
-                project.project_users.add(projectuser.project_user)
-                messages.success(request, f'User invited to the Project')
+            if user_id is not None:
+                if ProjectUser.objects.filter(project_user=user_id.id).filter(project=project).exists():
+                    messages.success(request, f'User already has access to this Project')
+                else:
+                    projectuser = form.save(commit=False)
+                    projectuser.project_user = user_id
+                    projectuser.project = project
+                    projectuser.save()
+                    project.project_users.add(projectuser.project_user)
+                    messages.success(request, f'User invited to the Project')
             else:
-                messages.success(request, f'Not registered')
+
+                context = {
+                    'user': request.user,
+                    'project': project
+                }
+
+                subject = 'You are invited to use Cost Report'
+                plain_message = render_to_string(
+                    'project/emails/invitation.txt', context)
+                from_email = 'Cost Report'
+                to = email
+                html_message = render_to_string(
+                    'project/emails/invitation.html', context)
+
+                send_mail(
+                        subject,
+                        plain_message,
+                        from_email,
+                        [to],
+                        fail_silently=False,
+                        html_message=html_message
+                        )
+
+                messages.success(request, f'{email} is not a registered user. An email has been issued inviting them to join.')
         else:
-            print("no")
+            messages.error(request, f'An invalid entry was submitted. Please try again')
 
         return redirect(reverse('project_admin', args=[project.id]))
 
