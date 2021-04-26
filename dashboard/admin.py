@@ -4,4 +4,17 @@ from .models import Change, ChangeAttachments
 # Register your models here.
 
 admin.site.register(Change)
-admin.site.register(ChangeAttachments)
+
+class AttachmentInline(admin.TabularInline):
+  model = Change.attachment.through
+
+class ChangeAdmin(admin.ModelAdmin):
+  inlines = [
+    AttachmentInline,
+  ]
+
+class AttachmentAdmin(admin.ModelAdmin):
+  inlines = [
+    AttachmentInline,
+  ]
+  exclude = ('attachment')

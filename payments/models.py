@@ -22,3 +22,7 @@ class ProjectStripeDetails(models.Model):
     sub = stripe.Subscription.retrieve(self.stripe_sub)
     return sub.status
 
+  class Meta:
+    verbose_name = "Stripe Details"
+    verbose_name_plural = "Stripe Details"
+

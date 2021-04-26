@@ -4,8 +4,13 @@ from .models import Project, ProjectUser
 
 # Register your models here.
 
-admin.site.register(Project)
+class ProjectUserInline(admin.TabularInline):
+  model = ProjectUser
 
-@admin.register(ProjectUser)
-class ProjectUserAdmin(admin.ModelAdmin):
-  list_display = ("project_user", "project", "user_permission")
+class ProjectAdmin(admin.ModelAdmin):
+  inlines = [
+    ProjectUserInline
+  ]
+
+admin.site.register(Project, ProjectAdmin)
+

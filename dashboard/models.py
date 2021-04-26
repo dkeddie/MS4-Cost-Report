@@ -14,8 +14,10 @@ class ChangeAttachments(models.Model):
     self.attachment.delete()
     super().delete(*args, **kwargs)
 
-  # def __str__(self):
-  #   return self.attachment
+  def __str__(self):
+    name_full = str(self.attachment)
+    name = name_full.split("/")
+    return str(name[-1])
 
 
 class Change(models.Model):

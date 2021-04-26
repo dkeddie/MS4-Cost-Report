@@ -17,6 +17,10 @@ class UserProfile(models.Model):
   def __str__(self):
     return self.user.username
 
+  class Meta:
+    verbose_name = "User Company"
+    verbose_name_plural = "User Company"
+
 
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
@@ -43,5 +47,9 @@ class UserSubscriptionDetails(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    class Meta:
+      verbose_name = "User Subscription Details"
+      verbose_name_plural = "User Subscription Details"
 
         
