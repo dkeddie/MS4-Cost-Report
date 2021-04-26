@@ -1,0 +1,24 @@
+{% load i18n %}{% autoescape off %}
+
+<div style="background-color: black; letter-spacing: 0.1rem; padding: 20px;">
+  <a href="https://ms4-cost-report.herokuapp.com/">
+    <h3 style="color: white;">Cost Report</h3>
+    <h5 style="color: white;">Managing construction costs online</h5>
+  </a>
+</div>
+<br>
+
+<div>
+  {% blocktrans with site_name=current_site.name %}
+  <p>Hello from {{ site_name }}!</p>
+  <br>
+  <p>You're receiving this e-mail because you have given your e-mail address to register an account on <strong>{{ site_name }}</strong>.</p>
+  <br>
+  <p>To confirm this is correct, follow this link <a href="{{ activate_url }}">{{ activate_url }}</a></p>
+  <br>
+  <br>
+    <p><strong>Thank you for using {{ site_name }}!</strong></p>
+  {% endblocktrans %}
+</div>
+
+{% endautoescape %}
