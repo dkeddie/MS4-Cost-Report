@@ -44,8 +44,7 @@ def index(request):
         subForm = UserSubscriptionDetailsForm()
         projects = Project.objects.filter(project_owner_id=user.id)
 
-        # project = get_object_or_404(Project, pk=1)
-        u = get_object_or_404(User, pk=1)
+        u = get_object_or_404(User, pk=request.user.id)
         otherprojects = u.p_users.all()
         for other in otherprojects:
             projects |= Project.objects.filter(project_name=other)
@@ -78,7 +77,6 @@ def index(request):
             'form': form,
             'subForm': subForm,
             'projects': projects,
-            # 'otherprojects': otherprojects,
             'stripeProjects': stripeProjects,
         }
         return render(request, template, context)
