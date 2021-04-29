@@ -27,6 +27,8 @@
     </div>
   </div>
   <div class="row justify-content-center">
+
+    <!-- 'DETAILS OF CHANGE' CONTAINER -->
     <div class="col-12 col-lg-6 m-2 content-box px-0" id="edit-change">
       <h2 class="text-center mt-3">Details of Change</h2>
       <hr>
@@ -56,6 +58,7 @@
       </div>
     </div>
 
+    <!-- 'ATTACHMENTS' CONTAINER -->
     <div class="col-12 col-lg-6 m-2 content-box px-0" id="list-of-attachments">
       <h2 class="text-center mt-3">Attachments</h2>
       <hr>
@@ -87,6 +90,7 @@
         </table>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -153,31 +157,6 @@
 {% block postloadjs %}
 {{ block.super }}
 
-<script>
-
-// Sends data from the attachment to the modal to operate
-$('#table-attachments button').click(function() {
-  var x = $(this).attr('data-url')
-  var y = $(this).parent().prev().prev().text()
-  $('h5.attachment-name>em').text(y)
-  $('#deleteAttachmentModal a').attr('href', x)
-})
-
-
-$(window).on('load', function() {
-  // Limits editing if User Perimission is View only
-  var permission = $('#user_permission').val();
-  if (permission === 'View') {
-    $('#edit-change-form input').prop('readonly', true);
-    $('#edit-change-form select[name="change_status"]').prop('disabled', true);
-  }
-
-  // Remove decimal points from Change Cost
-  var x = $('#id_change_cost').val().split(".", 1)[0]
-  $('#id_change_cost').val(x)
-})
-
-
-</script>
+  <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
 
 {% endblock %}

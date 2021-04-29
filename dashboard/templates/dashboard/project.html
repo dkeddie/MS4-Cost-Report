@@ -28,6 +28,8 @@
     </div>
   </div>
   <div class="row justify-content-center">
+
+    <!-- 'DASHBOARD' CONTAINER -->
     <div class="col-12 col-lg-6 m-2 content-box px-0" id="dashboard">
       <h2 class="text-center mt-3">Dashboard</h2>
       <hr>
@@ -87,6 +89,7 @@
       </div>
     </div>
 
+    <!-- 'LIST OF CHANGES' CONTAINER -->
     <div class="col-12 col-lg-6 m-2 content-box px-0" id="list-of-changes">
       <h2 class="text-center mt-3">List of Changes</h2>
       <hr>
@@ -125,7 +128,7 @@
 
 <!-- Modal to Add Change -->
 <div class="modal fade" id="changeModal" tabindex="-1" aria-labelledby="changeModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content content-box">
       <div class="modal-header">
         <h2 class="modal-title mt-3" id="changeModalLabel">New Change</h2>
@@ -150,12 +153,6 @@
 {% block postloadjs %}
 {{ block.super }}
 
-<script>
-  $('tr').click(function () {
-    var change_id = $(this).children('.change_id_select').text()
-    window.location.href = `/dashboard/edit_change/${change_id}/`
-  });
-
-
-</script>
+  <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
+ 
 {% endblock %}
