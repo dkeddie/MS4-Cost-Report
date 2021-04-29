@@ -18,11 +18,13 @@ import stripe
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+
 @login_required
 def index(request):
     """ A view to return the index page """
     user = request.user
 
+    # Update User Profile details direct on the index page
     if request.POST:
         firstname = request.POST.get('firstname')
         lastname = request.POST.get('lastname')
@@ -42,18 +44,21 @@ def index(request):
         profile = get_object_or_404(UserProfile, user=user)
         form = ProjectForm()
         subForm = UserSubscriptionDetailsForm()
-        projects = Project.objects.filter(project_owner_id=user.id)
 
+        # generates lists of projects where either project owner or user
+        projects = Project.objects.filter(
+            project_owner_id=user.id)  # generates list where project owner
         u = get_object_or_404(User, pk=request.user.id)
-        otherprojects = u.p_users.all()
+        otherprojects = u.p_users.all()  # generates list where project user
         for other in otherprojects:
-            projects |= Project.objects.filter(project_name=other)
+            projects |= Project.objects.filter(
+                project_name=other)  # merges second list into first
 
+        # to receive currect subscription status on stripe
         stripeProjects = ProjectStripeDetails.objects.filter(
             project__in=projects)
 
         for project in projects:
-
             try:
                 project_sub = ProjectStripeDetails.objects.get(
                     project=project.id)
@@ -63,12 +68,15 @@ def index(request):
             if project_sub is not None:
                 subActive = ProjectStripeDetails.sub_status(project_sub)
                 if subActive == 'active':
-                    Project.objects.filter(pk=project.id).update(has_subscription=True)
+                    Project.objects.filter(pk=project.id).update(
+                        has_subscription=True)
                 else:
-                    Project.objects.filter(pk=project.id).update(has_subscription=False)
+                    Project.objects.filter(pk=project.id).update(
+                        has_subscription=False)
 
             else:
-                Project.objects.filter(pk=project.id).update(has_subscription=False)
+                Project.objects.filter(pk=project.id).update(
+                    has_subscription=False)
 
         template = 'home/index.html'
         context = {

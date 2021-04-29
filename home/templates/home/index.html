@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block extra_css %}
-<!-- <link rel="stylesheet" href="{% static 'payments/css/checkout.css' %}"> -->
 <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
 {% endblock%}
 
@@ -22,6 +21,8 @@
     </div>
   </div>
   <div class="row justify-content-center">
+
+    <!-- 'USER PROFILE' CONTAINER -->
     <div class="col-12 col-lg-6 m-2 content-box px-0" id="user-profile">
       <h2 class="text-center mt-3">User Profile</h2>
       <hr>
@@ -30,8 +31,8 @@
         <div class="row mt-2">
           <div class="col-12 col-md-6 form-group">
             <label for="firstname">First Name</label>
-            <input type="text" class="form-control" name="firstname" id="firstname" value="{{ registration.first_name }}"
-              readonly="readonly">
+            <input type="text" class="form-control" name="firstname" id="firstname"
+              value="{{ registration.first_name }}" readonly="readonly">
           </div>
           <div class="col-12 col-md-6 form-group">
             <label for="lastname">Last Name</label>
@@ -42,13 +43,15 @@
         <div class="row mt-2">
           <div class="col-12 col-md-9 form-group">
             <label for="email">Email Address</label>
-            <input type="email" class="form-control" name="email" id="email" value="{{ registration.email }}" readonly="readonly">
+            <input type="email" class="form-control" name="email" id="email" value="{{ registration.email }}"
+              readonly="readonly">
           </div>
         </div>
         <div class="row mt-2">
           <div class="col-12 col-md-9 form-group">
             <label for="company">Company</label>
-            <input type="text" class="form-control" name="company" id="company" value="{{ profile.company }}" readonly="readonly">
+            <input type="text" class="form-control" name="company" id="company" value="{{ profile.company }}"
+              readonly="readonly">
           </div>
         </div>
         <div class="btn-right-align">
@@ -61,6 +64,8 @@
         </div>
       </form>
     </div>
+
+    <!-- 'PROJECTS' CONTAINER -->
     <div class="col-12 col-lg-6 m-2 content-box px-0" id="user-profile">
       <h2 class="text-center mt-3">Projects</h2>
       <hr>
@@ -80,9 +85,9 @@
               <a class="btn btn-sm btn-dark" href="{% url 'subscribe' project.id %}">Subscribe</a>
 
               {% elif project.has_subscription == True %}
-                {% if project.project_owner == user %}
-                <a class="btn btn-sm btn-dark" href="{% url 'project_admin' project.id %}">Admin</a>
-                {% endif %}
+              {% if project.project_owner == user %}
+              <a class="btn btn-sm btn-dark" href="{% url 'project_admin' project.id %}">Admin</a>
+              {% endif %}
               <a class="btn btn-sm btn-dark" href="{% url 'get_dashboard' project.id %}">View</a>
 
               {% else %}
@@ -149,24 +154,6 @@
 {% block postloadjs %}
 {{ block.super }}
 
-<script>
-  function subModal() {
-    $('.subModal').click(function () {
-      var projectId = $(this).data('id');
-      $('input[name="projectId"]').val(projectId)
-      $('#new-subscriptionModal').modal('show');
-      // $('#new-subscriptionModal form').attr('action', post_url)
-    })
-  }
-
-  function enableEdit() {
-    $('input[readonly]').prop('readonly', false);
-    $('.enable-edit').addClass('d-none');
-    $('.submit-button').removeClass('d-none');
-  }
-
-</script>
-
-<!-- <script src="{% static 'payments/js/checkout.js' %}"></script> -->
+<script src="{% static 'home/js/home.js' %}"></script>
 
 {% endblock %}
