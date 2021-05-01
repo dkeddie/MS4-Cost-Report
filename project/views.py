@@ -16,7 +16,7 @@ from profile.forms import UserSubscriptionDetailsForm
 
 
 def create_project(request):
-
+    """New Project"""
     subForm = UserSubscriptionDetailsForm()
 
     if request.method == 'POST':
@@ -31,7 +31,7 @@ def create_project(request):
 
 
 def subscribe(request, project_id):
-
+    """Initiate new subscription and payment process"""
     user = get_object_or_404(User, id=request.user.id)
     project = get_object_or_404(Project, id=project_id)
     subForm = UserSubscriptionDetailsForm()
@@ -47,8 +47,10 @@ def subscribe(request, project_id):
 
 
 def project_admin(request, project_id):
+    """View Project Admin Page"""
     project = Project.objects.get(id=project_id)
 
+    # Update details displayed on the page
     if request.POST:
         pname = request.POST.get("project_name")
         est = request.POST.get("original_estimate")
@@ -58,6 +60,7 @@ def project_admin(request, project_id):
 
         return redirect(reverse(project_admin, args=[project_id]))
 
+    # Displays Project Details and Lists of Users with access to the project
     else:
         projectForm = ProjectForm()
         userForm = ProjectUserForm()
@@ -77,7 +80,7 @@ def project_admin(request, project_id):
 
 
 def add_user(request, project_id):
-
+    """Add user to the Project in Project Admin page"""
     if request.method == 'POST':
         form = ProjectUserForm(request.POST)
         project = get_object_or_404(Project, pk=project_id)
@@ -132,6 +135,7 @@ def add_user(request, project_id):
 
 
 def delete_user(request, project_id, project_user_id):
+    """Delete user from the Project"""
     projectuser = get_object_or_404(
         ProjectUser, project_user=project_user_id)
 

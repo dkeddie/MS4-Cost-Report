@@ -23,6 +23,8 @@
     </div>
   </div>
   <div class="row justify-content-center">
+
+    <!-- 'PROJECT DETAILS' CONTAINER -->
     <div class="col-12 col-lg-6 m-2 content-box px-0" id="user-profile">
       <h2 class="text-center mt-3">Project Details</h2>
       <hr>
@@ -59,6 +61,8 @@
           </form>
       </div>
     </div>
+
+    <!-- 'PROJECT USERS' CONTAINER -->
     <div class="col-12 col-lg-6 m-2 content-box px-0" id="list-of-changes">
       <h2 class="text-center mt-3">Users</h2>
       <hr>
@@ -144,21 +148,6 @@
 {% block postloadjs %}
 {{ block.super }}
 
-<script>
-
-  $('#table-users button').click(function() {
-    var x = $(this).attr('data-url')
-    var y = $(this).attr('data-user')
-    $('#remove-userModal a').attr('href', x)
-    $('#remove-userModal h5 strong').text(y)
-  })
-
-  function enableEdit() {
-    $('input[readonly]').prop('readonly', false);
-    $('.enable-edit').addClass('d-none');
-    $('.submit-button').removeClass('d-none');
-  }
-
-</script>
+<script src="{% static 'project/js/project.js' %}"></script>
 
 {% endblock %}
