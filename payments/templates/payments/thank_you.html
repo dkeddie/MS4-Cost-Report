@@ -15,17 +15,18 @@
 <div class="container">
   <div class="row align-items-center" id="sub-heading">
     <div class="d-inline-flex mx-auto">
-      <h2 class="px-5 py-3 rounded">Home</h2>
+      <h2 class="px-5 py-3 rounded">&nbsp;</h2>
     </div>
   </div>
   <div class="row">
+    <!-- 'THANK YOU ' CONTAINER -->
     <div class="col-6 mx-auto content-box px-0" id="">
       <h2 class="text-center mt-3">Subscription Confirmed</h2>
       <hr>
       <div class="row">
         <div class="col-12 my-5 text-center">
-          <p>Congratulations, you are now subscribed and can start using <strong>Cost Report</strong> to track the changes of {{
-            project.project_name }}</p>
+          <p>Congratulations, you are now subscribed and can start using <strong>Cost Report</strong> to track the
+            changes of {{project.project_name }}</p>
           <br>
           <p>A receipt of this subscription has been emailed to <strong>{{ customer_email }}</strong></p>
           <br>
@@ -44,32 +45,15 @@
 {% block postloadjs %}
 {{ block.super }}
 
-<script>
+  <script src="{% static 'payments/js/payments.js' %}"></script>
 
-  // Confirmation of Details before Card Payment
-
-  var plan_id = $('input[name="stripe_plan_id"]').val()
-  var plan_name = ""
-
-  if (plan_id = "price_1IakCVLti2F8BZ1vMCS0D56C") {
-    plan_name = "Daily @ £1 per day"
-  } else if (plan_id = "price_1IakBnLti2F8BZ1vmf00rG9b") {
-    plan_name = "Monthly @ £10 per month"
-  } else {
-    plan_name = "Yearly @ £100 per year"
-  }
-  $('input[name="subscription"]').val(plan_name)
-
-
-  // Redirect after 10 seconds
-
-  var delay = 5000
-  setTimeout(() => {
-    window.location = "{% url 'home' %}"
-  }, delay);
-
-</script>
-
+  <script>
+    // Redirect after 10 seconds
+    var delay = 5000
+    setTimeout(() => {
+      window.location = "{% url 'home' %}"
+    }, delay);
+  </script>
 
 {% endblock %}
 

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views.decorators.http import require_POST
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django import template
 
@@ -16,7 +17,12 @@ import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
+@login_required
+@require_POST
 def payment_method(request):
+    """
+    Payment Page - retrieves subscription method and loads card payment page
+    """
     customer_email = request.POST.get('emailSub', '')
     customer_name = request.POST.get('nameSub', '')
     plan = request.POST.get('priceId', '')
@@ -31,10 +37,14 @@ def payment_method(request):
     except UserSubscriptionDetails.DoesNotExist:
         form = UserSubscriptionDetailsForm()
 
+    # Retrieve the price of the subscription selected
+    price = stripe.Price.retrieve(plan).unit_amount
+    print(price)
+
     context = {}
 
     payment_intent = stripe.PaymentIntent.create(
-        amount='100',
+        amount=price,
         currency='gbp',
         payment_method_types=['card'],
     )
@@ -54,8 +64,12 @@ def payment_method(request):
         return render(request, 'payments/card.html', context)
 
 
+@login_required
 @require_POST
 def card(request):
+    """
+    Process card payment details through stripe
+    """
     payment_intent_id = request.POST['payment_intent_id']
     payment_method_id = request.POST['payment_method_id']
     stripe_plan_id = request.POST['stripe_plan_id']
@@ -63,6 +77,7 @@ def card(request):
     project_id = request.POST['project_id']
     automatic = request.POST['automatic']
 
+    # Saves/Updates user payment details
     try: 
         userSub = UserSubscriptionDetails.objects.get(user=request.user)
         form = UserSubscriptionDetailsForm(request.POST, instance=userSub)
@@ -79,7 +94,6 @@ def card(request):
             sub = form.save()
 
     det = get_object_or_404(UserSubscriptionDetails, user=sub.user)
-    print(det)
 
     # Create new Customer ID if none exists
     customer = None
@@ -104,6 +118,7 @@ def card(request):
         },
     )
 
+    # creates subscription on stripe
     if automatic == 'on':
         s = stripe.Subscription.create(
             customer=customer.id,
@@ -156,9 +171,12 @@ def card(request):
     return render(request, 'payments/thank_you.html', context)
 
 
+@login_required
 @require_POST
 def customer_portal(request, stripe_user, project_id):
-    # Authenticate your user.
+    """
+    Link to stripe subscription portal
+    """
     return_url = request.build_absolute_uri('/project/')
     session = stripe.billing_portal.Session.create(
         customer=stripe_user,

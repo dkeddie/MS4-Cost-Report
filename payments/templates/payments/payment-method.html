@@ -21,19 +21,13 @@
 <div class="container">
   <div class="row align-items-center" id="sub-heading">
     <div class="d-inline-flex mx-auto">
-      <h2 class="px-5 py-3 rounded">Payment Details</h2>
+      <h2 class="px-5 py-3 rounded">&nbsp;</h2>
     </div>
   </div>
   <form action="{% url 'payment_method' %}" method="POST" id="payment-form">
     {% csrf_token %}
     <div class="row">
-      <!-- <div class="col-6 mx-auto content-box px-0" id="">
-        <h2 class="text-center mt-3">User Details</h2>
-        <hr>
-        <div class="col-12 px-4">
-          {% crispy form %}
-        </div>
-      </div> -->
+      <!-- 'SUBSCRIPTION' CONTAINER -->
       <div class="col-6 mx-auto content-box px-0" id="">
         <h2 class="text-center mt-3">Subscription</h2>
         <hr>
@@ -97,18 +91,6 @@
 {% block postloadjs %}
 {{ block.super }}
 
-<script>
-
-  $(window).ready(function() {
-    $('#option1').focus()
-  })
-
-  $('.btn-wide').click(function () {
-    var x = $(this).children().val()
-    $('#priceId').val(x)
-  })
-</script>
-
-<script src="{% static 'payments/js/checkout.js' %}"></script>
+  <script src="{% static 'payments/js/payments.js' %}"></script>
 
 {% endblock %}

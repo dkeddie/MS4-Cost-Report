@@ -18,9 +18,6 @@ function card(stripe_public_key, customer_email) {
         fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
         fontSize: '14px',
         fontSmoothing: 'antialiased',
-        // ':-webkit-autofill': {
-        //   color: '#fce883',
-        // },
         '::placeholder': {
           color: '#87BBFD',
         },

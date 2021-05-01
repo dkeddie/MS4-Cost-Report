@@ -20,6 +20,9 @@ wh_secret = settings.STRIPE_WH_SECRET
 @require_POST
 @csrf_exempt
 def stripe_webhooks(request):
+  """
+  Stripe webhooks when creating a subscription and initiating payment
+  """
   payload = request.body
   sig_header = request.META['HTTP_STRIPE_SIGNATURE']
   event = None
@@ -43,9 +46,9 @@ def stripe_webhooks(request):
   elif event.type == 'payment_method.attached':
     payment_method = event.data.object # contains a stripe.PaymentMethod
     print('PaymentMethod was attached to a Customer!')
-  # set paid until
+  # create stripe subscription details
   elif event.type == 'charge.succeeded':
-    set_paid_until(request, event.data.object)
+    create_stripe_subscription(request, event.data.object)
 
   # ... handle other event types
   else:
@@ -54,24 +57,15 @@ def stripe_webhooks(request):
   return HttpResponse(status=200)
 
 
-def set_paid_until(request, charge):
+def create_stripe_subscription(request, charge):
+  """
+  Record to store subscription details
+  (Used to retrieve subscription status)
+  """
   pi = stripe.PaymentIntent.retrieve(
     charge.payment_intent,
     expand=['invoice']
     )
-
-  # customer = None
-
-  # if pi.customer:
-  #   customer = stripe.Customer.retrieve(
-  #     pi.customer,
-  #     expand=['subscriptions']
-  #     )
-
-  # obj, created = ProjectStripeDetails.objects.get_or_create(
-  #   user = get_object_or_404(User, id=customer.metadata.userId),
-  #   stripe_customer_id = customer.id,
-  # )
 
   sub = stripe.Subscription.retrieve(
     pi.invoice.subscription,
