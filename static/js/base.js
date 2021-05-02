@@ -3,8 +3,9 @@ function enableEdit() {
   $('.enable-edit').addClass('d-none')
 }
 
-// Datatables.Net activation
+// Datatables.Net activation and formatting
 $(document).ready( function () {
+  // Home View - Projects available to user
   $('#table-project').DataTable( {
     "ordering": false,
     "lengthChange": false,
@@ -13,6 +14,7 @@ $(document).ready( function () {
     "pageLength": 6,
     "pagingType": "simple",
   });
+  // Admin View - Users who can access the project
   $('#table-users').DataTable( {
     "ordering": true,
     "lengthChange": false,
@@ -21,6 +23,7 @@ $(document).ready( function () {
     "pageLength": 5,
     "pagingType": "simple"
   });
+  // Dashboard View - Changes on the Project
   $('#table-changes').DataTable( {
     "columns": [
       { "width": null },
@@ -33,6 +36,7 @@ $(document).ready( function () {
     "pagingType": "simple",
     "order": [[ 3, "asc" ]],
   });
+  // Edit View - Attachments associated with a Change
   $('#table-attachments').DataTable( {
     "columns": [
       { "width": "85%" },
@@ -46,15 +50,4 @@ $(document).ready( function () {
     "order": [[ 0, "asc" ]],
   });
 } );
-
-// Make the row 'clickable' to open the Change to view/edit details
-// https://electrictoolbox.com/jquey-make-entire-table-row-clickable/
-$(document).ready(function () {
-  $('table-change>tr').click(function () {
-    var href = $(this).find('a').attr('href');
-    if (href) {
-      window.location = href;
-    }
-  });
-});
 
