@@ -186,6 +186,16 @@ A README.md file has been prepared which explains what the project does and the 
 <br>
 <br>
 
+### **Version Control**
+
+Git was used for version control in combination with the following pre-fixes, which are taken from the Commit Message Guidelines outlined by [Angular Framework](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines):-
+  * feat: new feature has been added to the code
+  * fix: bug fixed during on-going testing
+  * refactor: 'tidy up' of code
+  * docs: addition of comments to code or writing of README file
+<br>
+<br>
+
 ### **Attribution**
 
 See [here](#Credits)
