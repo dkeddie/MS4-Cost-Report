@@ -23,6 +23,7 @@ body {
 
 #main-nav a {
   text-decoration: none;
+  max-width: calc(100vw - 150px);
 }
 
 #main-nav .btn {

@@ -61,15 +61,9 @@ The purpose of MS4 is to offer these services and benefits to anyone through a s
 
 ### **User Stories**
 
-On any property development, there will be methods for tracking and reporting costs.  A cost manager will normally implement a simple cost tracker utilising an Excel spreadsheet to list the changes and report this back to the Developer/Client.
+In my previous [Milestone Project (MS3)](https://github.com/dkeddie/MS3), I introduced and developed a website to take the place of an Excel Spreadsheet.  That project sought to replicate the detail of the spreadsheet into an application.
 
-I currently work for a developer and we require our cost managers to implement these procedures. The cost managers utilise the Excel cost tracker which can be viewed [here](/READMEinfo/CostTracker.xlsx)
-
-My aspiration is to incorporate the principles of this template into a more robust data management system which can be used for different construction projects by different developers / clients.
-
-As such, the fundamentals and principles are crystalised in the User Stories below, which will be translated into the final website.
-
-*As a developer, I want to implement best practice cost control on my construction projects.*
+Milestone Project 4 (MS4) seeks to take the principles of MS3 and develop a scalable platform for users to subscribe to that service.  Whereas MS3 would require users to implement a closed, secure website for private use, MS4 establishes an open platform with user authentication for security, so that property developers can manage and track construction costs with their team.
 
  **Item** | **Experience** | **Objectives**
 ---------|----------------|---------------
@@ -103,19 +97,116 @@ As such, the fundamentals and principles are crystalised in the User Stories bel
 <br>
 
 
-### **Functions of the Website**
+## **Functions and Requirements of the Website**
 
 The functions of the website are to:-
 
-1. Provide a visual summary of the current cost position of the development project.  This is represented in a Dashboard.
-    ![Dashboard](/READMEinfo/function_dashboard.jpg "Dashboard")
+### **Django Full Stack Project**
 
-2.  View a list of all the changes impacting on the cost of a construction project.  This is represented on the Register.
-    ![Register](/READMEinfo/function_register.jpg "Register")
+The website **Cost Report** is built around a Django backend and SQL relational database.  Users must register to use the website.  To use the website, a user must either subscribe and add a project, or be invited by another project owner to participate on a project.
 
-3. Ability to Add (create) / View (read) / Edit (update) / Delete changes which affect a construction project.
-    ![Change](/READMEinfo/function_change.jpg "Change")
+<img src="README/FullStackWebsite.gif" alt="Website gif" width="400">
+<br>
+<br>
 
+### **Multiple Apps**
+
+The **Cost Report** project is composed around multiple Apps as can be seen in the image below.
+
+<img src="README/DjangoApps.jpg" alt="Django Apps" width="400">
+<br>
+<br>
+
+### **Data Modelling**
+
+A relational database has been designed to link the users, projects, changes and payments to enable the project to work.  A schema of the database is shown below.
+
+<img src="README/RelationalDatabase.jpg" alt="Relational Database" width="400">
+<br>
+<br>
+
+### **User Authentication**
+
+The website utilises Django Allauth to manager user registration, verification, logging in and user management.  Registration is required as a pre-requisite to use the website.
+<br>  
+<img src="README/Registration.jpg" alt="User Authentication" width="400">
+
+Once registered, a user may add a project (and subscribe) to monitor the cost of a construction project, or be invited to participate on another project.
+<br>
+<br>
+
+### **User Interaction**
+
+The project relies on user interaction to create a Project and to monitor the changing estimated cost of the project by recording any changes that arise on the platform.
+
+A user will record a Change, including the Name, Cost, Status and any associated documents which relate to the Change.
+
+<img src="README/change.gif" alt="Add change interaction" width="400">
+
+Although not shown in the clip above, the user can continue to interact.  Details of the change can be amended on the Edit screen, additional attachments can be added or deleted, and the change itself can be deleted (if the user has the requisite permission).
+<br>
+<br>
+
+### **Use of Stripe**
+
+In order to track the costs of a Project, a user has to create a subscription for that project first.  Once the subscription has been activated, and so long as the payments continue to be processed on the cycle selected, then access to view the latest project cost estimate and list of changes on the Dashboard is accessible by the project owner and any other users they have provided access to.
+
+<img src="README/StripePayment.gif" alt="Stripe Payment" width="400">
+<br>
+<br>
+
+### **Structure and Navigation**
+
+The website utilises Bootstrap 4 to enable a responsive UI for mobile and desktop users.
+
+<img src="README/UIimages.jpg" alt="Responsive screen images" width="400">
+<br>
+<br>
+
+### **Use of Javascript**
+
+Javascript has been used in a number of ways to enhance a user's frontend experience.  For example:-
+
+1. Use of [DataTables](https://www.datatables.net) - Datatables is used across the project to order and present any lists in an ordered format (e.g. projects, changes and attachments). Each of the tables have been formatted individually to operate in an optimised manner according to the table.  An example is the Projects list on the home page:-  
+<img src="README/DataTables.gif" alt="DataTables" width="200">
+
+2. Stripe - Javascript required to operate Stripe payments on the frontend has been utilised.
+
+3. Editing Details - in order to protect details, read-only fields have been applied to forms which are displayed on-screen.  To make editing efficient, those forms can be made editable due to Javascript coding e.g. :-  
+<img src="README/EditFunction.gif" alt="DataTables" width="200">
+
+4. Clickable Row - to make the rows clickable =, for example to open the Change to to view / edit details:-  
+<img src="README/ClickRow.gif" alt="DataTables" width="400">
+<br>
+<br>
+
+### **Documentation**
+
+A README.md file has been prepared which explains what the project does and the value it provides to its users.
+<br>
+<br>
+
+### **Attribution**
+
+See [here](#Credits)
+<br>
+<br>
+
+### **Deployment**
+
+See [here](#Deployment)
+<br>
+<br>
+
+### **Security**
+
+Whilst in Development, dotenv and an env file was used to protect sensitive information, usernames, passwords and the like from being pushed to GitHub and exposed, and accessed via os.environ logic.
+
+In Production, this sensitive information has been stored in Config Vars and accessed in the same way as in Development.
+
+Once deployed and tested, the DEBUG has been turned off on the Production version on Heroku.
+
+<br>
 <br>
 
 ___
