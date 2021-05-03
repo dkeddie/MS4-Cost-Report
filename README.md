@@ -157,9 +157,7 @@ In order to track the costs of a Project, a user has to create a subscription fo
 
 ### **Structure and Navigation**
 
-The website utilises Bootstrap 4 to enable a responsive UI for mobile and desktop users.
-
-<img src="README/UIimages.jpg" alt="Responsive screen images" width="400">
+The website utilises Bootstrap 4 to enable a responsive UI for mobile and desktop users. This is further documented [here](#Responive-UX-Design)
 <br>
 <br>
 
@@ -226,18 +224,24 @@ ___
 
 ### **Responive UX Design**
 
-![Responsive Pages](READMEinfo/responsive_screens.jpg "Responsive Pages")
+<img src="README/UIimages.jpg" alt="Responsive screen images" width="800">
 
-The website has been designed for use across multiple screen sizes, adapting content display to optimise the information to be displayed.  The information shown on-screen is reduced to accommodate smaller display sizes.  The changes are noted below:-
+The website has been designed for use across multiple screen sizes, adapting content display to optimise the information to be displayed.
 
-- Large (desktop) screens - full information displayed on-screen, including filter options.
-- Medium (tablet) screens - filter sidenav becomes a slideout field, operated by floating button.  The user can still access all information.
-- Small (phone) screens - A final step is the reduction of information displayed on-screen.  Only key information is shown on small screens.  This is achieved by reducing the number of columns in the tables shown on the Dashboard and Register.
+Content is optimised on screen sizes that are greater than 500px, as the context boxes which can be seen on-screen are generally 500 x 500.  This enables a full and consistent user experience across a large number of devices.
+
+Where content boxes can no longer fit side-by-side in landscape format, the layout adjusts to portrait / vertical format. This is enabled by Bootstrap grid system adjusting to the screen size break points.
+
+This also means that in landscape mode, most devices will meet function without compromise.
+
+Below 500px, all content is still provided, however some formatting is adjusted to suite the narrow resolution.
+
 
 <br>
 
 
 ### **Key concepts**
+The website will be a cost management tool for developers to monitor and track the cost of changes on a construction project.  
 The primary purpose of website is to show the current cost of a construction project and a list of the changes that have affected the cost since the establishment of the budget.
 
 The intention of the site is to give this information in a clear, concise manner.  By giving users control of certain filters, it is envisaged that this will assist users understanding of the numbers being presented without the need for explanation.  The filters should give users a better insight on the information and numbers being presented, and in turn control of the project by being able to make more informed decisions.
