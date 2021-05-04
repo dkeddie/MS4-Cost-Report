@@ -28,7 +28,7 @@
     <div class="col-12 col-lg-6 m-2 content-box px-0" id="user-profile">
       <h2 class="text-center mt-3">Project Details</h2>
       <hr>
-      <form action="" method="POST" class="px-4 mt-4">
+      <form method="POST" class="px-4 mt-4">
         {% csrf_token %}
         <div class="row mt-2">
           <div class="col-12 form-group">
@@ -117,11 +117,11 @@
 </div>
 
 <!-- Modal to REMOVE USER PERMANENTLY -->
-<div class="modal fade py-auto" id="remove-userModal" tabindex="-1" role="dialog" aria-labelledby="remove-userLabel" aria-hidden="true">
+<div class="modal fade py-auto" id="remove-userModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title" id="remove-userModal">Delete Change</h2>
+        <h2 class="modal-title">Delete Change</h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

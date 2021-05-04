@@ -1,6 +1,6 @@
 function enableEdit() {
-  $('.submit-button').removeClass('d-none')
-  $('.enable-edit').addClass('d-none')
+  $('.submit-button').removeClass('d-none');
+  $('.enable-edit').addClass('d-none');
 }
 
 // Datatables.Net activation and formatting

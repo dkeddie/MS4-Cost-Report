@@ -94,8 +94,11 @@ def add_user(request, project_id):
 
         if form.is_valid():
             if user_id is not None:
-                if ProjectUser.objects.filter(project_user=user_id.id).filter(project=project).exists():
-                    messages.success(request, f'User already has access to this Project')
+                if ProjectUser.objects.filter(
+                    project_user=user_id.id).filter(
+                        project=project).exists():
+                    messages.success(
+                        request, f'User already has access to this Project')
                 else:
                     projectuser = form.save(commit=False)
                     projectuser.project_user = user_id
@@ -127,9 +130,13 @@ def add_user(request, project_id):
                         html_message=html_message
                         )
 
-                messages.success(request, mark_safe(f'{email} is not a registered user.<br><br>An email has been issued inviting them to join.<br><br>You will need to invite them again once they register.'))
+                messages.success(request, mark_safe(
+                    f'{email} is not a registered user.<br><br>'
+                    f'An email has been issued inviting them to join.<br><br>'
+                    f'You will need to invite them again once they register.'))
         else:
-            messages.error(request, f'An invalid entry was submitted. Please try again')
+            messages.error(
+                request, f'An invalid entry was submitted. Please try again')
 
         return redirect(reverse('project_admin', args=[project.id]))
 
@@ -142,6 +149,7 @@ def delete_user(request, project_id, project_user_id):
     projectuser.delete()
 
     messages.success(
-        request, f'{projectuser.project_user} deleted and will no longer have access to the Project')
+        request, f'{projectuser.project_user} '
+        f'deleted and will no longer have access to the Project')
 
     return redirect(reverse('project_admin', args=[project_id]))

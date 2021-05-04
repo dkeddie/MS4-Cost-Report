@@ -78,7 +78,7 @@ def card(request):
     automatic = request.POST['automatic']
 
     # Saves/Updates user payment details
-    try: 
+    try:
         userSub = UserSubscriptionDetails.objects.get(user=request.user)
         form = UserSubscriptionDetailsForm(request.POST, instance=userSub)
     except UserSubscriptionDetails.DoesNotExist:

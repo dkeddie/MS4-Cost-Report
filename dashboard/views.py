@@ -34,7 +34,8 @@ def get_dashboard(request, project_id):
     """
     project = get_object_or_404(Project, id=project_id)
 
-    # required to determine permission of user, if not a project user then project owner
+    # required to determine permission of user,
+    # if not a project user then project owner
     try:
         project_user = ProjectUser.objects.get(
             project=project, project_user=request.user)
@@ -50,22 +51,26 @@ def get_dashboard(request, project_id):
     original_estimate = project.original_estimate
 
     accepted_changes = Change.objects.filter(
-        project_id=project_id, change_status="A").aggregate(Sum('change_cost'))['change_cost__sum']
+        project_id=project_id, change_status="A").aggregate(
+            Sum('change_cost'))['change_cost__sum']
     if accepted_changes is None:
         accepted_changes = 0
 
-    pending_changes = Change.objects.filter(project_id=project_id, change_status="P").aggregate(
+    pending_changes = Change.objects.filter(
+        project_id=project_id, change_status="P").aggregate(
         Sum('change_cost'))['change_cost__sum']
     if pending_changes is None:
         pending_changes = 0
 
-    wip_changes = Change.objects.filter(project_id=project_id, change_status="WiP").aggregate(
+    wip_changes = Change.objects.filter(
+        project_id=project_id, change_status="WiP").aggregate(
         Sum('change_cost'))['change_cost__sum']
     if wip_changes is None:
         wip_changes = 0
 
     rejected_changes = Change.objects.filter(
-        project_id=project_id, change_status="R").aggregate(Sum('change_cost'))['change_cost__sum']
+        project_id=project_id, change_status="R").aggregate(
+            Sum('change_cost'))['change_cost__sum']
     if rejected_changes is None:
         rejected_changes = 0
 
@@ -108,7 +113,7 @@ def add_change(request, project_id):
             change.project_id = project
             change.project_user = request.user
             change.save()
-            for f in files: # possible to upload multiple files
+            for f in files:  # possible to upload multiple files
                 file_instance = ChangeAttachments(attachment=f)
                 file_instance.save()
                 change.attachment.add(file_instance)
@@ -118,13 +123,16 @@ def add_change(request, project_id):
         else:
             if form.is_valid() is False:
                 messages.error(request, mark_safe(
-                    f'There was an error submitting the change.<br>Try again.'))
+                    f'There was an error submitting the change.'
+                    f'<br>Try again.'))
             elif attachmentForm.is_valid() is False:
                 messages.error(request, mark_safe(
-                    f'There was an error attaching the document(s) to the change.<br>Try again to add the change.'))
+                    f'There was an error attaching the document(s) '
+                    f'to the change.<br>Try again to add the change.'))
             else:
                 messages.error(request, mark_safe(
-                    f'There was an error submitting the change.<br>Try again.'))
+                    f'There was an error submitting the change.'
+                    f'<br>Try again.'))
 
         return redirect(reverse('get_dashboard', args=[project.id]))
 
@@ -159,14 +167,16 @@ def edit_change(request, change_id):
 
         else:
             messages.error(request, mark_safe(
-                f'There was an error updating the change.<br>Try again.'))
+                f'There was an error updating the change.'
+                f'<br>Try again.'))
 
         return redirect(reverse('get_dashboard', args=[change.project_id_id]))
 
     else:
         project = Project.objects.get(pk=change.project_id_id)
 
-        # required to determine permission of user, if not a project user then project owner
+        # required to determine permission of user,
+        # if not a project user then project owner
         try:
             project_user = ProjectUser.objects.get(
                 project=change.project_id_id, project_user=request.user)
@@ -210,7 +220,8 @@ def delete_change(request, change_id):
 
     change = get_object_or_404(Change, pk=change_id)
 
-    # Step to delete all attachments and files stored, not just the database entry
+    # Step to delete all attachments and files stored,
+    # not just the database entry
     attachments = change.attachment.all()
     for a in attachments:
         a.delete()

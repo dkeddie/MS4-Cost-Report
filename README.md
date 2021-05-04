@@ -387,23 +387,50 @@ _____________
 (c) | Associated documents relating to the change can be uploaded.  One or more document can be uploaded at a time, and the list of these documents can be viewed by clicking on the change in the 'List of Changes'
 (d) | <img src="README/Changefunction.gif" width="400px">
 _____________
-
 <br>
 
-**6** | **Add new changes to the Cost Tracker with a breakdown of the cost**
+**14** | **Create a new project by subscribing**
 ---------|----------------
-(a) | New changes may be added to the DB with a breakdown of the Cost.
-(b) | ![Add change](READMEinfo/US_6AddChange.gif "Add change")
+**15** | **Enter payment details for recurring payments**
+(a) | Users can add a project and choose a subscription method, daily, monthly or yearly, in order to start tracking the construction costs of a project.
+(d) | <img src="README/StripePayment.gif" width="400px">
 _____________
-
 <br>
 
-**7** | **Edit changes as details are updated or when the Status of a change is made**
+**16** | **Switch off recurring payments**
 ---------|----------------
-(a) | Changes listed on the Register can be made by clicking on the row to View / Edit the item
-(b) | ![Edit Change](READMEinfo/US_7EditChange.gif "Edit Change") 
+**17** | **Feel my personal and payment information is safe and secure**
+**20** | **View a history of payments**
+(a) | The subscription can be controlled, including changing the plan or cancelling the subscription, by going to the 'Admin' page and 'Manage Subscription'
+(b) | The 'Manage Subscription link redirects to a Stripe portal. The user subscription and payment details are hosted on the Stripe portal, not the Cost Report website. This provides a higher level of security than could be achieved on the Cost Report website.
+(c) | A history of payments is included on the portal.
+(d) | <img src="README/ManageSub.gif" width="400px">
 ____________
+<br>
 
+**18** | **View an order confirmation after checkout**
+---------|----------------
+**19** | **Receive confirmation after each payment**
+(a) | A confirmation page is displayed when the subscription and payment have been processed. The page will only show for a few seconds but there is a link to the Stripe portal should users wish to review the details.
+(b) | When Stripe activated, users will also receive payment confirmation emails through Stripe. (Stripe does not send emails in Test mode)
+(c) | <img src="README/PaymentConfirm.jpg" width="200px">
+____________
+<br>
+
+**20** | **Delete a project**
+---------|----------------
+(a) | ++++++++++++++ STILL TO BE IMPLEMENTED ++++++++++++++++
+____________
+<br>
+
+**20** | **Add/Remove users to my project**
+---------|----------------
+(a) | A Project Owner can add users to participate on their projects through the 'Admin' page.
+(b) | A list of Users is maintained on this page.
+(c) | Users can be removed from the Project by clicking the 'Remove' button.  A prompt to confirm the removal will confirm the deletion of the user from the Project.
+(d) | When a user is added to the Project, the Project will appear in that users 'Home' page the next time they log in.
+(e) | <img src="README/AddRemoveUsers.gif" width="400px">
+____________
 <br>
 
 ### Validators
@@ -412,22 +439,22 @@ The W3C Markup Validator and W3C CSS Validator Services were used to validate th
 
 **[W3C Markup Validator](https://validator.w3.org/)**
 
-In order to check the HTML, the code was copied by 'Text Input' on the validator, as the code is not passed and checked by the 'Address' method.  There are no outstanding errors - screen captures of the results are shown on the links below.
+To view the links, please use *Validation credentials* to login in order that the links function correctly.
 
 **Results**
-  - Dashboard
-  ![Dashboard](READMEinfo/W3CValidator-Dashboard.jpg "Dashboard")
-  - Register
-  ![Regsiter](READMEinfo/W3CValidator-Register.jpg "Register")
-  - Add Change
-  ![Add Change](READMEinfo/W3CValidator-AddChange.jpg "Add Change")
-  - Edit Change
-  ![Edit Change](READMEinfo/W3CValidator-Dashboard.jpg "Edit Change")
+  - Home - [Results](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-cost-report.herokuapp.com%2Faccounts%2Flogin%2F%3Fnext%3D%2F)
 
+  - Dashboard - [Results](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-cost-report.herokuapp.com%2Fdashboard%2Fproject%2F1%2F)
+
+  - View / Edit Change - [Results](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-cost-report.herokuapp.com%2Fdashboard%2Fproject%2F1%2F)
+
+  - Admin - [Results](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-cost-report.herokuapp.com%2Fproject%2F1%2Fadmin%2F)
+
+There are no errors highlighted by the validator, however there are some warnings which should not cause the website to malfunction.
 
 <br>
 
-**[W3C CSS Validator](https://jigsaw.w3.org/css-validator/)** - [Results]("https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fms3dkeddie.herokuapp.com%2Fstatic%2Fcss%2Fstyle.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en")
+**[W3C CSS Validator](https://jigsaw.w3.org/css-validator/)** - [Results](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fms4-cost-report.s3.amazonaws.com%2Fstatic%2Fcss%2Fbase.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 
 There are no errors highlighted by the CSS validator.
 <br>
@@ -435,18 +462,9 @@ There are no errors highlighted by the CSS validator.
 
 ### Javascript Code Quality - JSHint
 
-[JSHint](https://jshint.com/) has been used to check and test the Code Quality of the Javascript used on this page.  The Javascript has been updated in line with warnings initially returned.  The following items remain and which are deemed not critical to the functioning of the site:-
+[JSHint](https://jshint.com/) has been used to check and test the Code Quality of the Javascript used on this page.  Each of the JS pages included within the both the main base.js file and each of the App static JS files has been passed through jshint.com.
 
-![Warning 1](/READMEinfo/JSHint-1.jpg)
-*Whilst not addressed, this warning could be refactored in future to address the concerns raised.*
-
-<br>
-
-![Warning 2](READMEinfo/JSHint-2-1.jpg)  
-*These warnings are incorrect and the statements are not missing semi-colons*
-![Extract from script.js](READMEinfo/JSHint-2-2.jpg)  
-
-
+There are no outstanding warnings.
 
 <br>
 
