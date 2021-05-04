@@ -76,7 +76,7 @@ Milestone Project 4 (MS4) seeks to take the principles of MS3 and develop a scal
 5 | Receive an email confirmation when registering | Verify that my account resitration was successful
 6 | Have a personalised user profile | View my projects/subscriptions, projects I can access, payment history and save my payment information
 7 | Invite users | So that I can include users to participate on my project
-&nbsp; | *Sorting and Searching* | &nbsp;
+&nbsp; | ***Sorting and Searching*** | &nbsp;
 8 | Search for a specific change by name or descriptions | So that I can quickly filter changes
 &nbsp; | ***Cost Tracker Items*** | &nbsp;
 9 | Add a new change item | Track the latest cost position of the project
@@ -239,14 +239,10 @@ Below 500px, all content is still provided, however some formatting is adjusted 
 
 <br>
 
-
 ### **Key concepts**
-The website will be a cost management tool for developers to monitor and track the cost of changes on a construction project.  
-The primary purpose of website is to show the current cost of a construction project and a list of the changes that have affected the cost since the establishment of the budget.
+The website will be a cost management tool for developers to monitor and track the cost of changes on a construction project. The concept is that developers will be able to easily apply the principles developed in MS3 through a subscription service.
 
-The intention of the site is to give this information in a clear, concise manner.  By giving users control of certain filters, it is envisaged that this will assist users understanding of the numbers being presented without the need for explanation.  The filters should give users a better insight on the information and numbers being presented, and in turn control of the project by being able to make more informed decisions.
-
-Whilst the website has reached a point of deployment for presentation, feedback and testing with users, the page requires further development before being deployed in a live situation.
+By hosting the application online as a subscription service, it will enable more developers, or project managers or cost consultants, to use the service for better cost management of construction projects. Also, as an open platform, the service will become familiar with a wide audience, used across projects, developers and consultants.
 
 <br>
 
@@ -254,7 +250,7 @@ Whilst the website has reached a point of deployment for presentation, feedback 
 
 Figma was used to develop a key concept into framework for developing the web page / app.  Only a desktop framework was formulated at this stage.
 
-A copy of the original wireframe can be found here: [Figma](https://www.figma.com/file/NCiIRZCyfNSYk62uRwCqu3/MS3?node-id=0%3A1) or [PDF](READMEinfo/Figma.pdf)
+A copy of the original wireframe can be found here: [Figma](https://www.figma.com/file/fRdNEUuVDSEQglHmwov15H/MS4?node-id=0%3A1) or [PDF](README/Figma.pdf)
 
 <br>
 
@@ -268,112 +264,27 @@ ___
 
 ## Features
 
-### Interactive Elements
-
-The web page is interactive in the following ways:-
-
-* Filter - on the Dashboard and Register, the Filter acts to filter and change the data presented on screen.
-  1. Cost - option to switch between 'Nett' and 'Gross' total figures
-  2. Status - selection of Status will update totals or filter the register for only those selected
-  3. Change Type - selection of Change Type will update totals or filter the register for only those selected
-  4. Period - selecting will update the totals to only include the changes within the period selected.
-
-* Add / Edit Changes - users can add or edit changes, affecting the database accordingly.
-
-* Auto-update input information on the Add / Edit pages:-
-  1. Numbers auto-format with thousand separators when fields entered/updated;
-  2. Gross total auto-calculates to ensure that it is the sum of the preceding numbers.
-
-
 ### Existing Features
 
-An overview of the features on the website are listed below:
-
-* **Dashboard**: The Dasboard provides a summary of the Cost Position of the project, providing users with a view of the Budget, accepted (Approved) and potential changes (Pending, WiP) and the Revised Estimate.  
-
-  Users can use the Filter to switch between Nett or Gross costs, or include / exclude changes depending on the Status or Change Type.  By enabling users to carry out this function themselves, they will have a deeper understanding of the cost.
-
-  ![Dashboard](/READMEinfo/existingF_dashboard.jpg "Add Change")
-
-* **Register**: The Register is a complete list of all Changes stored in the DB.  Like the Dashboard, the Filter will hide from view changes which are not selected.
-
-  By clicking on a row, the Change will open to View/Edit.
-
-  ![Register](/READMEinfo/existingF_register.jpg "Register")
-
-* **Add Change**: Users can add a change by clicking on the '+' button on the Register page, which will bring them to this input page.
-
-  The Change Nr auto-populates based on incrementing the Nr of records in the DB collection.  The field is still editable in order that users can customise, as it is sometimes necessary to coordinate these values with other consultants working on projects.
-
-  The Gross Cost also auto-calculates, and is the sum of the Nett Cost, Contingencies and Main Contractor On-Costs.  This ensures that there is no manual error in the calculation.
-
-  ![Add Change](/READMEinfo/existingF_addChange.jpg "Add Change")
-
-* **View / Edit Change**: Users can View/Edit a change by clicking on the row on the Register, which will bring them to this page.
-
-  On load, the input fields are Read Only, but on clicking the 'Edit' button, the editable fields will become active.
-
-  A delete button is also included on this page.  Deletion is permanent and therefore a warning pop-up is utilised to confirm the action before committing.
-
-  ![Edit Change](/READMEinfo/existingF_editChange.jpg "Edit Change")
-
-* **Budget**: This page allows users to amend the Approved Budget.
-
-  ![Budget](/READMEinfo/existingF_budget.jpg "Budget")
-
-* **Registration**: This page allows users to Register for access to the web page.
-
-  ![Registration](/READMEinfo/existingF_registration.jpg "Registration")
-
-* **Log In**
-
-  ![Log In](/READMEinfo/existingF_login.jpg "Log In")
-
-* **Log Out**: Removes all session cookies and ensures that pages / APIs cannot be accessed when not logged in.
-
-  ![Log Out](/READMEinfo/existingF_logout.jpg "Log Out")
 
 
 ### Database
 
-In order to implement CRUD (Create, Read, Update, Delete) functionality on the website, MongoDB - a NoSQL database - is used. A number of collections were created to support the operation of the website.  A record/extract from each collection has been inlcuded below for reference:-
-
-* Register - this is the primary collection of the database, implementing full CRUD functionality which enables users to manage and track the cost of changes occurring on a project.  
-![Register](/READMEinfo/DB_change.jpg "Users")  
-Create [Y]  Read [Y]  Update [Y]  Delete [Y]  
-Users are able create records on the 'Add' page.  
-The read functionality is implemented in a variety of different ways across the website, whether it is through the Dashboard and the computation of values of the records to display a summary, the full list of records of the collection on the Register, or viewing the details of the record on the View page.
-Records can be edited or deleted from the View page.
-
-* Users - this collection is used to allow users to Login and new records are created when a user registers.
-![users](/READMEinfo/DB_users.jpg "Users")  
-Create [Y]  Read [Y]  Update [N]  Delete [N]
-Update and Delete functionality could be implemented in future updates of the website.
-
-* Status and Change Type - these collections are fixed and not intended to be changeable by Users.  They provide the options in Input Fields to Add / Edit a change.  
-![Status](/READMEinfo/DB_status.jpg "Status")
-![Change Type](/READMEinfo/DB_changetype.jpg "Change Type")  
-Create [N]  Read [Y]  Update [N]  Delete [N]
-It is not intended to permit users to add, change or delete these options in order that they are permanent and consistent.  They are associated with wider functionality of the website, including the Filters, and allowing further CRUD functionality would disrupt them (without further wider development of the website).
-
-* Budget - this collection is currently only intended to host 1 record.  
-![Budget](/READMEinfo/DB_budget.jpg "Budget")
-Create [N]  Read [Y]  Update [Y]  Delete [N]
-The record is required from the outset, even if the budget has not been established and the values are '0'/zero, so there is no requirement for Create functionality.  Likewise, the record cannot nor should be deleted.
+In order to implement CRUD (Create, Read, Update, Delete) functionality on the website, an SQL database was used - sqlite in Development and postgres in Production.
 
 
 ### Features to Implement in the Future
 
 The functions implemented on this website are for demonstration purposes only at this stage, there is further development required before the website can be deployed for a live development.  Those features required before live deployment include:-
 
-* **Currency:** Ability to change the default currency displayed for the project.
-* **Multiple Projects:** Currently the website assumes that there is only one project.  Extend the functionality of the application to enable the cost tracking of multiple projects.
-* **Filter memory:** When a page reloads, the Filter currently returns to the default selection. Future development would consider maintaining selected filter options on page re-loads with a 'Reset' option to return to the default selection.
-* **Authorisation of Registration:** After a user has registered, access will not be granted until an Administrator approves access and sets privileges.
-*  **Update of User Profile:** Currently the User Profile is limited to Read Only.  This will be updated to enable the update of user details and also to delete if access is no longer required.
-* **Access privileges:** Users will be granted different rights and viewer privileges dependent upon their role on the project. For example, a cost manager will be able to add and edit changes, whereas other users will only be able to view them.  An Adminstrator role will also be introduced for controlling these access privileges.
+* **Add non-registered users:** At the moment, if an un-registered user is added as a Project User, that user is sent an email suggesting that they join. However, they will not automatically be added as a Project User if they do register. This feature should will be added.
+* **Reform how subscription system operates:** 
+  - Any user can create *one* project, without a subscription, but cannot add users.
+  - To add users or additional projects, users will need to subscribe to a tier system.
+  - The tier system will allow subscribers to select a number of projects on a subscription basis.
+
+  The benefit of this reformed subscription basis is that it will allow all users to create a project and experiement with the application.  The benefit of the website is sharing the project with other users, so this should encourage new users to experiment and see the benefits, and be encouraged to subscribe.
 * **Graphical Representation:** To enhance and make the user experience more engaging, the Dashboard can benefit from graphs or other figurative representations of the data in a more visually absorbing way.
-* **Upload Supporting Information:** Whilst the DB stores the high level costs associated with the change, being able to upload supporting information (breakdown of costs, design information) to provide full details of the change would be beneficial to users.
 
 <br>
 
@@ -385,28 +296,24 @@ The functions implemented on this website are for demonstration purposes only at
 * [CSS](https://en.wikipedia.org/wiki/Cascading_Style_Sheets) 
 * [Javascript](https://en.wikipedia.org/wiki/JavaScript)
 * [Python](https://www.python.org/)
+* [Django](https://www.djangoproject.com/)
 
 ### Frameworks, Libraries and Programmes Used 
 
-* [MongoDB](https://mongodb.com/)
-MongoDB provides the backend database for storing the information submitted from, and viewed on, the website.
+* [PostgreSQL](https://www.postgresql.org/)  
+PostgreSQL provides the backend database for storing the information submitted from, and viewed on, the website.
 
-* [MaterializeCSS](https://materializecss.com/)  
-Materialize is generally used to assist with the layout, utilising the in-built grid system, and design functionality.
+* [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/introduction/)  
+Bootstrap has been used to assist with the layout, utilising the in-built grid system, and design functionality.
 
 * [Google fonts](https://fonts.google.com/)  
-Google fonts is used to import the 'Montserrat' font into the style.css file which is used throughout the project.
+Google fonts is used to import the 'Montserrat' font into the base.css file which is used throughout the project.  In addition, [Material](https://fonts.google.com/icons) icons have been utilised.
 
 * [jQuery, incl UI](https://jquery.com/)  
 jQuery is used for Javascript DOM manipulation.
 
 * [Git](https://git-scm.com/)  
-Git was used for version control by utilizing the terminal in VSCode terminal to commit and push changes to GitHub.  
-In addition, in order to track the purpose of commits, the following pre-fixes have been adopted, which are taken from the Commit Message Guidelines outlined by [Angular Framework](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines):-
-  * feat: new feature has been added to the code
-  * fix: bug fixed during on-going testing
-  * refactor: 'tidy up' of code
-  * docs: addition of comments to code or writing of README file
+Git was used for version control by utilizing the terminal in VSCode terminal to commit and push changes to GitHub.
 
 * [GitHub](https://github.com/)  
 GitHub is used to store the projects code after being pushed from Git.
@@ -425,34 +332,60 @@ Screen Recorder used for creating videos (edited in Kapwing) of website features
 
 ### User Story Feedback and Testing
 
-**1** | **Clearly see the current cost position of the project**
+**1** | **Vew list of projects that I can access**
 ---------|----------------
-**2** | **Determine the cost movement from start (budget) to current / forecast position**
-(a) | Users can view the current cost position of the project on the Dashboard, including the Approved Budget and the Revised Estimate
-(b) | Users can see the build-up to the Revised Estimate, so they know what changes are included in it
-(c) | By switching the Nett and Gross Cost filter, users can be sure they know the basis of the cost.
-(d) | ![Cost Position](/READMEinfo/US_1CurrentCostPosition.gif "Cost Position")
-________________
-
-<br>
-
-**3** | **View a full list of the changes impacting the development**
----------|----------------
-**4** | **Determine what changes in the latest period (30 days) have added to the revised total estimate**
-(a) | The Register has a list of all changes being recorded on the project
-(b) | As users will be particularly interested in 'new' or 'updated' changes, the Register can be filtered accordingly to show only those 'new' or 'updated' changes within the last 30 days.
-(c) |![Full list](/READMEinfo/US_3+4Register+Period.gif "Full list")
+(a) | Users can view a list of projects that can be accessed on the Home page
+(b) | <img src="README/Projects.jpg" width="200px">
 _____________
-
 <br>
 
-**5** | **Depending on the purpose of my visit to the site, view only Accepted / Pending / WiP changes**
+**2** | **View list of changes**
 ---------|----------------
-**6** | **View changes / cost impacts by the type of change to understand their impact on the development**
-(a) | On the Dashboard, the Filter can be used to show only those costs which are Selected.  This may be useful where, for example, a Client only wishes to know their *committed* costs, I the budget and those changes which are approved.  As such, Pending and WiP changes would not be included in the Revised Estimate and would be unchecked.
-(b) | ![Dashboard Filter](/READMEinfo/US_5Filter.gif "Dashboard Filter")
-(c) | Similarly on the Register, the Filter can be used in a similar way.  For example, a Client may wish to review only thos Pending changes for authorisation / acceptance.
-(d) | ![Register Filter](/READMEinfo/US_5Filter_Register.gif  "Register Filter")
+**3** | **View a cost summary**
+(a) | Users can view the cost summary of a project and list of changes through the Dashboard App, which they can access from the Home page by clicking the 'View' button
+(b) | <img src="README/CostSummary+Changes.jpg" width="400px">
+_____________
+<br>
+
+**4** | **Easiliy register for an account**
+---------|----------------
+**5** | **Easily login or logout**
+**6** | **Easily recover my password in case I forget it**
+**7** | **receive an email confirmation when registering**
+**8** | **Have a personalised user profile**
+(a) | The 'Sign Up' and 'Log In' pages control access to the application.
+(b) | The User Profile can be viewed on the Home Page.
+(c) | <img src="README/UserProfile.jpg" width="200px">
+(d) | Users can recover access by clicking the 'Forgottin Password?' link on the 'Sign In' page.
+(e) | When registering, users must validate their email address before they can gain access to the application.
+(f) | The 'Sign Up' process creates a personalised user profile.  Additional details may be added through the Payment process, however all details are linked through the inital user profile set up in the registration process.
+(g) | <img src="README/Register.jpg" width="200px"> <img src="README/SignIn.jpg" width="200px">  
+_____________
+<br>
+
+**9** | **Invite users**
+---------|----------------
+(a) | A Project Owner will be able to invite additional registered users to participate on a project through the Admin button on the 'Home' page.
+(b) | If a user is not register, an email will be sent inviting them to join Cost Report, however they will not be added to the Project Users.  The Project Owner will have to re-invite them again once they have registered.
+(c) | <img src="README/InviteUser.gif" width="400px">
+_____________
+<br>
+
+**10** | **Search for a specific change by name or description**
+---------|----------------
+(a) | Search terms can be inputted into the Search box to narrow the list of items
+(c) | <img src="README/Search.gif" width="200px">
+_____________
+<br>
+
+**11** | **Add a new change item**
+---------|----------------
+**12** | **Edit a change item**
+**13** | **Upload associated change information (drawings, cost info., etc)**
+(a) | The latest cost position can be seen on the Dashboard.  If any new change is added to the project, this Dashboard will update to show the revised cost estimate.
+(b) | Change items can be editted by clicking on them on the List. If the cost is changed, the Dashboard estimates will be updated.
+(c) | Associated documents relating to the change can be uploaded.  One or more document can be uploaded at a time, and the list of these documents can be viewed by clicking on the change in the 'List of Changes'
+(d) | <img src="README/Changefunction.gif" width="400px">
 _____________
 
 <br>
