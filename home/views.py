@@ -32,7 +32,6 @@ def index(request):
         company = request.POST.get('company')
 
         update1 = User.objects.filter(pk=user.id)
-        print(update1)
         update1.update(
             first_name=firstname, last_name=lastname, email=email)
         UserProfile.objects.filter(pk=user.id).update(company=company)
@@ -52,7 +51,7 @@ def index(request):
         otherprojects = u.p_users.all()  # generates list where project user
         for other in otherprojects:
             projects |= Project.objects.filter(
-                project_name=other)  # merges second list into first
+                id=other.id)  # merges second list into first
 
         # to receive currect subscription status on stripe
         stripeProjects = ProjectStripeDetails.objects.filter(

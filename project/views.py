@@ -85,7 +85,6 @@ def add_user(request, project_id):
         form = ProjectUserForm(request.POST)
         project = get_object_or_404(Project, pk=project_id)
         email = request.POST.get('email')
-        print(email)
 
         try:
             user_id = User.objects.get(email=form.data['email'])

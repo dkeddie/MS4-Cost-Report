@@ -478,10 +478,9 @@ There are no non-compliance remaining in the app.py file.
 
 The following tests were carried out to ensure functionality before deployment:-
 
-**Test**: Changes can be added and filtered for each Status and Change Type
-* Steps followed:
-  * Add a change which correlates to each Status/Change Type option (ie 4 x 6 = 24 changes)
-  * Rotate through each status and change type to add a change
+**Test**: Two projects with the same name:
+  * Add two projects to ensure that page loads correctly (no duplicate errors)
+  * Add a user to *one* of the projects and ensure that only the correct Project is displayed in that users 'Home' page
   * Check Dashboard and Register functions for each Status and Change Type on the Filter
 * Results:  Dashboard and Register load as anticipated, with Status and Change Type filter operating to include / exclude applicable changes in the Totals on the Dashboard and list of changes on the Register.
 
