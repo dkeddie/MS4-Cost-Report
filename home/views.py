@@ -1,11 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.auth.models import User
+from allauth.account.models import EmailAddress
+
 from profile.models import UserProfile
 from profile.forms import UserSubscriptionDetailsForm
 
@@ -23,6 +26,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 def index(request):
     """ A view to return the index page """
     user = request.user
+    print(user.email)
 
     # Update User Profile details direct on the index page
     if request.POST:
@@ -31,10 +35,46 @@ def index(request):
         email = request.POST.get('email')
         company = request.POST.get('company')
 
-        update1 = User.objects.filter(pk=user.id)
-        update1.update(
-            first_name=firstname, last_name=lastname, email=email)
-        UserProfile.objects.filter(pk=user.id).update(company=company)
+        if user.email != email:
+            try:
+                update = User.objects.get(email=email)
+                messages.error(request, f'{email} already registered to another user')
+            except User.DoesNotExist:
+                # Update User model
+                update = User.objects.get(pk=user.id)
+                update.email = email
+                update.first_name= firstname
+                update.last_name = lastname
+                update.save()
+                # Update EmailAddress model so that emails match
+                newemail = EmailAddress.objects.get(email=user.email)
+                newemail.email = email
+                newemail.save()
+
+                obj, created = UserProfile.objects.update_or_create(
+                user=user,
+                defaults={'company': company},
+                )
+
+                messages.success(request, f'User Profile updated')
+        else:
+            # Update User model
+            update = User.objects.get(pk=user.id)
+            update.email = email
+            update.first_name= firstname
+            update.last_name = lastname
+            update.save()
+            #Update EmailAddress model so that emails match
+            newemail = EmailAddress.objects.get(email=user.email)
+            newemail.email = email
+            newemail.save()
+
+            obj, created = UserProfile.objects.update_or_create(
+                user=user,
+                defaults={'company': company},
+            )
+
+            messages.success(request, f'User Profile updated')
 
         return redirect('home')
 

@@ -480,27 +480,28 @@ The following tests were carried out to ensure functionality before deployment:-
 
 **Test**: Two projects with the same name:
   * Add two projects to ensure that page loads correctly (no duplicate errors)
-  * Add a user to *one* of the projects and ensure that only the correct Project is displayed in that users 'Home' page
-  * Check Dashboard and Register functions for each Status and Change Type on the Filter
-* Results:  Dashboard and Register load as anticipated, with Status and Change Type filter operating to include / exclude applicable changes in the Totals on the Dashboard and list of changes on the Register.
+  * Add a user to *one* of the projects
+  * Ensure that only the correct Project is displayed in the invited user's 'Home' page
+* Results: If two projects had the same name, they would both be displayed in the invited user's 'Home' page and be accessible. 
+* Fix: This was resolved by filtering the projects by 'id' rather than 'project_name' when selecting projects in the Home view.
 
-**Test**: Test the Period Filter
+**Test**: Try to register with the details of a User already in the database
 * Steps followed:-
-  1. Manually amend two Changes in the MongoDB collection, one for the 'date_added' field and the other for the 'date_changed' field.  The dates should be one year earlier than the current date, ie more than 30 days ago.
-  2. Check the dates have been updated on the website / Register by selecting each item in turn and clicking the item to View.
-  3. Return to the Register and select the Period filters to check that the Filter operates as intended
+  1. Attempt to sign up with register email address and new username
+  2. Attempt to sign up with new email address and registered username
+  3. Attempt to sign up with registered email address and username
 * Results:-
-  * The period filter operated as expected, but removing the Changes with dates outwith the 30 day period.
+  * In all cases, a warning is displayed that a user is already registered with that username and/or email address.
 
-**Test**: Test empty values in fields on the Add Change page
+**Test**: Try to change the email address of a user to one that is already in the database
 * Steps followed:-
-  1. Entered no values into fields (ie did not enter the field) and submitted form
-  2. Check Register loads
-  3. Click on Change to View/Edit and confirm item loads
+  1. Change/update the email address on the 'Home' page - User Profile section.
 * Results:-
-  * Register and View/Edit Change pages do not load.
-  * On checking the DB, any fields not inputted with a value become 'null'.
-  * Consequently, Jinja2 is not able to input valid text within the field.
+  * The email address will update, allowing duplicate email addresses.
+  * On further investigation, the email address under 'Users' model changed but the email under 'Accounts' did not.
+  * The required outcome should be that:-
+    * If duplicate email is entered, the email address should not be changed.
+    * If the email is unique, both the 'Users' and 'Accounts' email addresses should be updated.
 * Fix:-
   * JS function included to populate any empty fields with '0' before the form is submitted.  This is implemented when the Submit button is clicked.
   * The Add change function now operates so that no values need to be inputted in order to function, the default value of these fields will now be '0'/zero.
