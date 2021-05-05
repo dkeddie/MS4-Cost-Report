@@ -1,32 +1,3 @@
-
-Python packages
-1. Allauth
-
-
-- Fonts
-  - Montserrat
-  - Material Icons
-
-
-- PROFILE
-  - Amend allauth template to get First and Last Name
-    https://dev.to/gajesh/the-complete-django-allauth-guide-la3
-
-
-Display Tuple in choices
-https://stackoverflow.com/questions/54020156/display-value-of-choicefield-of-the-tuple-in-template-django
-
-Thousands separator
-https://docs.djangoproject.com/en/3.1/topics/i18n/formatting/
-
-
-UPLOADING
-https://b0uh.github.io/django-multiple-forms-in-one-class-based-view.html
-http://www.joshuakehn.com/2013/7/18/multiple-django-forms-in-one-form.html
-https://stackoverflow.com/questions/38257231/how-can-i-upload-multiple-files-to-a-model-field
-https://medium.com/@bhagyalakshmi18/uploading-multiple-files-in-django-b2f5ede55d09
-
-
 ![Responsive website images](/README/banner.jpeg "Responsive website images")
 
 # **MILESTONE PROJECT FOUR**
@@ -503,31 +474,33 @@ The following tests were carried out to ensure functionality before deployment:-
     * If duplicate email is entered, the email address should not be changed.
     * If the email is unique, both the 'Users' and 'Accounts' email addresses should be updated.
 * Fix:-
-  * JS function included to populate any empty fields with '0' before the form is submitted.  This is implemented when the Submit button is clicked.
-  * The Add change function now operates so that no values need to be inputted in order to function, the default value of these fields will now be '0'/zero.
+  * The code was updated to ensure that there can be no duplicate user emails.
+  * Additional code was added to update the EmailAddress model so that both the User and EmailAddress emails match when an email is updated
 
-**Test**: To test the thousand separator included in value fields, different values inputted to test the Add Change page
-* Steps followed:-
-  1. Entered values of 
-      - '100000' (one hundred thousand), 
-      - '1000000' (one million), and 
-      - '100000000' (one hundred million)  
+        if user.email != email:
+            try:
+                update = User.objects.get(email=email)
+                messages.error(request, f'{email} already registered to another user')
+            except User.DoesNotExist:
+                # Update User model
+                update = User.objects.get(pk=user.id)
+                update.email = email
+                update.first_name= firstname
+                update.last_name = lastname
+                update.save()
+                # Update EmailAddress model so that emails match
+                newemail = EmailAddress.objects.get(email=user.email)
+                newemail.email = email
+                newemail.save()
 
-      to test how the form handles the values on (a) calculation of Gross Total and (b) submission of values to the DB
-  2. Check that Gross Total is calculating properly
-  2. Check Register loads
-  3. Click on Change to View/Edit and confirm item loads
-* Results:-
-  * Value of 100,000 operates as expected.
-  * Values of 1,000,000 and 100,000,000 do not calculate the Gross Total correctly.  The function to omit the only omits the first ',' from the values, preventing the calculation.
-  * The Register and View/Edit pages do load, but are not the correct/anticipated values.
-* Fix:-
-  * JS function which removes the ',' from the number strings updated to omit all ','.
-  * This now allows numbers of 999,999 to function on the website as anticipated.
+                obj, created = UserProfile.objects.update_or_create(
+                user=user,
+                defaults={'company': company},
+                )
 
 During the on-going testing and development of the site, bugs were discovered and resolved.  These can be reviewed in the list of Git commits, specifically those with the 'fix' prefix.
 
-For a list of the Git Commit history, this can be viewed [here](https://github.com/dkeddie/MS2/commits/master)
+For a list of the Git Commit history, this can be viewed [here](https://github.com/dkeddie/MS4/commits/master)
 
 
 ### Further Testing
@@ -554,39 +527,46 @@ The development of the website has been undertaken on VSCode.
 
 The steps from start to present were:-
 
+
 **Connection to GitHub repository**
 
   1. Creation of repository on GitHub, utilising Code Institute template.
-
   2. Clone of GitHub repository to local machine but utilising GitBash to implement the command:-
-  `git clone https://github.com/dkeddie/MS3.git`
+  `git clone https://github.com/dkeddie/MS4.git`
+
+**Set up AWS S3 account** (to host static files and other media/uploads)
+  3. Create and set up an AWS S3 Bucket
+  4. Install boto3 and django-storages through pip
+  5. Add 'storages' to INSTALLED_APPS in settings.py
+  6. Update settings.py to use AWS for file storage
+  7. Create a custom_storages.py file in the main directory and set new classes for storage to the S3 bucket
 
 **Deployment to Heroku**
 
-  3. Creation of a new App on Heroku
-  4. Go to 'Deployment Method' -> Select 'GitHub' and search for the repository that you want to deploy via Heroku from GitHub.
-  ![Deployment](/READMEinfo/deploy_Heroku.jpg "Deployment")
-  5. Go to 'Settings' and 'Reveal Config Vars' -> Input the settings required to deploy the website and connect to the Mongo Database as shown below ()
-  ![Settings](/READMEinfo/deploy_Heroku2.jpg "Settings")
-  ![Config Vars](/READMEinfo/deploy_Heroku3.jpg "Config Vars")
-  6. Go to 'Deploy' and select to Enable Automatic Deploys
-  ![Auto Deploy](/READMEinfo/deploy_Heroku4.jpg "Auto Deploy")
+  8. Creation of a new App on Heroku
+  9. Go to 'Deployment Method' -> Select 'GitHub' and search for the repository that you want to deploy via Heroku from GitHub.  
+  <img src="README/deploy_Heroku.jpg" width="400" alt="Deployment">
+  10. Go to 'Settings' and 'Reveal Config Vars' -> Input the settings required to deploy the website and connect to the Mongo Database as shown below:-  
+  <img src="README/deploy_Heroku2.jpg" width="400" alt="Settings">
+  <img src="README/deploy_Heroku3.jpg" width="400" alt="Config Vars">
+  11. Go to 'Deploy' and select to Enable Automatic Deploys
+  <img src="README/deploy_Heroku4.jpg" width="400" alt="Auto Deploy">
 
 The website is now deployed and can be viewed at:
-    [https://ms3dkeddie.herokuapp.com/](https://ms3dkeddie.herokuapp.com/)  
+    [https://ms4-cost-report.herokuapp.com/](https://ms4-cost-report.herokuapp.com/)  
 <br>
 
-### Cloning of the Repository
+## Cloning of the Repository
 
 Should you wish to deploy your own version of the website, the following steps may be followed to host your own version on GitHub:-
 
-1. Visit my GitHub Repository: [MS3](https://github.com/dkeddie/MS3)
+1. Visit my GitHub Repository: [MS4](https://github.com/dkeddie/MS4)
 
 2. Click dropdown 'Code' and copy url to 'Clone with HTTPS'  
-![Clone](READMEinfo/clone.png)
+<img src="README/clone.png" width="200" alt="Clone">
 
-3. Select 'Import Repository' from the Menu dropdown, paste the url, give your new repository a name and click 'Begin Import'
-![Clone instructions](READMEinfo/clone2.png)
+3. Select 'Import Repository' from the Menu dropdown, paste the url, give your new repository a name and click 'Begin Import'  
+<img src="README/clone2.png" width="400" alt="Clone Instructions">
 
 4. Go to your new Repository.  You may chose to launch the repository in an IDE of your chosing in order to make changes to the website, and customise it to your requirements.
 
@@ -601,8 +581,15 @@ All content and code was written by the developer, except where taken from libra
 
 ### Code
 
-* Snackbars - flash messages which hover over the page are adapted and inspired from [W3Schools](https://www.w3schools.com/howto/howto_js_snackbar.asp)
 * Clickable table rows - code to make the row clickable to View/Edit the item was taken from [electrictoolbox](https://electrictoolbox.com/jquey-make-entire-table-row-clickable/)
+
+* Amend the allauth template to First and Last Name - to enable these details to be captured in the registration process, guidance followed [here](https://dev.to/gajesh/the-complete-django-allauth-guide-la3)
+
+* Display Tuple in choices - for making choices in models / forms, guidance followed [here](https://stackoverflow.com/questions/54020156/display-value-of-choicefield-of-the-tuple-in-template-django)
+
+* Uploading files - to upload multiple files at once, store in S3 and delete from model *and* AWS, difference sources were referred to (
+  [1](https://b0uh.github.io/django-multiple-forms-in-one-class-based-view.html), [2](http://www.joshuakehn.com/2013/7/18/multiple-django-forms-in-one-form.html), [3](https://stackoverflow.com/questions/38257231/how-can-i-upload-multiple-files-to-a-model-field), [4](https://medium.com/@bhagyalakshmi18/uploading-multiple-files-in-django-b2f5ede55d09)
+)
 
 ### Acknowledgements
 
