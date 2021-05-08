@@ -53,12 +53,15 @@
         </div>
       </form>
       <br>
-      <br>
         <div class="col-12 mx-2">
           <form method="POST" action="{% url 'customer_portal' stripeUser project.id %}">
             {% csrf_token %}
             <button class="btn btn-rect" type="submit">Manage Subscription</button>
           </form>
+      </div>
+      <br>
+      <div class="col-12 mx-2">
+        <a href="{% url 'delete_project' project.id %}" class="btn btn-delete">Delete Project</a>
       </div>
     </div>
 

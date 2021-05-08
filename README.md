@@ -388,9 +388,14 @@ ____________
 ____________
 <br>
 
-**20** | **Delete a project**
+**21** | **Delete a project**
 ---------|----------------
-(a) | ++++++++++++++ STILL TO BE IMPLEMENTED ++++++++++++++++
+(a) | A Project Owner can delete the Project through the 'Admin' panel.
+(b) | In order to ensure a Project is not accidentally deleted, defensive programming is implemented - a confirmation page ensures no accidental clicking, which is reinforced by requesting that users correctly enter their email address to confirm the deletion.
+(c) | <img src="README/ProjectDelete.gif" width="400px">
+(d) | A confirmation email is also sent to the Project Owner.  The email provides a link to the Stripe Portal, as Users may want to confirm that the subscription has been cancelled, remove any Payment details and/or review past payments.
+(e) | <img src="README/ProjectDeleteEmail.jpg" width="400px">
+
 ____________
 <br>
 
@@ -514,7 +519,9 @@ During the development of the website, and again as a final, comprehensive and i
 
 ### Known Bugs
 
-There are no known bugs.
+* **Project Options don't display correctly on initiation of Subscription**  
+After a new project has been created, and the Payment has been processed, the options for the Project do not initially display correctly.  This is rectified on a refresh.  
+<img src="README/bug_newsub.gif" width="400px">
 
 
 ## Deployment

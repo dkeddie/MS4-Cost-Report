@@ -168,6 +168,18 @@ body {
   background-color: rgb(123, 123, 123) !important;
 }
 
+.btn-delete {
+  position: relative;
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  background-color: rgb(202, 202, 202);
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background-color: rgb(255, 152, 152) !important;
+}
+
 .btn-right-align {
   position: absolute;
   bottom: 25px;

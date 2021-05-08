@@ -26,7 +26,6 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 def index(request):
     """ A view to return the index page """
     user = request.user
-    print(user.email)
 
     # Update User Profile details direct on the index page
     if request.POST:

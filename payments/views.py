@@ -183,3 +183,15 @@ def customer_portal(request, stripe_user, project_id):
         return_url=f'{return_url}{project_id}/admin',
     )
     return redirect(session.url)
+
+
+def customer_portal_email(request, stripe_user):
+    """
+    Link to stripe subscription portal from email
+    """
+    return_url = request.build_absolute_uri(reverse('home'))
+    session = stripe.billing_portal.Session.create(
+        customer=stripe_user,
+        return_url=f'{return_url}'
+    )
+    return redirect(session.url)

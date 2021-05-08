@@ -1,10 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils.safestring import mark_safe
+from django.conf import settings
 
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
+
+from django.contrib.sites.models import Site
 
 from .models import Project, ProjectUser, User
 from .forms import ProjectForm, ProjectUserForm
@@ -14,7 +18,14 @@ from payments.models import ProjectStripeDetails
 from profile.models import UserSubscriptionDetails
 from profile.forms import UserSubscriptionDetailsForm
 
+from dashboard.models import Change, ChangeAttachments
 
+import stripe
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
+@login_required
 def create_project(request):
     """New Project"""
     subForm = UserSubscriptionDetailsForm()
@@ -30,6 +41,7 @@ def create_project(request):
         return redirect(reverse(subscribe, args=[project.id]))
 
 
+@login_required
 def subscribe(request, project_id):
     """Initiate new subscription and payment process"""
     user = get_object_or_404(User, id=request.user.id)
@@ -46,6 +58,7 @@ def subscribe(request, project_id):
     return render(request, template, context)
 
 
+@login_required
 def project_admin(request, project_id):
     """View Project Admin Page"""
     project = Project.objects.get(id=project_id)
@@ -79,6 +92,7 @@ def project_admin(request, project_id):
     return render(request, template, context)
 
 
+@login_required
 def add_user(request, project_id):
     """Add user to the Project in Project Admin page"""
     if request.method == 'POST':
@@ -140,6 +154,7 @@ def add_user(request, project_id):
         return redirect(reverse('project_admin', args=[project.id]))
 
 
+@login_required
 def delete_user(request, project_id, project_user_id):
     """Delete user from the Project"""
     projectuser = get_object_or_404(
@@ -152,3 +167,70 @@ def delete_user(request, project_id, project_user_id):
         f'deleted and will no longer have access to the Project')
 
     return redirect(reverse('project_admin', args=[project_id]))
+
+
+@login_required
+def delete_project(request, project_id):
+    """
+    View to confirm permanent deletion of project
+    """
+    project = get_object_or_404(Project, pk=project_id)
+
+    stripeDetails = get_object_or_404(ProjectStripeDetails, project=project)
+    stripeUser = stripeDetails.customer_id
+    stripeSub = stripeDetails.stripe_sub
+    url = request.build_absolute_uri(reverse('customer_portal_email', args=[stripeUser]))
+
+    if request.POST:
+        email = request.POST.get('email')
+        if email == request.user.email:
+
+            # cancel the Stripe subscription
+            stripe.Subscription.delete(stripeSub)
+
+            # Delete all attachments associated with the Project
+            changes = Change.objects.filter(project_id=project_id)
+            for change in changes:
+                attachments = change.attachment.all()
+                for a in attachments:
+                    a.delete()
+
+            # Delete the Project from the DB
+            project.delete()
+
+            context = {
+                'project': project,
+                'url': url
+            }
+
+            subject = f'{project.project_name} has been permanently deleted from Cost Report'
+            plain_message = render_to_string(
+                'project/emails/delete_project_email.txt', context)
+            from_email = 'Cost Report'
+            to = email
+            html_message = render_to_string(
+                'project/emails/delete_project_email.html', context)
+
+            send_mail(
+                    subject,
+                    plain_message,
+                    from_email,
+                    [to],
+                    fail_silently=False,
+                    html_message=html_message
+                    )
+
+            messages.success(request, f'{project.project_name} has been permanently deleted')
+            return redirect(reverse('home'))
+        else:
+            messages.error(request, f'The email address did not match')
+            return redirect(reverse('delete_project', args=[project_id]))
+
+    else:
+        template = "project/delete_project.html"
+        context = {
+            'project': project
+        }
+
+        return render(request, template, context)
+

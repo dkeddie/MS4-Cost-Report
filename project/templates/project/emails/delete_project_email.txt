@@ -1,0 +1,6 @@
+Cost Report
+{{ project.project_name }} has been removed from Cost Report
+
+Removing the Project from Cost Report has removed all data associated with it and cancelled the subsription.
+
+With regards to the subscription, you can still access the Payment history and details through the payment portal here - {{ url }}
