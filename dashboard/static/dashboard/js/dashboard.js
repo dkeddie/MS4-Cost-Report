@@ -1,6 +1,6 @@
 
 // Makes rows on 'List of changes' clickable to open edit change
-$('#table-changes tr').click(function () {
+$('#table-changes tbody tr').click(function () {
   var change_id = $(this).children('.change_id_select').text();
   window.location.href = `/dashboard/edit_change/${change_id}/`;
 });
