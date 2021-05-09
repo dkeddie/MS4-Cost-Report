@@ -9,7 +9,7 @@ function _3dsec(stripe_public_key, pi_secret) {
       } else {
         $("#3ds_result").removeClass("d-none");
         setTimeout(() => {
-          window.location = "{% url 'home' %}"
+          window.location = url
         }, 5000);
       }
     })

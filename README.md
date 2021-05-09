@@ -520,8 +520,14 @@ During the development of the website, and again as a final, comprehensive and i
 ### Known Bugs
 
 * **Project Options don't display correctly on initiation of Subscription**  
-After a new project has been created, and the Payment has been processed, the options for the Project do not initially display correctly.  This is rectified on a refresh.  
-<img src="README/bug_newsub.gif" width="400px">
+  * After a new project has been created, and the Payment has been processed, the options for the Project do not initially display correctly.  This is rectified on a refresh.  
+  * <img src="README/bug_newsub.gif" width="400px">  
+  * Fix: Additional code added to webhook function to create subscription object:-  
+
+        # Set project subscription status to True
+        # Inital page will load correctly
+          project.has_subscription = True
+          project.save()
 
 
 ## Deployment

@@ -99,11 +99,11 @@ def index(request):
             try:
                 project_sub = ProjectStripeDetails.objects.get(
                     project=project.id)
+                subActive = ProjectStripeDetails.sub_status(project_sub)
             except ObjectDoesNotExist:
                 project_sub = None
 
             if project_sub is not None:
-                subActive = ProjectStripeDetails.sub_status(project_sub)
                 if subActive == 'active':
                     Project.objects.filter(pk=project.id).update(
                         has_subscription=True)

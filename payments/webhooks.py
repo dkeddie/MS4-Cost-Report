@@ -71,10 +71,17 @@ def create_stripe_subscription(request, charge):
     pi.invoice.subscription,
   )
 
+  project = get_object_or_404(Project, id=sub.metadata.project_id)
+
   obj, created = ProjectStripeDetails.objects.get_or_create(
-    project = get_object_or_404(Project, id=sub.metadata.project_id),
+    project = project,
     customer_id = sub.customer,
     stripe_sub = sub.id,
   )
+
+  # Set project subscription status to True
+  # Inital page will load correctly
+  project.has_subscription = True
+  project.save()
 
   return HttpResponse(status=200)

@@ -156,6 +156,8 @@ def card(request):
                 context['payment_intent_secret'] = payment_intent.client_secret
                 context['STRIPE_PUBLIC_KEY'] = settings.STRIPE_PUBLIC_KEY
                 context['project_id'] = project_id
+                context['customer_email'] = request.POST.get('customer_email', '')
+                context['project'] = get_object_or_404(Project, pk=project_id)
 
                 return render(request, 'payments/3dsec.html', context)
 
