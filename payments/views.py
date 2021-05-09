@@ -37,18 +37,19 @@ def payment_method(request):
     except UserSubscriptionDetails.DoesNotExist:
         form = UserSubscriptionDetailsForm()
 
-    # Retrieve the price of the subscription selected
+    # RETRIEVE THE PRICE OF THE SUBSCRIPTION SELECTED
     price = stripe.Price.retrieve(plan).unit_amount
-    print(price)
 
     context = {}
 
+    # CREATE PAYMENT INTENT FOR STRIPE
     payment_intent = stripe.PaymentIntent.create(
         amount=price,
         currency='gbp',
         payment_method_types=['card'],
     )
 
+    # INFORMATION REQUIRED FOR PAYMENT PAGE
     if payment_method == 'card':
         context['secret_key'] = payment_intent.client_secret
         context['STRIPE_PUBLIC_KEY'] = settings.STRIPE_PUBLIC_KEY
@@ -77,7 +78,7 @@ def card(request):
     project_id = request.POST['project_id']
     automatic = request.POST['automatic']
 
-    # Saves/Updates user payment details
+    # SAVE / UPDATE USER PAYMENT DETAILS
     try:
         userSub = UserSubscriptionDetails.objects.get(user=request.user)
         form = UserSubscriptionDetailsForm(request.POST, instance=userSub)
@@ -85,6 +86,7 @@ def card(request):
         userSub = None
         form = UserSubscriptionDetailsForm(request.POST)
 
+    # User details are saved as it is a subscription
     if form.is_valid():
         if userSub is None:
             sub = form.save(commit=False)
@@ -118,7 +120,7 @@ def card(request):
         },
     )
 
-    # creates subscription on stripe
+    # Creates Subscription on stripe
     if automatic == 'on':
         s = stripe.Subscription.create(
             customer=customer.id,
@@ -133,6 +135,7 @@ def card(request):
             },
         )
 
+        # Once subscription created, Payment Intent needs completing
         if s.status == 'incomplete':
             pi = s.latest_invoice.payment_intent.id
             stripe.PaymentIntent.modify(
@@ -143,6 +146,7 @@ def card(request):
                 pi
             )
 
+            # Payments which require 3D authentication
             if ret.status == 'requires_action':
                 payment_intent = stripe.PaymentIntent.retrieve(
                     pi
@@ -151,6 +155,7 @@ def card(request):
 
                 context['payment_intent_secret'] = payment_intent.client_secret
                 context['STRIPE_PUBLIC_KEY'] = settings.STRIPE_PUBLIC_KEY
+                context['project_id'] = project_id
 
                 return render(request, 'payments/3dsec.html', context)
 
@@ -177,7 +182,10 @@ def customer_portal(request, stripe_user, project_id):
     """
     Link to stripe subscription portal
     """
+    # static url of page
     return_url = request.build_absolute_uri('/project/')
+
+    # returns session specific url to access stripe portal
     session = stripe.billing_portal.Session.create(
         customer=stripe_user,
         return_url=f'{return_url}{project_id}/admin',
@@ -188,6 +196,8 @@ def customer_portal(request, stripe_user, project_id):
 def customer_portal_email(request, stripe_user):
     """
     Link to stripe subscription portal from email
+    Used when Project deleted and no Customer Portal not accessible
+    through webpage
     """
     return_url = request.build_absolute_uri(reverse('home'))
     session = stripe.billing_portal.Session.create(

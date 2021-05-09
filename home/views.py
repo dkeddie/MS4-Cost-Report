@@ -27,7 +27,7 @@ def index(request):
     """ A view to return the index page """
     user = request.user
 
-    # Update User Profile details direct on the index page
+    # UPDATE USER PROFILE DETAILS DIRECT ON THE INDEX PAGE
     if request.POST:
         firstname = request.POST.get('firstname')
         lastname = request.POST.get('lastname')
@@ -83,19 +83,18 @@ def index(request):
         form = ProjectForm()
         subForm = UserSubscriptionDetailsForm()
 
-        # generates lists of projects where either project owner or user
+        # GENERATE LIST OF PROJECTS ACCESSIBLE BY USER
+        # Step 1 - List where user is Project Owner
         projects = Project.objects.filter(
-            project_owner_id=user.id)  # generates list where project owner
+            project_owner_id=user.id)
+        # Add projects to List where user is a Project User
         u = get_object_or_404(User, pk=request.user.id)
         otherprojects = u.p_users.all()  # generates list where project user
         for other in otherprojects:
             projects |= Project.objects.filter(
                 id=other.id)  # merges second list into first
 
-        # to receive currect subscription status on stripe
-        stripeProjects = ProjectStripeDetails.objects.filter(
-            project__in=projects)
-
+        # UPDATE SUBSCRIPTION STATUS OF EACH PROJECT TO BE DISPLAYED
         for project in projects:
             try:
                 project_sub = ProjectStripeDetails.objects.get(
@@ -123,7 +122,6 @@ def index(request):
             'form': form,
             'subForm': subForm,
             'projects': projects,
-            'stripeProjects': stripeProjects,
         }
         return render(request, template, context)
 

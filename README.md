@@ -37,7 +37,7 @@ In my previous [Milestone Project (MS3)](https://github.com/dkeddie/MS3), I intr
 Milestone Project 4 (MS4) seeks to take the principles of MS3 and develop a scalable platform for users to subscribe to that service.  Whereas MS3 would require users to implement a closed, secure website for private use, MS4 establishes an open platform with user authentication for security, so that property developers can manage and track construction costs with their team.
 
  **Item** | **Experience** | **Objectives**
----------|----------------|---------------
+---------|:----------------|:---------------
 &nbsp; | ***Viewing & Navigation*** | &nbsp;
 1 | View list of projects that I can access | View and edit the project cost tracker
 2 | View list of changes | Track the costs affecting a project
@@ -92,7 +92,7 @@ The **Cost Report** project is composed around multiple Apps as can be seen in t
 
 A relational database has been designed to link the users, projects, changes and payments to enable the project to work.  A schema of the database is shown below.
 
-<img src="README/RelationalDatabase.jpg" alt="Relational Database" width="400">
+<img src="README/RelationalDatabase.jpg" alt="Relational Database" width="800">
 <br>
 <br>
 
@@ -304,14 +304,14 @@ Screen Recorder used for creating videos (edited in Kapwing) of website features
 ### User Story Feedback and Testing
 
 **1** | **Vew list of projects that I can access**
----------|----------------
+---------|:----------------
 (a) | Users can view a list of projects that can be accessed on the Home page
 (b) | <img src="README/Projects.jpg" width="200px">
 _____________
 <br>
 
 **2** | **View list of changes**
----------|----------------
+---------|:----------------
 **3** | **View a cost summary**
 (a) | Users can view the cost summary of a project and list of changes through the Dashboard App, which they can access from the Home page by clicking the 'View' button
 (b) | <img src="README/CostSummary+Changes.jpg" width="400px">
@@ -319,7 +319,7 @@ _____________
 <br>
 
 **4** | **Easiliy register for an account**
----------|----------------
+---------|:----------------
 **5** | **Easily login or logout**
 **6** | **Easily recover my password in case I forget it**
 **7** | **receive an email confirmation when registering**
@@ -335,7 +335,7 @@ _____________
 <br>
 
 **9** | **Invite users**
----------|----------------
+---------|:----------------
 (a) | A Project Owner will be able to invite additional registered users to participate on a project through the Admin button on the 'Home' page.
 (b) | If a user is not register, an email will be sent inviting them to join Cost Report, however they will not be added to the Project Users.  The Project Owner will have to re-invite them again once they have registered.
 (c) | <img src="README/InviteUser.gif" width="400px">
@@ -343,14 +343,14 @@ _____________
 <br>
 
 **10** | **Search for a specific change by name or description**
----------|----------------
+---------|:----------------
 (a) | Search terms can be inputted into the Search box to narrow the list of items
 (c) | <img src="README/Search.gif" width="200px">
 _____________
 <br>
 
 **11** | **Add a new change item**
----------|----------------
+---------|:----------------
 **12** | **Edit a change item**
 **13** | **Upload associated change information (drawings, cost info., etc)**
 (a) | The latest cost position can be seen on the Dashboard.  If any new change is added to the project, this Dashboard will update to show the revised cost estimate.
@@ -361,7 +361,7 @@ _____________
 <br>
 
 **14** | **Create a new project by subscribing**
----------|----------------
+---------|:----------------
 **15** | **Enter payment details for recurring payments**
 (a) | Users can add a project and choose a subscription method, daily, monthly or yearly, in order to start tracking the construction costs of a project.
 (d) | <img src="README/StripePayment.gif" width="400px">
@@ -369,7 +369,7 @@ _____________
 <br>
 
 **16** | **Switch off recurring payments**
----------|----------------
+---------|:----------------
 **17** | **Feel my personal and payment information is safe and secure**
 **20** | **View a history of payments**
 (a) | The subscription can be controlled, including changing the plan or cancelling the subscription, by going to the 'Admin' page and 'Manage Subscription'
@@ -380,7 +380,7 @@ ____________
 <br>
 
 **18** | **View an order confirmation after checkout**
----------|----------------
+---------|:----------------
 **19** | **Receive confirmation after each payment**
 (a) | A confirmation page is displayed when the subscription and payment have been processed. The page will only show for a few seconds but there is a link to the Stripe portal should users wish to review the details.
 (b) | When Stripe activated, users will also receive payment confirmation emails through Stripe. (Stripe does not send emails in Test mode)
@@ -389,7 +389,7 @@ ____________
 <br>
 
 **21** | **Delete a project**
----------|----------------
+---------|:----------------
 (a) | A Project Owner can delete the Project through the 'Admin' panel.
 (b) | In order to ensure a Project is not accidentally deleted, defensive programming is implemented - a confirmation page ensures no accidental clicking, which is reinforced by requesting that users correctly enter their email address to confirm the deletion.
 (c) | <img src="README/ProjectDelete.gif" width="400px">
@@ -399,8 +399,8 @@ ____________
 ____________
 <br>
 
-**20** | **Add/Remove users to my project**
----------|----------------
+**22** | **Add/Remove users to my project**
+---------|:----------------
 (a) | A Project Owner can add users to participate on their projects through the 'Admin' page.
 (b) | A list of Users is maintained on this page.
 (c) | Users can be removed from the Project by clicking the 'Remove' button.  A prompt to confirm the removal will confirm the deletion of the user from the Project.

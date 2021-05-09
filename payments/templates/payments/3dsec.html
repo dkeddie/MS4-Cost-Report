@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block page_header %}
+<div class="container header-container">
+  <div class="row">
+    <div class="col"></div>
+  </div>
+</div>
+{% endblock %}
+
 {% block content %}
 
 <div class="container">
@@ -11,13 +19,21 @@
   </div>
   <div class="row">
     <div class="col-6 mx-auto content-box px-0" id="">
-      <h2 class="text-center mt-3">Subscription</h2>
+      <h2 class="text-center mt-3">Subscription Confirmed</h2>
       <hr>
       <div id="3ds_result">
-
+        <div class="col-12 my-5 text-center d-none" id="success">
+          <p>Congratulations, you are now subscribed and can start using <strong>Cost Report</strong> to track the
+            changes of {{project.project_name }}</p>
+          <br>
+          <p>A receipt of this subscription has been emailed to <strong>{{ customer_email }}</strong></p>
+          <br>
+          <p>You can view and edit this subscription in the Project Admin panel, or click <a
+              href="{% url 'project_admin' project_id %}"><strong>here</strong></a> to go there now</p>
+          <br>
+          <p>You will shortly be re-directed back to the <a href="{% url 'home' %}">home</a> page</p>
+        </div>
       </div>
-
-
     </div>
   </div>
 </div>
@@ -30,7 +46,7 @@
 <script src="{% static 'payments/js/3dsec.js' %}"></script>
 
 <script>
-  _3dsec('{{STRIPE_PUBLIC_KEY}}', '{{payment_intent_secret}}')
+  _3dsec('{{STRIPE_PUBLIC_KEY}}', '{{payment_intent_secret}}');
 </script>
 
 {% endblock %}

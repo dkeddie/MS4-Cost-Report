@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils.safestring import mark_safe
@@ -25,20 +26,20 @@ import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
+@require_POST
 @login_required
 def create_project(request):
     """New Project"""
     subForm = UserSubscriptionDetailsForm()
 
-    if request.method == 'POST':
-        form = ProjectForm(request.POST)
-        if form.is_valid():
-            project = form.save(commit=False)
-            project.project_owner = request.user
-            project.save()
-            messages.success(request, f'{project.project_name} created')
+    form = ProjectForm(request.POST)
+    if form.is_valid():
+        project = form.save(commit=False)
+        project.project_owner = request.user
+        project.save()
+        messages.success(request, f'{project.project_name} created')
 
-        return redirect(reverse(subscribe, args=[project.id]))
+    return redirect(reverse(subscribe, args=[project.id]))
 
 
 @login_required

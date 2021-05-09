@@ -4,12 +4,13 @@ function _3dsec(stripe_public_key, pi_secret) {
 
     stripe.confirmCardPayment(pi_secret).then(function(result){
       if (result.error) {
-        $("#3ds_result").text("Error!")
-        $("#3ds_result").addClass("text-danger")
+        $("#3ds_result").text("Error!");
+        $("#3ds_result").addClass("text-danger");
       } else {
-        $("#3ds_result").text("Thank you for Payment")
-        $("#3ds_result").addClass("text-success")
-
+        $("#3ds_result").removeClass("d-none");
+        setTimeout(() => {
+          window.location = "{% url 'home' %}"
+        }, 5000);
       }
     })
   })

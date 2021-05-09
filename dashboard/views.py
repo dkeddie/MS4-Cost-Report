@@ -43,7 +43,6 @@ def get_dashboard(request, project_id):
         project_user = None
 
     form = ChangeForm()
-    editForm = ChangeForm()
     attachmentsForm = ChangeAttachmentsForm()
     changes = Change.objects.filter(project_id=project_id)
 
@@ -77,24 +76,22 @@ def get_dashboard(request, project_id):
     subtotal = original_estimate + accepted_changes
     total = subtotal + pending_changes + wip_changes
 
-    if request.user.id is project.project_owner_id or project.project_users:
-        context = {
-            'project': project,
-            'project_user': project_user,
-            'form': form,
-            'editForm': editForm,
-            'attachmentsForm': attachmentsForm,
-            'changes': changes,
-            'original_estimate': original_estimate,
-            'accepted_changes': accepted_changes,
-            'pending_changes': pending_changes,
-            'wip_changes': wip_changes,
-            'rejected_changes': rejected_changes,
-            'subtotal': subtotal,
-            'total': total,
-        }
+    context = {
+        'project': project,
+        'project_user': project_user,
+        'form': form,
+        'attachmentsForm': attachmentsForm,
+        'changes': changes,
+        'original_estimate': original_estimate,
+        'accepted_changes': accepted_changes,
+        'pending_changes': pending_changes,
+        'wip_changes': wip_changes,
+        'rejected_changes': rejected_changes,
+        'subtotal': subtotal,
+        'total': total,
+    }
 
-        return render(request, 'dashboard/project.html', context)
+    return render(request, 'dashboard/project.html', context)
 
 
 @login_required
@@ -102,7 +99,6 @@ def add_change(request, project_id):
     """
     Add a new change to List of Changes
     """
-
     if request.method == 'POST':
         form = ChangeForm(request.POST)
         attachmentForm = ChangeAttachmentsForm(request.POST, request.FILES)
@@ -121,6 +117,7 @@ def add_change(request, project_id):
                 request, f'{change.change_name} added to {change.project_id}')
 
         else:
+            # Errors messages to give direction to user on the error
             if form.is_valid() is False:
                 messages.error(request, mark_safe(
                     f'There was an error submitting the change.'
@@ -205,7 +202,6 @@ def delete_file(request, change_id, file_id):
     """
     Delete an attachment a Change whilst in the Edit Change mode
     """
-
     attachment = get_object_or_404(ChangeAttachments, pk=file_id)
     attachment.delete()
 
@@ -217,7 +213,6 @@ def delete_change(request, change_id):
     """
     Delete a Change from the List of Changes
     """
-
     change = get_object_or_404(Change, pk=change_id)
 
     # Step to delete all attachments and files stored,
