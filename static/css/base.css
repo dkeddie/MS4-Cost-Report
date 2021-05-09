@@ -157,6 +157,21 @@ body {
   color: #fff;
 }
 
+.btn-support {
+  position: relative;
+  font-family: "Material Icons";
+  font-size: 1.5rem;
+  border-radius: 50%;
+  background-color: rgb(224, 224, 224);
+  color: #fff;
+  top: 100%;
+}
+
+.btn-support:hover {
+  color: rgb(111, 111, 111);
+  background-color: rgb(204, 204, 204);
+}
+
 .btn-rect {
   font-size: 1rem;
   letter-spacing: 0.1rem;

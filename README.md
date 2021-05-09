@@ -534,12 +534,10 @@ During the development of the website, and again as a final, comprehensive and i
 
 ### For Development Purposes
 
-The website has been deployed on Heroku and is currently publicly accessible.
-
-The development of the website has been undertaken on VSCode.
+The website has been deployed on Heroku and is currently publicly accessible.  
+The development of the website has been undertaken on VSCode.  
 
 The steps from start to present were:-
-
 
 **Connection to GitHub repository**
 

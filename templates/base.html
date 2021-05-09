@@ -108,16 +108,13 @@
   {% block content %}
   {% endblock %}
 
-  {% block postloadjs %}
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $('.toast').toast('show');
-      setTimeout(() => {
-        $('.toast').hide();
-      }, 5000);
-    });
-  </script>
+  <div class="container">
+    <a href="mailto:dkeddie.appdev@gmail.com" target="_blank" id="help-btn" class="btn btn-support float-right mr-3 my-5" data-toggle="tooltip" data-placement="left" title="Contact for Support">
+        <span class="material-icons-outlined">contact_support</span>
+    </a>
+  </div>
 
+  {% block postloadjs %}
   {% endblock %}
 
 </body>

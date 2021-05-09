@@ -1,12 +1,24 @@
+
+// Message container - to show and automatically hide
+$(document).ready(function () {
+  $('.toast').toast('show');
+  setTimeout(() => {
+    $('.toast').hide();
+  }, 5000);
+});
+
+
+// Button to enable Form editing on 'Home' page and elsewhere
 function enableEdit() {
   $('.submit-button').removeClass('d-none');
   $('.enable-edit').addClass('d-none');
 }
 
+
 // Datatables.Net activation and formatting
-$(document).ready( function () {
+$(document).ready(function () {
   // Home View - Projects available to user
-  $('#table-project').DataTable( {
+  $('#table-project').DataTable({
     "ordering": false,
     "lengthChange": false,
     "searching": false,
@@ -15,7 +27,7 @@ $(document).ready( function () {
     "pagingType": "simple",
   });
   // Admin View - Users who can access the project
-  $('#table-users').DataTable( {
+  $('#table-users').DataTable({
     "ordering": true,
     "lengthChange": false,
     "searching": false,
@@ -24,7 +36,7 @@ $(document).ready( function () {
     "pagingType": "simple"
   });
   // Dashboard View - Changes on the Project
-  $('#table-changes').DataTable( {
+  $('#table-changes').DataTable({
     "columns": [
       { "width": null },
       { "width": "20%" },
@@ -34,10 +46,10 @@ $(document).ready( function () {
     "lengthChange": false,
     "pageLength": 9,
     "pagingType": "simple",
-    "order": [[ 3, "asc" ]],
+    "order": [[3, "asc"]],
   });
   // Edit View - Attachments associated with a Change
-  $('#table-attachments').DataTable( {
+  $('#table-attachments').DataTable({
     "columns": [
       { "width": "85%" },
       { "width": "10%" },
@@ -47,7 +59,12 @@ $(document).ready( function () {
     "pageLength": 9,
     "pagingType": "simple",
     "searching": false,
-    "order": [[ 0, "asc" ]],
+    "order": [[0, "asc"]],
   });
-} );
+});
 
+
+// Bootrap - enable tooltips to show
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
