@@ -5,6 +5,21 @@
 For Milestone Project Four, which requires the development of a Full Stack website utilising Django, users can subscribe to monitor the construction costs of a project they are working on.  **Cost Report** is a cost management tool to track the cost of changes occuring on a construction project.  Subscribing on a project-by-project basis, once a project is subscribed, the cost changes can be monitored on the website.  Additional users can also be invited to be project users, and their privileges can be set to view only or edit permission.
 
 The website can be viewed [here](https://ms4-cost-report.herokuapp.com/)
+<br>
+<br>
+
+## **CONTENTS**
+
+### **1. [UX](#UX)**
+### **2. [Functions and Requirements of the Website](#Functions-and-Requirements-of-the-Website)**
+### **3. [Design](#Design)**
+### **4. [Technologies Used](#Technologies-Used)**
+### **5. [Testing](#Testing)**
+### **6. [Deployment](#Deployment)**
+### **7. [Cloning of the Repository](#Cloning-of-the-Repository)**
+### **8. [Credits](#Credits)**
+<br>
+<br>
 
 ## **UX**
 
