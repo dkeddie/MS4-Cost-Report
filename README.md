@@ -448,7 +448,16 @@ There are no non-compliance remaining in the app.py file.
 
 ### Manual Testing of the Site
 
-The following tests were carried out to ensure functionality before deployment:-
+#### Test to Ensure Functionality
+
+Simple users tests were carried out during development of each page / view to ensure functionality.  They were generally resolved before final testing and therefore fixing is not documented, as it was part of the course of developing the code at the time.
+
+Through on-going testing, it can be seen in the [Git commit history](https://github.com/dkeddie/MS4/commits/master) that errors were identified and resolved on an on-going basis through development.
+
+
+#### Test to Fail
+
+The following tests were considered and implemented to see if the programming would fail or malfunction, and to develop fixes that would prevent errors:-
 
 **Test**: Two projects with the same name:
   * Add two projects to ensure that page loads correctly (no duplicate errors)
@@ -539,25 +548,44 @@ The steps from start to present were:-
 
   1. Creation of repository on GitHub, utilising Code Institute template.
   2. Clone of GitHub repository to local machine but utilising GitBash to implement the command:-
-  `git clone https://github.com/dkeddie/MS4.git`
+
+          git clone https://github.com/dkeddie/MS4.git
+  3. Freeze requirements of extensions added to the programme:-
+
+          pip3 freeze > requirements.txt
+      *This needs to be done after any extentions are added during Development.*
+  4. Create a Procfile and add the following code into the item:-
+          web: gunicorn cost_report.wsgi:application
 
 **Set up AWS S3 account** (to host static files and other media/uploads)
-  3. Create and set up an AWS S3 Bucket
-  4. Install boto3 and django-storages through pip
-  5. Add 'storages' to INSTALLED_APPS in settings.py
-  6. Update settings.py to use AWS for file storage
-  7. Create a custom_storages.py file in the main directory and set new classes for storage to the S3 bucket
+  1. Create and set up an AWS S3 Bucket
+  2. Install boto3 and django-storages through pip
+  3. Add 'storages' to INSTALLED_APPS in settings.py
+  4. Update settings.py to use AWS for file storage
+  5. Create a custom_storages.py file in the main directory and set new classes for storage to the S3 bucket
 
 **Deployment to Heroku**
 
-  8. Creation of a new App on Heroku
-  9. Go to 'Deployment Method' -> Select 'GitHub' and search for the repository that you want to deploy via Heroku from GitHub.  
+  1. Creation of a new App on Heroku
+  2. Add Heroku Postgress as an Add-on
+  3. Go to 'Deployment Method' -> Select 'GitHub' and search for the repository that you want to deploy via Heroku from GitHub.  
   <img src="README/deploy_Heroku.jpg" width="400" alt="Deployment">
-  10. Go to 'Settings' and 'Reveal Config Vars' -> Input the settings required to deploy the website and connect to the Mongo Database as shown below:-  
+  4. Go to 'Settings' and 'Reveal Config Vars' -> Input the settings required to deploy the website and connect to the Mongo Database as shown below:-  
   <img src="README/deploy_Heroku2.jpg" width="400" alt="Settings">
   <img src="README/deploy_Heroku3.jpg" width="400" alt="Config Vars">
-  11. Go to 'Deploy' and select to Enable Automatic Deploys
+  5. Go to 'Deploy' and select to Enable Automatic Deploys
   <img src="README/deploy_Heroku4.jpg" width="400" alt="Auto Deploy">
+  6. Set the database in settings.py:-
+
+          DATABASES = {
+                'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+                }
+      where 'DATABASE_URL' is the location of the Postgres (or other) database to be used on the deployed site.
+  7. Run migrations
+  8. Create a superuser by implementing the following command:-
+
+          py manage.py createsuperuser
+  9. Add the app name to ALLOWED_HOSTS in settings.py
 
 The website is now deployed and can be viewed at:
     [https://ms4-cost-report.herokuapp.com/](https://ms4-cost-report.herokuapp.com/)  
