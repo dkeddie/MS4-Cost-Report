@@ -25,6 +25,9 @@ $(document).ready(function () {
     "bInfo": false,
     "pageLength": 6,
     "pagingType": "simple",
+    // "language": {
+    //   "emptyTable": "You currently have no Projects.<br>Add a New Project to begin."
+    // }
   });
   // Admin View - Users who can access the project
   $('#table-users').DataTable({
@@ -33,7 +36,11 @@ $(document).ready(function () {
     "searching": false,
     "bInfo": false,
     "pageLength": 5,
-    "pagingType": "simple"
+    "pagingType": "simple",
+    "language": {
+      "emptyTable": "No Users have been added to the Project.<br>Invite Users by adding them below."
+    }
+    
   });
   // Dashboard View - Changes on the Project
   $('#table-changes').DataTable({
@@ -47,7 +54,11 @@ $(document).ready(function () {
     "pageLength": 9,
     "pagingType": "simple",
     "order": [[3, "asc"]],
+    "language": {
+      "emptyTable": "There are currently no Changes.<br>Add changes to start tracking costs."
+    }
   });
+  
   // Edit View - Attachments associated with a Change
   $('#table-attachments').DataTable({
     "columns": [
@@ -60,6 +71,9 @@ $(document).ready(function () {
     "pagingType": "simple",
     "searching": false,
     "order": [[0, "asc"]],
+    "language": {
+      "emptyTable": "There are currently no Attachments.<br>Attachments make changes easier to understand.<br>Add relevant Attachments now."
+    }
   });
 });
 

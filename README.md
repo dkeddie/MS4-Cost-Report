@@ -2,7 +2,7 @@
 
 # **MILESTONE PROJECT FOUR**
 
-For Milestone Project Four, which requires the development of a full stack site utilising Django dataset, users can subscribe a project to a cost report and management tool, Cost Report, to track the cost of changes occuring on a construction project.  Subscribing on a project-by-project basis, once a project is subscribed, the cost changes can be monitored.  Additional users can also be invited to be project users, and their privileges can be set to view only or edit permission.
+For Milestone Project Four, which requires the development of a Full Stack website utilising Django, users can subscribe to monitor the construction costs of a project they are working on.  **Cost Report** is a cost management tool to track the cost of changes occuring on a construction project.  Subscribing on a project-by-project basis, once a project is subscribed, the cost changes can be monitored on the website.  Additional users can also be invited to be project users, and their privileges can be set to view only or edit permission.
 
 The website can be viewed [here](https://ms4-cost-report.herokuapp.com/)
 
@@ -44,40 +44,39 @@ Milestone Project 4 (MS4) seeks to take the principles of MS3 and develop a scal
 3 | View a cost summary | See the initil and forecast cost of a project
 &nbsp; | ***Registration and User Accounts*** | &nbsp;
 4 | Easily resiter for an account | Have a personal account and view my profile
-5 | Receive an email confirmation when registering | Verify that my account resitration was successful
-6 | Have a personalised user profile | View my projects/subscriptions, projects I can access, payment history and save my payment information
-7 | Invite users | So that I can include users to participate on my project
+5 | Easily loginn or logout | Access my personal account information
+6 | Easily recover my password in case I forget it | Recover access to my account
+7 | Receive an email confirmation when registering | Verify that my account resitration was successful
+8 | Have a personalised user profile | View my projects/subscriptions, projects I can access, payment history and save my payment information
+9 | Invite users | So that I can include users to participate on my project
 &nbsp; | ***Sorting and Searching*** | &nbsp;
-8 | Search for a specific change by name or descriptions | So that I can quickly filter changes
+10 | Search for a specific change by name or descriptions | So that I can quickly filter changes
 &nbsp; | ***Cost Tracker Items*** | &nbsp;
-9 | Add a new change item | Track the latest cost position of the project
-10 | Edit a change item | Update costs if they change on my project
-11 | Upload associated change information (drawings, cost information, etc)
+11 | Add a new change item | Track the latest cost position of the project
+12 | Edit a change item | Update costs if they change on my project
+13 | Upload associated change information (drawings, cost information, etc) | Keep relevant information associated with the cost in one place
 &nbsp; | ***Subscribing*** | &nbsp;
-12 | Create a new project by subscribing for the monthly project | Start to monitor the costs of a construction project
-13 | Enter payment details for recurring payments | Checvk out quickly with no hassles
-14 | Switch off recurring payments | Stop subscribing
-15 | Feel my personal and payment information is safe and secure | Confidently provide the needed information to make a purchase
-16 | View an order confirmation after checkout | Verify that I haven't made any mistakes
-17 | Receive confirmation after each payment | Be notified of payments from my account
-18 | View a history of payments | Verify all past payments
+14 | Create a new project by subscribing for the monthly project | Start to monitor the costs of a construction project
+15 | Enter payment details for recurring payments | Checvk out quickly with no hassles
+16 | Switch off recurring payments | Stop subscribing
+17 | Feel my personal and payment information is safe and secure | Confidently provide the needed information to make a purchase
+18 | View an order confirmation after checkout | Verify that I haven't made any mistakes
+19 | Receive confirmation after each payment | Be notified of payments from my account
+20 | View a history of payments | Verify all past payments
 &nbsp; | ***Admin and Project Management*** | &nbsp;
-19 | Delete a project | Permanently remove the data from the database
-20 | Add/Remove users to my project | Control access to my project
+21 | Delete a project | Permanently remove the data from the database
+22 | Add/Remove users to my project | Control access to my project
 
 <br>
 
 
 ## **Functions and Requirements of the Website**
 
-The functions of the website are to:-
-
 ### **Django Full Stack Project**
 
 The website **Cost Report** is built around a Django backend and SQL relational database.  Users must register to use the website.  To use the website, a user must either subscribe and add a project, or be invited by another project owner to participate on a project.
 
 <img src="README/FullStackWebsite.gif" alt="Website gif" width="400">
-<br>
 <br>
 
 ### **Multiple Apps**
@@ -86,14 +85,12 @@ The **Cost Report** project is composed around multiple Apps as can be seen in t
 
 <img src="README/DjangoApps.jpg" alt="Django Apps" width="400">
 <br>
-<br>
 
 ### **Data Modelling**
 
 A relational database has been designed to link the users, projects, changes and payments to enable the project to work.  A schema of the database is shown below.
 
 <img src="README/RelationalDatabase.jpg" alt="Relational Database" width="800">
-<br>
 <br>
 
 ### **User Authentication**
@@ -103,7 +100,6 @@ The website utilises Django Allauth to manager user registration, verification, 
 <img src="README/Registration.jpg" alt="User Authentication" width="400">
 
 Once registered, a user may add a project (and subscribe) to monitor the cost of a construction project, or be invited to participate on another project.
-<br>
 <br>
 
 ### **User Interaction**
@@ -116,7 +112,6 @@ A user will record a Change, including the Name, Cost, Status and any associated
 
 Although not shown in the clip above, the user can continue to interact.  Details of the change can be amended on the Edit screen, additional attachments can be added or deleted, and the change itself can be deleted (if the user has the requisite permission).
 <br>
-<br>
 
 ### **Use of Stripe**
 
@@ -124,12 +119,10 @@ In order to track the costs of a Project, a user has to create a subscription fo
 
 <img src="README/StripePayment.gif" alt="Stripe Payment" width="400">
 <br>
-<br>
 
 ### **Structure and Navigation**
 
 The website utilises Bootstrap 4 to enable a responsive UI for mobile and desktop users. This is further documented [here](#Responive-UX-Design)
-<br>
 <br>
 
 ### **Use of Javascript**
@@ -137,22 +130,26 @@ The website utilises Bootstrap 4 to enable a responsive UI for mobile and deskto
 Javascript has been used in a number of ways to enhance a user's frontend experience.  For example:-
 
 1. Use of [DataTables](https://www.datatables.net) - Datatables is used across the project to order and present any lists in an ordered format (e.g. projects, changes and attachments). Each of the tables have been formatted individually to operate in an optimised manner according to the table.  An example is the Projects list on the home page:-  
-<img src="README/DataTables.gif" alt="DataTables" width="200">
+  <img src="README/DataTables.gif" alt="DataTables" width="200">
 
-2. Stripe - Javascript required to operate Stripe payments on the frontend has been utilised.
+2. Stripe - Javascript required to operate Stripe payments on the frontend has been utilised.  The code is based on the Stripe guidance but customised to provide customised functionality for the website.  For example:-
+    * Adding steps to prevent double clicking of the submit button and informing users that payment is being processed  
 
-3. Editing Details - in order to protect details, read-only fields have been applied to forms which are displayed on-screen.  To make editing efficient, those forms can be made editable due to Javascript coding e.g. :-  
-<img src="README/EditFunction.gif" alt="DataTables" width="200">
+          $('#checkout').prop('disabled', true)
+          $('#card-element-errors').text("Payment in process... please be patient")
 
-4. Clickable Row - to make the rows clickable =, for example to open the Change to to view / edit details:-  
-<img src="README/ClickRow.gif" alt="DataTables" width="400">
-<br>
+    * Customising result messages for an enhanced user experience
+
+3. Editing Details - in order to protect details from accidental editing, read-only fields have been applied to forms which are displayed on-screen.  To make editing efficient, those forms can be made editable due to Javascript coding e.g. :-  
+  <img src="README/EditFunction.gif" alt="DataTables" width="200">
+
+4. Clickable Row - to make the rows clickable, for example to open a Change in order to view / edit the item:-  
+  <img src="README/ClickRow.gif" alt="DataTables" width="400">
 <br>
 
 ### **Documentation**
 
 A README.md file has been prepared which explains what the project does and the value it provides to its users.
-<br>
 <br>
 
 ### **Version Control**
@@ -163,18 +160,15 @@ Git was used for version control in combination with the following pre-fixes, wh
   * refactor: 'tidy up' of code
   * docs: addition of comments to code or writing of README file
 <br>
-<br>
 
 ### **Attribution**
 
 See [here](#Credits)
 <br>
-<br>
 
 ### **Deployment**
 
 See [here](#Deployment)
-<br>
 <br>
 
 ### **Security**
@@ -184,10 +178,7 @@ Whilst in Development, dotenv and an env file was used to protect sensitive info
 In Production, this sensitive information has been stored in Config Vars and accessed in the same way as in Development.
 
 Once deployed and tested, the DEBUG has been turned off on the Production version on Heroku.
-
 <br>
-<br>
-
 ___
 <br>
 
@@ -267,9 +258,11 @@ The functions implemented on this website are for demonstration purposes only at
 * [CSS](https://en.wikipedia.org/wiki/Cascading_Style_Sheets) 
 * [Javascript](https://en.wikipedia.org/wiki/JavaScript)
 * [Python](https://www.python.org/)
-* [Django](https://www.djangoproject.com/)
 
 ### Frameworks, Libraries and Programmes Used 
+
+* [Django](https://www.djangoproject.com/)  
+Django is a Python Web framework to support the back-end design and functionality of Web development. From security to administration to versatility through bolt-on packages, Django assists developers to build web sites faster and that are reliable.
 
 * [PostgreSQL](https://www.postgresql.org/)  
 PostgreSQL provides the backend database for storing the information submitted from, and viewed on, the website.
@@ -296,6 +289,9 @@ Heroku is used for deployment of the website / application.
 Figma was used to create the wireframes during the design process.
 
 * [Screen Recorder](https://chrome.google.com/webstore/detail/screen-recorder/hniebljpgcogalllopnjokppmgbhaden)  
+Screen Recorder used for creating videos (edited in Kapwing) of website features in operation.
+
+* [Kapwing](https://www.kapwing.com/workspace/5f0a1c3bf828360015c7db04)
 Screen Recorder used for creating videos (edited in Kapwing) of website features in operation.
 
 
@@ -356,7 +352,7 @@ _____________
 (a) | The latest cost position can be seen on the Dashboard.  If any new change is added to the project, this Dashboard will update to show the revised cost estimate.
 (b) | Change items can be editted by clicking on them on the List. If the cost is changed, the Dashboard estimates will be updated.
 (c) | Associated documents relating to the change can be uploaded.  One or more document can be uploaded at a time, and the list of these documents can be viewed by clicking on the change in the 'List of Changes'
-(d) | <img src="README/Changefunction.gif" width="400px">
+(d) | <img src="README/ChangeFunction.gif" width="400px">
 _____________
 <br>
 
